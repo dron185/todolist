@@ -33,7 +33,6 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
                 <li key={t.id}>
                     <input type="checkbox" checked={t.isDone}/>
                     <span>{t.title}</span>
-                    {/*<button onClick={removeTaskHandler}>x</button>*/}
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
             )
@@ -45,7 +44,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
     }
 
     const addTaskOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && e.ctrlKey && newTaskTitle.length) {
+        if (e.key === 'Enter' && e.ctrlKey && isAddTaskPossible) {
             addNewTaskHandler()
         }
     }
@@ -53,6 +52,9 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
     const changeFilterHandlerCreator = (filter: FilterValuesType) => {
         return () => changeFilter(filter)
     }
+
+    const maxTitleLength = 15
+    const isAddTaskPossible = newTaskTitle.length && newTaskTitle.length <= maxTitleLength
 
     return (
         <div className={"todolist"}>
@@ -62,10 +64,9 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
                        onChange={changeNewTaskTitleHandler}
                        onKeyDown={addTaskOnKeyDownHandler}
                 />
-                <Button title={"+"} onClickHandler={addNewTaskHandler} isDisabled={!newTaskTitle.length}/>
+                <Button title={"+"} onClickHandler={addNewTaskHandler} isDisabled={!isAddTaskPossible}/>
                 {!newTaskTitle.length && <div>Please, enter title</div>}
-                {newTaskTitle.length > 15 && <div>Task title is too long</div>}
-                {/*<button onClick={()=>{addTask(newTaskTitle); setNewTaskTitle("");}}>+</button>*/}
+                {newTaskTitle.length > maxTitleLength && <div>Task title is too long</div>}
             </div>
             {tasksList}
             <div>
