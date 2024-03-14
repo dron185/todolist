@@ -1,7 +1,8 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import {Button} from "./Button";
 import {TodoListHeader} from "./TodoListHeader";
 import {FilterValuesType} from "./App";
+import {log} from "node:util";
 
 export type TaskType = {
     id: string
@@ -20,7 +21,7 @@ type TodolistPropsType = {
 export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
-    const [newTaskTitle, setNewTaskTitle] = useState("")
+    const [newTaskTitle, setNewTaskTitle] = React.useState("")
     const addTaskHandler = () => {
         addTask(newTaskTitle)
         setNewTaskTitle("")
@@ -33,7 +34,8 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
                 <li key={t.id}>
                     <input type="checkbox" checked={t.isDone}/>
                     <span>{t.title}</span>
-                    <button onClick={removeTaskHandler}>x</button>
+                    {/*<button onClick={removeTaskHandler}>x</button>*/}
+                    <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
             )
         })}
@@ -54,21 +56,22 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
     }
 
     return (
-        <div>
+        <div className={"todolist"}>
             <TodoListHeader title={title}/>
             <div>
                 <input value={newTaskTitle}
                        onChange={changeNewTaskTitleHandler}
                        onKeyDown={addTaskOnKeyDownHandler}
                 />
-                <Button title={"+"} onClick={addTaskHandler} />
+                <Button title={"+"} onClickHandler={addTaskHandler} isDisabled={!newTaskTitle.length}/>
+                {newTaskTitle.length > 15 && <div>Task title is too long</div>}
                 {/*<button onClick={()=>{addTask(newTaskTitle); setNewTaskTitle("");}}>+</button>*/}
             </div>
             {tasksList}
             <div>
-                <Button title={'All'} onClick={changeFilterHandlerCreator('all')}/>
-                <Button title={'Active'} onClick={changeFilterHandlerCreator('completed')}/>
-                <Button title={'Completed'} onClick={changeFilterHandlerCreator('active')}/>
+                <Button title={'All'} onClickHandler={changeFilterHandlerCreator('all')}/>
+                <Button title={'Active'} onClickHandler={changeFilterHandlerCreator('completed')}/>
+                <Button title={'Completed'} onClickHandler={changeFilterHandlerCreator('active')}/>
             </div>
         </div>
     )
