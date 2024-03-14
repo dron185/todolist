@@ -2,7 +2,6 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import {Button} from "./Button";
 import {TodoListHeader} from "./TodoListHeader";
 import {FilterValuesType} from "./App";
-import {log} from "node:util";
 
 export type TaskType = {
     id: string
@@ -22,7 +21,7 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     const [newTaskTitle, setNewTaskTitle] = React.useState("")
-    const addTaskHandler = () => {
+    const addNewTaskHandler = () => {
         addTask(newTaskTitle)
         setNewTaskTitle("")
     }
@@ -46,8 +45,8 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
     }
 
     const addTaskOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            addTaskHandler()
+        if (e.key === 'Enter' && e.ctrlKey && newTaskTitle.length) {
+            addNewTaskHandler()
         }
     }
 
@@ -63,7 +62,8 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
                        onChange={changeNewTaskTitleHandler}
                        onKeyDown={addTaskOnKeyDownHandler}
                 />
-                <Button title={"+"} onClickHandler={addTaskHandler} isDisabled={!newTaskTitle.length}/>
+                <Button title={"+"} onClickHandler={addNewTaskHandler} isDisabled={!newTaskTitle.length}/>
+                {!newTaskTitle.length && <div>Please, enter title</div>}
                 {newTaskTitle.length > 15 && <div>Task title is too long</div>}
                 {/*<button onClick={()=>{addTask(newTaskTitle); setNewTaskTitle("");}}>+</button>*/}
             </div>
