@@ -18,11 +18,11 @@ function App() {
 
     // CRUD tasks
     const removeTask = (taskId: string) => {
-        const filteredTasks = tasks.filter( t => t.id !== taskId )
-        setTasks(filteredTasks);
+        const updatedState = tasks.filter( t => t.id !== taskId )
+        setTasks(updatedState);
     }
 
-    const addTask = ( title: string ) => {
+    const addTask = (title: string) => {
         const newTask = {
             id: v1(),
             title: title,
@@ -33,7 +33,15 @@ function App() {
         setTasks(newTasks)
     }
 
-
+    const changeTaskStatus = (taskId: string) => {
+        // const task = tasks.find(t => t.id === taskId)
+        // if (task) {
+        //     task.isDone = !task.isDone
+        //     setTasks([...tasks])
+        // }
+        const updatedState = tasks.map(t => t.id === taskId ? {...t, isDone: !t.isDone } : t)
+        setTasks(updatedState)
+    }
 
     // filter
     const changeFilter = (value: FilterValuesType) => {
@@ -55,6 +63,7 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask = {addTask}
+                      changeTaskStatus = {changeTaskStatus}
             />
         </div>
     );

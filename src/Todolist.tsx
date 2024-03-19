@@ -12,12 +12,20 @@ export type TaskType = {
 type TodolistPropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    changeFilter: (value: FilterValuesType) => void
     addTask: (title: string) => void
+    removeTask: (taskId: string) => void
+    changeTaskStatus : (taskId: string) => void
+    changeFilter: (value: FilterValuesType) => void
 }
 
-export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: TodolistPropsType) => {
+export const Todolist = ({
+                             title,
+                             tasks,
+                             addTask,
+                             removeTask,
+                             changeTaskStatus,
+                             changeFilter
+}: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     const [newTaskTitle, setNewTaskTitle] = React.useState("")
@@ -28,10 +36,15 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Todo
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <ul>
         {tasks.map((t) => {
-            const removeTaskHandler = () => {removeTask(t.id)}
+            const removeTaskHandler = () => removeTask(t.id)
+            const changeStatusHandler = () => changeTaskStatus(t.id)
             return (
                 <li key={t.id}>
-                    <input type="checkbox" checked={t.isDone}/>
+                    <input
+                        type="checkbox"
+                        checked={t.isDone}
+                        onChange={changeStatusHandler}
+                    />
                     <span>{t.title}</span>
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
