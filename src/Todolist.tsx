@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {Button} from "./Button";
 import {TodoListHeader} from "./TodoListHeader";
 import {FilterValuesType} from "./App";
@@ -15,7 +15,7 @@ type TodolistPropsType = {
     filter: FilterValuesType
     addTask: (title: string) => void
     removeTask: (taskId: string) => void
-    changeTaskStatus : (taskId: string, newIsDoneValue: boolean) => void
+    changeTaskStatus: (taskId: string, newIsDoneValue: boolean) => void
     changeFilter: (value: FilterValuesType) => void
 }
 
@@ -27,12 +27,20 @@ export const Todolist = ({
                              removeTask,
                              changeTaskStatus,
                              changeFilter
-}: TodolistPropsType) => {
+                         }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     const [newTaskTitle, setNewTaskTitle] = React.useState("")
+    const [inputError, setInputError] = useState<boolean>(false)
+
     const addNewTaskHandler = () => {
-        addTask(newTaskTitle)
+        const trimmedTaskTitle = newTaskTitle.trim()
+        if (trimmedTaskTitle) {
+            addTask(trimmedTaskTitle)
+        } else {
+            setInputError(true)
+            setTimeout(()=>setInputError(false), 3000)
+        }
         setNewTaskTitle("")
     }
 
@@ -55,6 +63,7 @@ export const Todolist = ({
     </ul>
 
     const changeNewTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        inputError &&  setInputError(false)
         setNewTaskTitle(e.currentTarget.value)
     }
 
@@ -75,12 +84,18 @@ export const Todolist = ({
         <div className={"todolist"}>
             <TodoListHeader title={title}/>
             <div>
-                <input value={newTaskTitle}
-                       onChange={changeNewTaskTitleHandler}
-                       onKeyDown={addTaskOnKeyDownHandler}
+                <input
+                    className={inputError ? "input-error" : ""}
+                    value={newTaskTitle}
+                    onChange={changeNewTaskTitleHandler}
+                    onKeyDown={addTaskOnKeyDownHandler}
                 />
-                <Button title={"+"} onClickHandler={addNewTaskHandler} isDisabled={!isAddTaskPossible}/>
-                {!newTaskTitle.length && <div>Please, enter title</div>}
+                <Button
+                    title={"+"}
+                    onClickHandler={addNewTaskHandler}
+                    isDisabled={!isAddTaskPossible}
+                />
+                {!newTaskTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}
                 {newTaskTitle.length > maxTitleLength && <div>Task title is too long</div>}
             </div>
             {tasksList}

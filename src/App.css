@@ -28,3 +28,9 @@
   border: 2px solid chocolate;
   border-radius: 3px;
 }
+
+.input-error {
+  border: 3px solid red;
+  outline: none;
+}
+
