@@ -12,6 +12,7 @@ export type TaskType = {
 type TodolistPropsType = {
     title: string
     tasks: Array<TaskType>
+    filter: FilterValuesType
     addTask: (title: string) => void
     removeTask: (taskId: string) => void
     changeTaskStatus : (taskId: string, newIsDoneValue: boolean) => void
@@ -21,6 +22,7 @@ type TodolistPropsType = {
 export const Todolist = ({
                              title,
                              tasks,
+                             filter,
                              addTask,
                              removeTask,
                              changeTaskStatus,
@@ -42,10 +44,10 @@ export const Todolist = ({
                 <li key={t.id}>
                     <input
                         type="checkbox"
-                        checked={t.isDone}
+                        checked={t.isDone} // true || false
                         onChange={changeStatusHandler}
                     />
-                    <span>{t.title}</span>
+                    <span className={t.isDone ? "task-done" : "task"}>{t.title}</span>
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
             )
@@ -83,9 +85,21 @@ export const Todolist = ({
             </div>
             {tasksList}
             <div>
-                <Button title={'All'} onClickHandler={changeFilterHandlerCreator('all')}/>
-                <Button title={'Active'} onClickHandler={changeFilterHandlerCreator('completed')}/>
-                <Button title={'Completed'} onClickHandler={changeFilterHandlerCreator('active')}/>
+                <Button
+                    classes={filter === "all" ? "btn-active" : ""}
+                    title={'All'}
+                    onClickHandler={changeFilterHandlerCreator('all')}
+                />
+                <Button
+                    classes={filter === "active" ? "btn-active" : ""}
+                    title={'Active'}
+                    onClickHandler={changeFilterHandlerCreator('active')}
+                />
+                <Button
+                    classes={filter === "completed" ? "btn-active" : ""}
+                    title={'Completed'}
+                    onClickHandler={changeFilterHandlerCreator('completed')}
+                />
             </div>
         </div>
     )

@@ -12,3 +12,19 @@
   padding: 15px;
   border-radius: 5px;
 }
+
+.task-done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.task {
+  font-weight: bold;
+}
+
+.btn-active {
+  background-color: chocolate;
+  color: aliceblue;
+  border: 2px solid chocolate;
+  border-radius: 3px;
+}
