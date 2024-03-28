@@ -11,15 +11,17 @@ export type TaskType = {
 
 type TodolistPropsType = {
     title: string
+    todolistId: string
     tasks: Array<TaskType>
     filter: FilterValuesType
     addTask: (title: string) => void
     removeTask: (taskId: string) => void
     changeTaskStatus: (taskId: string, newIsDoneValue: boolean) => void
-    changeFilter: (value: FilterValuesType) => void
+    changeFilter: (todolistId: string, value: FilterValuesType) => void
 }
 
 export const Todolist = ({
+                             todolistId,
                              title,
                              tasks,
                              filter,
@@ -74,7 +76,7 @@ export const Todolist = ({
     }
 
     const changeFilterHandlerCreator = (filter: FilterValuesType) => {
-        return () => changeFilter(filter)
+        return () => changeFilter(todolistId, filter)
     }
 
     const maxTitleLength = 15
