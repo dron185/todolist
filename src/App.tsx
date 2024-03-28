@@ -36,21 +36,19 @@ function App() {
             { id: v1(), title: 'GraphQL-2', isDone: false },
         ],
     })
-
+    console.log(tasks[todolistID1])
     // CRUD tasks
     const removeTask = (taskId: string, todolistId: string) => {
         setTasks({...tasks, [todolistId]:tasks[todolistId].filter(t=> t.id !== taskId)})
     }
 
-    const addTask = (title: string) => {
-        // const newTask = {
-        //     id: v1(),
-        //     title: title,
-        //     //title: title,
-        //     isDone: false
-        // };
-        // const newTasks = [newTask, ...tasks];
-        // setTasks(newTasks)
+    const addTask = (todolistId: string, title: string) => {
+        const newTask ={
+            id: v1(),
+            title: title,
+            isDone: false
+        };
+        setTasks({...tasks ,[todolistId]:[newTask, ...tasks[todolistId]] })
     }
 
     const changeTaskStatus = (taskId: string, newIsDoneValue: boolean) => {
