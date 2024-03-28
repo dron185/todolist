@@ -18,9 +18,11 @@ type TodolistPropsType = {
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
+    removeTodolist: (todolistId: string) => void
 }
 
 export const Todolist = ({
+                             removeTodolist,
                              todolistId,
                              title,
                              tasks,
@@ -82,9 +84,17 @@ export const Todolist = ({
     const maxTitleLength = 15
     const isAddTaskPossible = newTaskTitle.length && newTaskTitle.length <= maxTitleLength
 
+    const removeTodolistHandler = () => {
+        removeTodolist(todolistId)
+    }
+
     return (
         <div className={"todolist"}>
-            <TodoListHeader title={title}/>
+            {/*<TodoListHeader title={title}/>*/}
+            <div className={'todolist-title-container'}>
+                <h3 style={{margin: 0}}>{title}</h3>
+                <Button title={"x"} onClickHandler={removeTodolistHandler}/>
+            </div>
             <div>
                 <input
                     className={inputError ? "input-error" : ""}
