@@ -16,7 +16,7 @@ type TodolistPropsType = {
     filter: FilterValuesType
     addTask: (todolistId: string, title: string) => void
     removeTask: (todolistId: string, taskId: string) => void
-    changeTaskStatus: (taskId: string, newIsDoneValue: boolean) => void
+    changeTaskStatus: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
 }
 
@@ -49,7 +49,7 @@ export const Todolist = ({
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <ul>
         {tasks.map((t) => {
             const removeTaskHandler = () => removeTask(t.id, todolistId)
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(t.id, e.currentTarget.checked)
+            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
             return (
                 <li key={t.id}>
                     <input
