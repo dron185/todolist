@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {Button} from "./Button";
 import {TodoListHeader} from "./TodoListHeader";
 import {FilterValuesType} from "./App";
+import AddItemForm from "./AddItemForm";
 
 export type TaskType = {
     id: string
@@ -34,19 +35,19 @@ export const Todolist = ({
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
-    const [newTaskTitle, setNewTaskTitle] = React.useState("")
-    const [inputError, setInputError] = useState<boolean>(false)
+    // const [newTaskTitle, setNewTaskTitle] = React.useState("")
+    // const [inputError, setInputError] = useState<boolean>(false)
 
-    const addNewTaskHandler = () => {
-        const trimmedTaskTitle = newTaskTitle.trim()
-        if (trimmedTaskTitle) {
-            addTask(todolistId, trimmedTaskTitle)
-        } else {
-            setInputError(true)
-            setTimeout(()=>setInputError(false), 3000)
-        }
-        setNewTaskTitle("")
-    }
+    // const addNewTaskHandler = () => {
+    //     const trimmedTaskTitle = newTaskTitle.trim()
+    //     if (trimmedTaskTitle) {
+    //         addTask(todolistId, trimmedTaskTitle)
+    //     } else {
+    //         setInputError(true)
+    //         setTimeout(()=>setInputError(false), 3000)
+    //     }
+    //     setNewTaskTitle("")
+    // }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <ul>
         {tasks.map((t) => {
@@ -66,26 +67,30 @@ export const Todolist = ({
         })}
     </ul>
 
-    const changeNewTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        inputError &&  setInputError(false)
-        setNewTaskTitle(e.currentTarget.value)
-    }
-
-    const addTaskOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && e.ctrlKey && isAddTaskPossible) {
-            addNewTaskHandler()
-        }
-    }
+    // const changeNewTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     inputError &&  setInputError(false)
+    //     setNewTaskTitle(e.currentTarget.value)
+    // }
+    //
+    // const addTaskOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    //     if (e.key === 'Enter' && e.ctrlKey && isAddTaskPossible) {
+    //         addNewTaskHandler()
+    //     }
+    // }
 
     const changeFilterHandlerCreator = (filter: FilterValuesType) => {
         return () => changeFilter(todolistId, filter)
     }
 
-    const maxTitleLength = 15
-    const isAddTaskPossible = newTaskTitle.length && newTaskTitle.length <= maxTitleLength
+    // const maxTitleLength = 15
+    // const isAddTaskPossible = newTaskTitle.length && newTaskTitle.length <= maxTitleLength
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
+    }
+
+    const addTaskCallback = (title: string) => {
+        addTask(todolistId, title)
     }
 
     return (
@@ -95,21 +100,7 @@ export const Todolist = ({
                 <h3 style={{margin: 0}}>{title}</h3>
                 <Button title={"x"} onClickHandler={removeTodolistHandler}/>
             </div>
-            <div>
-                <input
-                    className={inputError ? "input-error" : ""}
-                    value={newTaskTitle}
-                    onChange={changeNewTaskTitleHandler}
-                    onKeyDown={addTaskOnKeyDownHandler}
-                />
-                <Button
-                    title={"+"}
-                    onClickHandler={addNewTaskHandler}
-                    isDisabled={!isAddTaskPossible}
-                />
-                {!newTaskTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}
-                {newTaskTitle.length > maxTitleLength && <div>Task title is too long</div>}
-            </div>
+            <AddItemForm addItem={addTaskCallback}/>
             {tasksList}
             <div>
                 <Button
