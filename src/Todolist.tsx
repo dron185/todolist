@@ -3,6 +3,7 @@ import {Button} from "./Button";
 import {TodoListHeader} from "./TodoListHeader";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -60,7 +61,8 @@ export const Todolist = ({
                         checked={t.isDone} // true || false
                         onChange={changeStatusHandler}
                     />
-                    <span className={t.isDone ? "task-done" : "task"}>{t.title}</span>
+                    {/*<span className={t.isDone ? "task-done" : "task"}>{t.title}</span>*/}
+                    <EditableSpan value={t.title} spanClass={t.isDone ? "task-done" : "task"}/>
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
             )
