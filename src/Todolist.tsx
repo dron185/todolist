@@ -21,6 +21,8 @@ type TodolistPropsType = {
     changeTaskStatus: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
     removeTodolist: (todolistId: string) => void
+    updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
+    updateTodolistTitle: (todolistId: string, newTitle: string) => void
 }
 
 export const Todolist = ({
@@ -32,28 +34,19 @@ export const Todolist = ({
                              addTask,
                              removeTask,
                              changeTaskStatus,
-                             changeFilter
+                             changeFilter,
+                             updateTaskTitle,
+                             updateTodolistTitle
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
-
-    // const [newTaskTitle, setNewTaskTitle] = React.useState("")
-    // const [inputError, setInputError] = useState<boolean>(false)
-
-    // const addNewTaskHandler = () => {
-    //     const trimmedTaskTitle = newTaskTitle.trim()
-    //     if (trimmedTaskTitle) {
-    //         addTask(todolistId, trimmedTaskTitle)
-    //     } else {
-    //         setInputError(true)
-    //         setTimeout(()=>setInputError(false), 3000)
-    //     }
-    //     setNewTaskTitle("")
-    // }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <ul>
         {tasks.map((t) => {
             const removeTaskHandler = () => removeTask(t.id, todolistId)
             const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
+            const updateTaskTitleHandler = (newTitle: string) => {
+                updateTaskTitle(todolistId, t.id, newTitle)
+            }
             return (
                 <li key={t.id}>
                     <input
@@ -62,7 +55,10 @@ export const Todolist = ({
                         onChange={changeStatusHandler}
                     />
                     {/*<span className={t.isDone ? "task-done" : "task"}>{t.title}</span>*/}
-                    <EditableSpan value={t.title} spanClass={t.isDone ? "task-done" : "task"}/>
+                    <EditableSpan oldTitle={t.title}
+                                  spanClass={t.isDone ? "task-done" : "task"}
+                                  updateTitle={updateTaskTitleHandler}
+                    />
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
             )
@@ -91,18 +87,26 @@ export const Todolist = ({
         removeTodolist(todolistId)
     }
 
-    const addTaskCallback = (title: string) => {
+    const addTaskHandler = (title: string) => {
         addTask(todolistId, title)
+    }
+
+    const updateTodolistTitleHandler = (newTitle: string) => {
+        updateTodolistTitle(todolistId, newTitle)
     }
 
     return (
         <div className={"todolist"}>
             {/*<TodoListHeader title={title}/>*/}
             <div className={'todolist-title-container'}>
-                <h3 style={{margin: 0}}>{title}</h3>
+                <EditableSpan oldTitle={title}
+                              // spanClass={t.isDone ? "task-done" : "task"}
+                              updateTitle={updateTodolistTitleHandler}
+                />
+                {/*<h3 style={{margin: 0}}>{title}</h3>*/}
                 <Button title={"x"} onClickHandler={removeTodolistHandler}/>
             </div>
-            <AddItemForm addItem={addTaskCallback}/>
+            <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
             <div>
                 <Button
