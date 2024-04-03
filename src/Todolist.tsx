@@ -44,9 +44,9 @@ export const Todolist = ({
         {tasks.map((t) => {
             const removeTaskHandler = () => removeTask(t.id, todolistId)
             const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
-            const updateTaskTitleHandler = (newTitle: string) => {
-                updateTaskTitle(todolistId, t.id, newTitle)
-            }
+            // const updateTaskTitleHandler = (newTitle: string) => {
+            //     updateTaskTitle(todolistId, t.id, newTitle)
+            // }
             return (
                 <li key={t.id}>
                     <input
@@ -57,7 +57,7 @@ export const Todolist = ({
                     {/*<span className={t.isDone ? "task-done" : "task"}>{t.title}</span>*/}
                     <EditableSpan oldTitle={t.title}
                                   spanClass={t.isDone ? "task-done" : "task"}
-                                  updateTitle={updateTaskTitleHandler}
+                                  updateTitle={(newTitle: string)=>updateTaskTitleHandler(t.id, newTitle)}
                     />
                     <Button title={"x"} onClickHandler={removeTaskHandler}/>
                 </li>
@@ -93,6 +93,10 @@ export const Todolist = ({
 
     const updateTodolistTitleHandler = (newTitle: string) => {
         updateTodolistTitle(todolistId, newTitle)
+    }
+
+    const updateTaskTitleHandler = (newTitle: string, taskId: string) => {
+        updateTaskTitle(todolistId, taskId, newTitle)
     }
 
     return (
