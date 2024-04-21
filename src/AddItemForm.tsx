@@ -1,5 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button} from "./Button";
+// import {Button} from "./Button";
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField/TextField';
+
 
 type PropsType = {
     addItem: (title: string) => void
@@ -36,17 +39,33 @@ export const AddItemForm = ({addItem}: PropsType) => {
 
     return (
         <div>
-            <input
-                className={inputError ? "input-error" : ""}
+            <TextField
+                label="Enter a title"
+                variant={'outlined'}
+                // className={inputError ? 'error' : ''}
                 value={newItemTitle}
+                size={'small'}
+                error={!!inputError}
+                helperText={inputError}
                 onChange={changeNewItemTitleHandler}
-                onKeyDown={addItemOnKeyDownHandler}
+                onKeyUp={addItemOnKeyDownHandler}
             />
-            <Button
-                title={"+"}
-                onClickHandler={addNewItemHandler}
-                isDisabled={!isAddItemPossible}
-            />
+
+            {/*<input*/}
+            {/*    className={inputError ? "input-error" : ""}*/}
+            {/*    value={newItemTitle}*/}
+            {/*    onChange={changeNewItemTitleHandler}*/}
+            {/*    onKeyDown={addItemOnKeyDownHandler}*/}
+            {/*/>*/}
+
+            {/*<Button*/}
+            {/*    title={"+"}*/}
+            {/*    onClickHandler={addNewItemHandler}*/}
+            {/*    isDisabled={!isAddItemPossible}*/}
+            {/*/>*/}
+
+            <Button variant="contained" onClick={addNewItemHandler}>+</Button>
+
             {!newItemTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}
             {newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}
         </div>

@@ -1,9 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button} from "./Button";
-import {TodoListHeader} from "./TodoListHeader";
+import React, {ChangeEvent} from "react";
+// import {Button} from "./Button";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Button from '@mui/material/Button';
 
 export type TaskType = {
     id: string
@@ -59,7 +61,10 @@ export const Todolist = ({
                                   spanClass={t.isDone ? "task-done" : "task"}
                                   updateTitle={(newTitle: string)=>updateTaskTitleHandler(t.id, newTitle)}
                     />
-                    <Button title={"x"} onClickHandler={removeTaskHandler}/>
+                    {/*<Button title={"x"} onClickHandler={removeTaskHandler}/>*/}
+                    <IconButton onClick={removeTaskHandler}>
+                        <DeleteIcon />
+                    </IconButton>
                 </li>
             )
         })}
@@ -108,26 +113,49 @@ export const Todolist = ({
                               updateTitle={updateTodolistTitleHandler}
                 />
                 {/*<h3 style={{margin: 0}}>{title}</h3>*/}
-                <Button title={"x"} onClickHandler={removeTodolistHandler}/>
+                <IconButton onClick={removeTodolistHandler}>
+                    <DeleteIcon />
+                </IconButton>
+                {/*<Button title={"x"} onClickHandler={removeTodolistHandler}/>*/}
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
             <div>
+                {/*<Button*/}
+                {/*    classes={filter === "all" ? "btn-active" : ""}*/}
+                {/*    title={'All'}*/}
+                {/*    onClickHandler={changeFilterHandlerCreator('all')}*/}
+                {/*/>*/}
+
                 <Button
-                    classes={filter === "all" ? "btn-active" : ""}
-                    title={'All'}
-                    onClickHandler={changeFilterHandlerCreator('all')}
-                />
+                    variant={filter === 'all' ? 'outlined' : 'contained'}
+                    color={'secondary'}
+                    onClick={changeFilterHandlerCreator('all')}
+                >All</Button>
+
+                {/*<Button*/}
+                {/*    classes={filter === "active" ? "btn-active" : ""}*/}
+                {/*    title={'Active'}*/}
+                {/*    onClickHandler={changeFilterHandlerCreator('active')}*/}
+                {/*/>*/}
+
                 <Button
-                    classes={filter === "active" ? "btn-active" : ""}
-                    title={'Active'}
-                    onClickHandler={changeFilterHandlerCreator('active')}
-                />
+                    variant={filter === 'active' ? 'outlined' : 'contained'}
+                    color={'error'}
+                    onClick={changeFilterHandlerCreator('active')}
+                >Active</Button>
+
+                {/*<Button*/}
+                {/*    classes={filter === "completed" ? "btn-active" : ""}*/}
+                {/*    title={'Completed'}*/}
+                {/*    onClickHandler={changeFilterHandlerCreator('completed')}*/}
+                {/*/>*/}
+
                 <Button
-                    classes={filter === "completed" ? "btn-active" : ""}
-                    title={'Completed'}
-                    onClickHandler={changeFilterHandlerCreator('completed')}
-                />
+                    variant={filter === 'completed' ? 'outlined' : 'contained'}
+                    color={'secondary'}
+                    onClick={changeFilterHandlerCreator('completed')}
+                >Completed</Button>
             </div>
         </div>
     )
