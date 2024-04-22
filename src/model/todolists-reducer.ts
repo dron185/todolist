@@ -1,11 +1,6 @@
 import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
 
-// type ActionsType = {
-//     type: string
-//     payload: any
-// }
-
 export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST'
     payload: {
@@ -38,7 +33,7 @@ export type ChangeTodolistFilterActionType = {
 
 type ActionsType =
     | RemoveTodolistActionType
-    | AddTodolistActionType 
+    | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
 
@@ -73,5 +68,21 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
         }
         default: throw new Error("I don't understand this type")
     }
+}
+
+export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+    return { type: 'REMOVE-TODOLIST', payload: { id: todolistId } } as const
+}
+
+export const addTodolistAC = (title: string): AddTodolistActionType => {
+    return { type: 'ADD-TODOLIST', payload: { title } } as const
+}
+
+export const ChangeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
+    return { type: 'CHANGE-TODOLIST-TITLE', payload: { id, title } } as const
+}
+
+export const ChangeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
+    return { type: 'CHANGE-TODOLIST-FILTER', payload: { id, filter } } as const
 }
 
