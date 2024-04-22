@@ -20,7 +20,7 @@ type ThemeMode = 'dark' | 'light'
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -163,7 +163,7 @@ function App() {
                             }
                             return (
                                 <Grid>
-                                    <Paper elevation={5} sx={{ p: '0 20px 20px 20px' }}>
+                                    <Paper elevation={5} sx={{ p: '20px' }}>
                                         <Todolist
                                             key={el.id}
                                             todolistId={el.id}
