@@ -120,7 +120,7 @@ export const Todolist = ({
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '5px' }}>
                 <Button
                     variant={filter === 'all' ? 'outlined' : 'contained'}
                     color={'info'}
