@@ -10,6 +10,7 @@ import Checkbox from "@mui/material/Checkbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
+import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 
 export type TaskType = {
     id: string
@@ -57,10 +58,7 @@ export const Todolist = ({
             }
 
             return (
-                <ListItem
-                    key={t.id}
-                    sx={{p: 0, justifyContent: 'space-between', opacity: t.isDone ? 0.5 : 1, }}
-                >
+                <ListItem key={t.id} sx={getListItemSx(t.isDone)}>
                     <div>
                         <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
                         <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
@@ -105,14 +103,12 @@ export const Todolist = ({
 
     return (
         <div className={"todolist"}>
-            {/*<TodoListHeader title={title}/>*/}
             <div className={'todolist-title-container'}>
                 <EditableSpan
                     oldTitle={title}
                     updateTitle={updateTodolistTitleHandler}
                     // spanClass={t.isDone ? "task-done" : "task"}
                 />
-                {/*<h3 style={{margin: 0}}>{title}</h3>*/}
                 <IconButton onClick={removeTodolistHandler}>
                     <DeleteIcon />
                 </IconButton>
@@ -120,7 +116,7 @@ export const Todolist = ({
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '5px' }}>
+            <Box sx={filterButtonsContainerSx}>
                 <Button
                     variant={filter === 'all' ? 'outlined' : 'contained'}
                     color={'info'}
