@@ -6,6 +6,9 @@ import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button';
+import Checkbox from "@mui/material/Checkbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 export type TaskType = {
     id: string
@@ -42,7 +45,7 @@ export const Todolist = ({
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
-    const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <ul>
+    const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
         {tasks.map((t) => {
             const removeTaskHandler = () => removeTask(t.id, todolistId)
 
@@ -53,12 +56,13 @@ export const Todolist = ({
             }
 
             return (
-                <li key={t.id}>
-                    <input
-                        type="checkbox"
-                        checked={t.isDone} // true || false
-                        onChange={changeStatusHandler}
-                    />
+                <ListItem key={t.id}>
+                    <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
+                    {/*<input*/}
+                    {/*    type="checkbox"*/}
+                    {/*    checked={t.isDone} // true || false*/}
+                    {/*    onChange={changeStatusHandler}*/}
+                    {/*/>*/}
                     {/*<span className={t.isDone ? "task-done" : "task"}>{t.title}</span>*/}
                     <EditableSpan
                         oldTitle={t.title}
@@ -69,10 +73,10 @@ export const Todolist = ({
                     <IconButton onClick={removeTaskHandler}>
                         <DeleteIcon />
                     </IconButton>
-                </li>
+                </ListItem>
             )
         })}
-    </ul>
+    </List>
 
     // const changeNewTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
     //     inputError &&  setInputError(false)
@@ -130,7 +134,7 @@ export const Todolist = ({
 
                 <Button
                     variant={filter === 'all' ? 'outlined' : 'contained'}
-                    color={'secondary'}
+                    color={'info'}
                     onClick={changeFilterHandlerCreator('all')}
                 >All</Button>
 
@@ -142,7 +146,7 @@ export const Todolist = ({
 
                 <Button
                     variant={filter === 'active' ? 'outlined' : 'contained'}
-                    color={'error'}
+                    color={'secondary'}
                     onClick={changeFilterHandlerCreator('active')}
                 >Active</Button>
 
@@ -154,7 +158,7 @@ export const Todolist = ({
 
                 <Button
                     variant={filter === 'completed' ? 'outlined' : 'contained'}
-                    color={'secondary'}
+                    color={'success'}
                     onClick={changeFilterHandlerCreator('completed')}
                 >Completed</Button>
             </div>
