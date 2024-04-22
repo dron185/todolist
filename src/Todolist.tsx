@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Checkbox from "@mui/material/Checkbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Box from "@mui/material/Box";
 
 export type TaskType = {
     id: string
@@ -56,20 +57,14 @@ export const Todolist = ({
             }
 
             return (
-                <ListItem key={t.id}>
-                    <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
-                    {/*<input*/}
-                    {/*    type="checkbox"*/}
-                    {/*    checked={t.isDone} // true || false*/}
-                    {/*    onChange={changeStatusHandler}*/}
-                    {/*/>*/}
-                    {/*<span className={t.isDone ? "task-done" : "task"}>{t.title}</span>*/}
-                    <EditableSpan
-                        oldTitle={t.title}
-                        spanClass={t.isDone ? "task-done" : "task"}
-                        updateTitle={updateTaskTitleHandler}
-                    />
-                    {/*<Button title={"x"} onClickHandler={removeTaskHandler}/>*/}
+                <ListItem
+                    key={t.id}
+                    sx={{p: 0, justifyContent: 'space-between', opacity: t.isDone ? 0.5 : 1, }}
+                >
+                    <div>
+                        <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
+                        <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
+                    </div>
                     <IconButton onClick={removeTaskHandler}>
                         <DeleteIcon />
                     </IconButton>
@@ -125,43 +120,23 @@ export const Todolist = ({
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
-            <div>
-                {/*<Button*/}
-                {/*    classes={filter === "all" ? "btn-active" : ""}*/}
-                {/*    title={'All'}*/}
-                {/*    onClickHandler={changeFilterHandlerCreator('all')}*/}
-                {/*/>*/}
-
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                     variant={filter === 'all' ? 'outlined' : 'contained'}
                     color={'info'}
                     onClick={changeFilterHandlerCreator('all')}
                 >All</Button>
-
-                {/*<Button*/}
-                {/*    classes={filter === "active" ? "btn-active" : ""}*/}
-                {/*    title={'Active'}*/}
-                {/*    onClickHandler={changeFilterHandlerCreator('active')}*/}
-                {/*/>*/}
-
                 <Button
                     variant={filter === 'active' ? 'outlined' : 'contained'}
                     color={'secondary'}
                     onClick={changeFilterHandlerCreator('active')}
                 >Active</Button>
-
-                {/*<Button*/}
-                {/*    classes={filter === "completed" ? "btn-active" : ""}*/}
-                {/*    title={'Completed'}*/}
-                {/*    onClickHandler={changeFilterHandlerCreator('completed')}*/}
-                {/*/>*/}
-
                 <Button
                     variant={filter === 'completed' ? 'outlined' : 'contained'}
                     color={'success'}
                     onClick={changeFilterHandlerCreator('completed')}
                 >Completed</Button>
-            </div>
+            </Box>
         </div>
     )
 }

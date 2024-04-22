@@ -110,7 +110,7 @@ function App() {
 
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
                     <IconButton color="inherit">
                         <MenuIcon />
@@ -136,7 +136,7 @@ function App() {
                             }
                             return (
                                 <Grid>
-                                    <Paper elevation={5} sx={{p: '20px'}}>
+                                    <Paper elevation={5} sx={{ p: '0 20px 20px 20px' }}>
                                         <Todolist
                                             key={el.id}
                                             todolistId={el.id}
