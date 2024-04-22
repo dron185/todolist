@@ -10,29 +10,28 @@ type PropsType = {
 
 export const AddItemForm = ({addItem}: PropsType) => {
     const [newItemTitle, setNewItemTitle] = React.useState("")
-    const [inputError, setInputError] = useState<boolean>(false)
+    const [inputError, setInputError] = useState<string | null>(null)
 
     const maxTitleLength = 15
     const isAddItemPossible = newItemTitle.length && newItemTitle.length <= maxTitleLength
 
     const addNewItemHandler = () => {
         const trimmedTaskTitle = newItemTitle.trim()
-        if (trimmedTaskTitle) {
+        if (trimmedTaskTitle !== '') {
             addItem(trimmedTaskTitle)
         } else {
-            setInputError(true)
-            setTimeout(()=>setInputError(false), 3000)
+            setInputError('Title is required')
         }
         setNewItemTitle("")
     }
 
     const changeNewItemTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        inputError &&  setInputError(false)
         setNewItemTitle(e.currentTarget.value)
     }
 
     const addItemOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && e.ctrlKey && isAddItemPossible) {
+        setInputError(null)
+        if (e.key === 'Enter' && isAddItemPossible) {
             addNewItemHandler()
         }
     }
@@ -42,7 +41,7 @@ export const AddItemForm = ({addItem}: PropsType) => {
             <TextField
                 label="Enter a title"
                 variant={'outlined'}
-                // className={inputError ? 'error' : ''}
+                className={inputError ? 'error' : ''}
                 value={newItemTitle}
                 size={'small'}
                 error={!!inputError}
@@ -66,8 +65,8 @@ export const AddItemForm = ({addItem}: PropsType) => {
 
             <Button variant="contained" onClick={addNewItemHandler}>+</Button>
 
-            {!newItemTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}
-            {newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}
+            {/*{!newItemTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}*/}
+            {/*{newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}*/}
         </div>
     );
 };
