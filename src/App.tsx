@@ -12,7 +12,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
-// import Grid from '@mui/material/Grid';
+import {MenuButton} from "./MenuButton";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Switch from '@mui/material/Switch'
+import CssBaseline from '@mui/material/CssBaseline'
+
+type ThemeMode = 'dark' | 'light'
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -27,6 +32,19 @@ export type TasksStateType = {
 }
 
 function App() {
+
+    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+
+    const theme = createTheme({
+        palette: {
+            mode: themeMode === 'light' ? 'light' : 'dark',
+            primary: {
+                main: '#087EA4',
+            },
+        },
+    })
+
+
     let todolistID1 = v1()
     let todolistID2 = v1()
 
@@ -108,14 +126,24 @@ function App() {
         setTodolists(todolists.map(el=> el.id === todolistId ? {...el, title: newTitle} : el))
     }
 
+    const changeModeHandler = () => {
+        setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+    }
+
     return (
-        <div>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <AppBar position="static" sx={{ mb: '30px' }}>
-                <Toolbar>
+                <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
                     <IconButton color="inherit">
                         <MenuIcon />
                     </IconButton>
-                    <Button color="inherit">Login</Button>
+                    <div>
+                        <MenuButton >Login</MenuButton>
+                        <MenuButton>Logout</MenuButton>
+                        <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
+                        <Switch color={'default'} onChange={changeModeHandler} />
+                    </div>
                 </Toolbar>
             </AppBar>
 
@@ -158,7 +186,7 @@ function App() {
                     }
                 </Grid>
             </Container>
-        </div>
+        </ThemeProvider>
     );
 }
 
