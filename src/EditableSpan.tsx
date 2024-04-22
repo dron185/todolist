@@ -40,7 +40,6 @@ export const EditableSpan = ({oldTitle, spanClass, updateTitle}: PropsType) => {
                             autoFocus
                         />
                     ) :
-                    // <input value={newTitle} autoFocus onBlur={editModeHandler} onChange={changeTitleHandler}/> :
                     ( <span className={spanClass} onDoubleClick={editModeHandler}>{oldTitle}</span>)
             }
         </>

@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from "react";
-// import {Button} from "./Button";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -71,23 +70,9 @@ export const Todolist = ({
         })}
     </List>
 
-    // const changeNewTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     inputError &&  setInputError(false)
-    //     setNewTaskTitle(e.currentTarget.value)
-    // }
-    //
-    // const addTaskOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    //     if (e.key === 'Enter' && e.ctrlKey && isAddTaskPossible) {
-    //         addNewTaskHandler()
-    //     }
-    // }
-
     const changeFilterHandlerCreator = (filter: FilterValuesType) => {
         return () => changeFilter(todolistId, filter)
     }
-
-    // const maxTitleLength = 15
-    // const isAddTaskPossible = newTaskTitle.length && newTaskTitle.length <= maxTitleLength
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
@@ -107,12 +92,10 @@ export const Todolist = ({
                 <EditableSpan
                     oldTitle={title}
                     updateTitle={updateTodolistTitleHandler}
-                    // spanClass={t.isDone ? "task-done" : "task"}
                 />
                 <IconButton onClick={removeTodolistHandler}>
                     <DeleteIcon />
                 </IconButton>
-                {/*<Button title={"x"} onClickHandler={removeTodolistHandler}/>*/}
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
