@@ -12,6 +12,7 @@ export type AddTodolistActionType = {
     type: 'ADD-TODOLIST'
     payload: {
         title: string
+        todolistId: string
     }
 }
 
@@ -51,9 +52,8 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
             return state.filter(el => el.id !== action.payload.id)
         }
         case 'ADD-TODOLIST': {
-            const todolistId = v1()
             const newTodolist: TodolistType = {
-                id: todolistId,
+                id: action.payload.todolistId,
                 title: action.payload.title,
                 filter: 'all'
             }
@@ -71,18 +71,29 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
 }
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-    return { type: 'REMOVE-TODOLIST', payload: { id: todolistId } } as const
+    return {
+        type: 'REMOVE-TODOLIST',
+        payload: {
+            id: todolistId
+        }
+    } as const
 }
 
 export const addTodolistAC = (title: string): AddTodolistActionType => {
-    return { type: 'ADD-TODOLIST', payload: { title } } as const
+    return {
+        type: 'ADD-TODOLIST',
+        payload: {
+            title: title,
+            todolistId: v1(),
+        }
+    } as const
 }
 
-export const ChangeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
-    return { type: 'CHANGE-TODOLIST-TITLE', payload: { id, title } } as const
+export const ChangeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
+    return { type: 'CHANGE-TODOLIST-TITLE', payload: { id: todolistId, title: title } } as const
 }
 
-export const ChangeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
-    return { type: 'CHANGE-TODOLIST-FILTER', payload: { id, filter } } as const
+export const ChangeTodolistFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
+    return { type: 'CHANGE-TODOLIST-FILTER', payload: { id: todolistId, filter: filter } } as const
 }
 

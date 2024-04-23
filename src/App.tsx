@@ -44,23 +44,23 @@ function App() {
     })
 
 
-    let todolistID1 = v1()
-    let todolistID2 = v1()
+    let todolistId1 = v1()
+    let todolistId2 = v1()
 
     let [todolists, setTodolists] = useState<TodolistType[]>([
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'all'},
+        {id: todolistId1, title: 'What to learn', filter: 'all'},
+        {id: todolistId2, title: 'What to buy', filter: 'all'},
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
-        [todolistID1]: [
+        [todolistId1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
             {id: v1(), title: 'ReactJS', isDone: false},
             {id: v1(), title: "Rest API", isDone: false},
             {id: v1(), title: "GraphQL", isDone: false},
         ],
-        [todolistID2]: [
+        [todolistId2]: [
             {id: v1(), title: 'HTML&CSS-2', isDone: true},
             {id: v1(), title: 'JS-2', isDone: true},
             {id: v1(), title: 'ReactJS-2', isDone: false},
@@ -68,7 +68,7 @@ function App() {
             {id: v1(), title: 'GraphQL-2', isDone: false},
         ],
     })
-    console.log(tasks[todolistID1])
+    console.log(tasks[todolistId1])
     // CRUD tasks
     const removeTask = (taskId: string, todolistId: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)})
