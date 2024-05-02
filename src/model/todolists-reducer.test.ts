@@ -8,15 +8,20 @@ import {
     todolistsReducer
 } from "./todolists-reducer";
 
-test('correct todolist should be removed', () => {
-    let todolistID1 = v1()
-    let todolistID2 = v1()
+let todolistID1: string;
+let todolistID2: string;
+let startState: TodolistType[];
 
-    // 1. Стартовый state
-    const startState: TodolistType[] = [
+beforeEach(() => {
+    todolistID1 = v1();
+    todolistID2 = v1();
+    startState = [
         { id: todolistID1, title: 'What to learn', filter: 'all' },
         { id: todolistID2, title: 'What to buy', filter: 'all' },
     ]
+})
+
+test('correct todolist should be removed', () => {
 
     // 2. Действие
     const endState = todolistsReducer(startState, removeTodolistAC(todolistID1))
@@ -29,13 +34,6 @@ test('correct todolist should be removed', () => {
 })
 
 test('correct todolist should be added', () => {
-    let todolistID1 = v1()
-    let todolistID2 = v1()
-
-    const startState: TodolistType[] = [
-        { id: todolistID1, title: 'What to learn', filter: 'all' },
-        { id: todolistID2, title: 'What to buy', filter: 'all' },
-    ]
 
     let newTitle = 'New Todolist'
     const endState = todolistsReducer(startState, addTodolistAC(newTitle))
@@ -45,13 +43,6 @@ test('correct todolist should be added', () => {
 })
 
 test('correct todolist should change its name', () => {
-    let todolistID1 = v1()
-    let todolistID2 = v1()
-
-    const startState: TodolistType[] = [
-        { id: todolistID1, title: 'What to learn', filter: 'all' },
-        { id: todolistID2, title: 'What to buy', filter: 'all' },
-    ]
 
     let newTitle = 'New Todolist'
 
@@ -64,15 +55,8 @@ test('correct todolist should change its name', () => {
 })
 
 test('correct filter of todolist should be changed', () => {
-    let todolistID1 = v1()
-    let todolistID2 = v1()
 
     let newFilter: FilterValuesType = 'completed';
-
-    const startState: TodolistType[] = [
-        { id: todolistID1, title: 'What to learn', filter: 'all' },
-        { id: todolistID2, title: 'What to buy', filter: 'all' },
-    ]
 
     // const action = {
     //     type: 'CHANGE-TODOLIST-FILTER',
