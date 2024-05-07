@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {TasksStateType, TodolistType} from "./AppWithRedux";
+import {TodolistType} from "./AppWithRedux";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
 
@@ -23,39 +23,29 @@ export type TaskType = {
 }
 
 type TodolistPropsType = {
-    // todolist: TodolistType
-    todolistId: string
-    title: string
-    changeFilter: (todolistId: string, value: FilterValuesType) => void
-    removeTodolist: (todolistId: string) => void
-    updateTodolistTitle: (todolistId: string, newTitle: string) => void
-    filter: FilterValuesType
-    // updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
+    todolist: TodolistType
 }
 
-export const TodolistWithRedux = ({todolistId, title, changeFilter, removeTodolist, updateTodolistTitle, filter}: TodolistPropsType) => {
+export const TodolistWithRedux = ({todolist}: TodolistPropsType) => {
 
-    const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolistId])
+    const {id, filter, title} = todolist
+    const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id])
     const dispatch = useDispatch()
 
-    /*const {id, filter, title} = todolist*/
-
-
-
     const changeFilterHandlerCreator = (filter: FilterValuesType) => {
-        return () => changeFilter(todolistId, filter)
+        return () => dispatch(changeTodolistFilterAC(id, filter))
     }
 
     const removeTodolistHandler = () => {
-        removeTodolist(todolistId)
+        dispatch(removeTodolistAC(id))
     }
 
     const addTaskHandler = (title: string) => {
-        dispatch(addTaskAC(title, todolistId))
+        dispatch(addTaskAC(title, id))
     }
 
     const updateTodolistTitleHandler = (newTitle: string) => {
-        updateTodolistTitle(todolistId, newTitle)
+        dispatch(changeTodolistTitleAC(id, newTitle))
     }
 
     let allTodolistTasks = tasks;
@@ -70,22 +60,22 @@ export const TodolistWithRedux = ({todolistId, title, changeFilter, removeTodoli
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
         {tasksForTodolist.map((t) => {
-            const removeTaskHandler = () => dispatch(removeTaskAC(t.id, todolistId)) //+
+            const removeTaskHandler = () => dispatch(removeTaskAC(t.id, id))
 
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked, todolistId)) //+
+            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked, id))
 
             const updateTaskTitleHandler = (newTitle: string) => {
-                dispatch(changeTaskTitleAC(t.id, newTitle, todolistId)) //+
+                dispatch(changeTaskTitleAC(t.id, newTitle, id))
             }
 
             return (
                 <ListItem key={t.id} sx={getListItemSx(t.isDone)}>
                     <div>
-                        <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
+                        <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success"/>
                         <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
                     </div>
                     <IconButton onClick={removeTaskHandler}>
-                        <DeleteIcon />
+                        <DeleteIcon/>
                     </IconButton>
                 </ListItem>
             )
@@ -100,7 +90,7 @@ export const TodolistWithRedux = ({todolistId, title, changeFilter, removeTodoli
                     updateTitle={updateTodolistTitleHandler}
                 />
                 <IconButton onClick={removeTodolistHandler}>
-                    <DeleteIcon />
+                    <DeleteIcon/>
                 </IconButton>
             </div>
             <AddItemForm addItem={addTaskHandler}/>

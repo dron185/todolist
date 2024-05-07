@@ -1,7 +1,6 @@
-import React, {Reducer, useReducer, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {TaskType, Todolist} from "./Todolist";
-import {v1} from "uuid";
+import {TaskType} from "./Todolist";
 import AddItemForm from "./AddItemForm";
 
 import AppBar from '@mui/material/AppBar'
@@ -15,14 +14,7 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {
-    ActionsType,
-    addTodolistAC, changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
-} from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {addTodolistAC} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TodolistWithRedux} from "./TodolistWithRedux";
@@ -84,25 +76,24 @@ function AppWithRedux() {
     // }
 
 
-    const changeFilter = (todolistId: string, value: FilterValuesType) => {
-        let action = changeTodolistFilterAC(todolistId, value)
-        dispatch(action)
-    }
-
-    const removeTodolist = (todolistId: string) => {
-        let action = removeTodolistAC(todolistId)
-        dispatch(action)
-    }
-
+    // const changeFilter = (todolistId: string, value: FilterValuesType) => {
+    //     let action = changeTodolistFilterAC(todolistId, value)
+    //     dispatch(action)
+    // }
+    //
+    // const removeTodolist = (todolistId: string) => {
+    //     let action = removeTodolistAC(todolistId)
+    //     dispatch(action)
+    // }
+    //
     const addTodolist = (title: string) => {
-        let action = addTodolistAC(title);
-        dispatch(action)
+        dispatch(addTodolistAC(title))
     }
-
-    const updateTodolistTitle = (todolistId: string, newTitle: string) => {
-        let action = changeTodolistTitleAC(todolistId, newTitle)
-        dispatch(action);
-    }
+    //
+    // const updateTodolistTitle = (todolistId: string, newTitle: string) => {
+    //     let action = changeTodolistTitleAC(todolistId, newTitle)
+    //     dispatch(action);
+    // }
 
     const changeModeHandler = () => {
         setThemeMode(themeMode == 'light' ? 'dark' : 'light')
@@ -136,16 +127,7 @@ function AppWithRedux() {
                             return (
                                 <Grid key={el.id}>
                                     <Paper elevation={5} sx={{p: '20px'}}>
-                                        <TodolistWithRedux
-                                            // todolist={el}
-                                            key={el.id}
-                                            todolistId={el.id}
-                                            title={el.title}
-                                            filter={el.filter}
-                                            changeFilter={changeFilter}
-                                            removeTodolist={removeTodolist}
-                                            updateTodolistTitle={updateTodolistTitle}
-                                        />
+                                        <TodolistWithRedux todolist={el}/>
                                     </Paper>
                                 </Grid>
                             )

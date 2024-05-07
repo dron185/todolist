@@ -16,5 +16,5 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 // @ts-ignore
 window.store = store
 
-console.log(store.getState())
+console.log(store.dispatch)
 console.log(store.getState().todolists)
