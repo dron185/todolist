@@ -48,7 +48,7 @@ type ActionsType =
 
 export let initialTasksState: TasksStateType = {}
 
-export const tasksReducer = (state = initialTasksState, action: ActionsType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialTasksState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             return {
@@ -67,15 +67,11 @@ export const tasksReducer = (state = initialTasksState, action: ActionsType): Ta
             }
         }
         case "CHANGE-TASK-STATUS": {
-            // return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(el => el.id === action.payload.taskId ? {...el, isDone: action.payload.newIsDoneValue} : el)}
-
-            const stateCopy = {...state};
-            let tasks = stateCopy[action.payload.todolistId];
-            let task = tasks.find(el => el.id === action.payload.taskId);
-            if (task) {
-                task.isDone = action.payload.newIsDoneValue
+            return {...state,
+                [action.payload.todolistId]:
+                    state[action.payload.todolistId].map(el => el.id === action.payload.taskId ?
+                        {...el, isDone: action.payload.newIsDoneValue} : el)
             }
-            return stateCopy;
         }
         case "CHANGE-TASK-TITLE": {
             return {

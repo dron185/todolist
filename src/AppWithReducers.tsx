@@ -17,8 +17,8 @@ import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
     ActionsType,
-    addTodolistAC, ChangeTodolistFilterAC,
-    ChangeTodolistTitleAC,
+    addTodolistAC, changeTodolistFilterAC,
+    changeTodolistTitleAC,
     removeTodolistAC,
     todolistsReducer
 } from "./state/todolists-reducer";
@@ -97,7 +97,7 @@ function AppWithReducers() {
 
     // filter
     const changeFilter = (todolistId: string, value: FilterValuesType) => {
-        let action = ChangeTodolistFilterAC(todolistId, value)
+        let action = changeTodolistFilterAC(todolistId, value)
         dispatchToTodolists(action)
     }
 
@@ -119,7 +119,7 @@ function AppWithReducers() {
     }
 
     const updateTodolistTitle = (todolistId: string, newTitle: string) => {
-        let action = ChangeTodolistTitleAC(todolistId, newTitle)
+        let action = changeTodolistTitleAC(todolistId, newTitle)
         dispatchToTodolists(action);
     }
 

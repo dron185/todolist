@@ -13,6 +13,8 @@ import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TasksStateType, TodolistType} from "./AppWithRedux";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
 
 export type TaskType = {
     id: string
@@ -21,42 +23,59 @@ export type TaskType = {
 }
 
 type TodolistPropsType = {
-    title: string
+    // todolist: TodolistType
     todolistId: string
-    tasks: Array<TaskType>
-    filter: FilterValuesType
-    addTask: (todolistId: string, title: string) => void
-    removeTask: (todolistId: string, taskId: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, newIsDoneValue: boolean) => void
+    title: string
     changeFilter: (todolistId: string, value: FilterValuesType) => void
     removeTodolist: (todolistId: string) => void
-    updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
     updateTodolistTitle: (todolistId: string, newTitle: string) => void
+    filter: FilterValuesType
+    // updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
 }
 
-export const Todolist = ({
-                             removeTodolist,
-                             todolistId,
-                             title,
-                             tasks,
-                             filter,
-                             addTask,
-                             removeTask,
-                             changeTaskStatus,
-                             changeFilter,
-                             updateTaskTitle,
-                             updateTodolistTitle
-                         }: TodolistPropsType) => {
-    //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
+export const TodolistWithRedux = ({todolistId, title, changeFilter, removeTodolist, updateTodolistTitle, filter}: TodolistPropsType) => {
+
+    const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolistId])
+    const dispatch = useDispatch()
+
+    /*const {id, filter, title} = todolist*/
+
+
+
+    const changeFilterHandlerCreator = (filter: FilterValuesType) => {
+        return () => changeFilter(todolistId, filter)
+    }
+
+    const removeTodolistHandler = () => {
+        removeTodolist(todolistId)
+    }
+
+    const addTaskHandler = (title: string) => {
+        dispatch(addTaskAC(title, todolistId))
+    }
+
+    const updateTodolistTitleHandler = (newTitle: string) => {
+        updateTodolistTitle(todolistId, newTitle)
+    }
+
+    let allTodolistTasks = tasks;
+    let tasksForTodolist = allTodolistTasks;
+
+    if (filter === 'active') {
+        tasksForTodolist = allTodolistTasks.filter(t => !t.isDone)
+    }
+    if (filter === 'completed') {
+        tasksForTodolist = allTodolistTasks.filter(t => t.isDone)
+    }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
-        {tasks.map((t) => {
-            const removeTaskHandler = () => removeTask(t.id, todolistId)
+        {tasksForTodolist.map((t) => {
+            const removeTaskHandler = () => dispatch(removeTaskAC(t.id, todolistId)) //+
 
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
+            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked, todolistId)) //+
 
             const updateTaskTitleHandler = (newTitle: string) => {
-                updateTaskTitle(todolistId, t.id, newTitle)
+                dispatch(changeTaskTitleAC(t.id, newTitle, todolistId)) //+
             }
 
             return (
@@ -72,22 +91,6 @@ export const Todolist = ({
             )
         })}
     </List>
-
-    const changeFilterHandlerCreator = (filter: FilterValuesType) => {
-        return () => changeFilter(todolistId, filter)
-    }
-
-    const removeTodolistHandler = () => {
-        removeTodolist(todolistId)
-    }
-
-    const addTaskHandler = (title: string) => {
-        addTask(todolistId, title)
-    }
-
-    const updateTodolistTitleHandler = (newTitle: string) => {
-        updateTodolistTitle(todolistId, newTitle)
-    }
 
     return (
         <div className={"todolist"}>
