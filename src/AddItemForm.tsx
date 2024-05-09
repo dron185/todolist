@@ -9,7 +9,6 @@ type PropsType = {
 }
 
 export const AddItemForm = memo( ({addItem}: PropsType) => {
-
     const [newItemTitle, setNewItemTitle] = React.useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 

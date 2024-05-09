@@ -14,10 +14,18 @@ import {MenuButton} from "./MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {addTodolistAC} from "./state/todolists-reducer";
+import {
+    addTodolistAC,
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC
+} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {TodolistWithRedux} from "./TodolistWithRedux";
+import {v1} from "uuid";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {Todolist} from "./Todolist";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -44,15 +52,56 @@ function AppWithRedux() {
         },
     })
 
+    // let todolistId1 = v1()
+    // let todolistId2 = v1()
 
     //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
     //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
+
+    // CRUD tasks
+    const removeTask = useCallback( (taskId: string, todolistId: string) => {
+        const action = removeTaskAC(taskId, todolistId);
+        dispatch(action);
+    }, [dispatch])
+
+    const addTask = useCallback( (todolistId: string, title: string) => {
+        const action = addTaskAC(title, todolistId);
+        dispatch(action);
+    }, [dispatch])
+
+    const changeTaskStatus = useCallback( (todolistId: string, taskId: string, newIsDoneValue: boolean) => {
+        const action = changeTaskStatusAC(taskId, newIsDoneValue, todolistId);
+        dispatch(action);
+    }, [dispatch])
+
+    const updateTaskTitle = useCallback( (todolistId: string, taskId: string, newTitle: string) => {
+        const action = changeTaskTitleAC(taskId, newTitle, todolistId)
+        dispatch(action);
+    }, [dispatch])
+
+    // filter
+    const changeFilter = useCallback( (todolistId: string, value: FilterValuesType) => {
+        const action = changeTodolistFilterAC(todolistId, value)
+        dispatch(action)
+    }, [dispatch])
+
+    const removeTodolist = useCallback( (todolistId: string) => {
+        let action = removeTodolistAC(todolistId)
+        dispatch(action)
+    }, [dispatch])
+
+    const updateTodolistTitle = useCallback( (todolistId: string, newTitle: string) => {
+        let action = changeTodolistTitleAC(todolistId, newTitle)
+        dispatch(action);
+    }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
     }, [dispatch]);
+
 
     const changeModeHandler = () => {
         setThemeMode(themeMode == 'light' ? 'dark' : 'light')
@@ -86,7 +135,20 @@ function AppWithRedux() {
                             return (
                                 <Grid key={el.id}>
                                     <Paper elevation={5} sx={{p: '20px'}}>
-                                        <TodolistWithRedux todolist={el}/>
+                                        <Todolist
+                                            key={el.id}
+                                            todolistId={el.id}
+                                            title={el.title}
+                                            tasks={tasks[el.id]}
+                                            filter={el.filter}
+                                            removeTask={removeTask}
+                                            changeFilter={changeFilter}
+                                            addTask={addTask}
+                                            changeTaskStatus={changeTaskStatus}
+                                            removeTodolist={removeTodolist}
+                                            updateTaskTitle={updateTaskTitle}
+                                            updateTodolistTitle={updateTodolistTitle}
+                                        />
                                     </Paper>
                                 </Grid>
                             )

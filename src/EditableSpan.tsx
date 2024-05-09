@@ -8,7 +8,6 @@ type PropsType = {
 }
 
 export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle}: PropsType) => {
-    console.log('EditableSpan')
     const [edit, setEdit] = useState(false)
     const [newTitle, setNewTitle] = useState(oldTitle)
 

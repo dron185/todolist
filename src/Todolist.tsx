@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, memo, useCallback} from "react";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -10,9 +10,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {TasksStateType, TodolistType} from "./AppWithRedux";
 
 export type TaskType = {
     id: string
@@ -34,7 +31,7 @@ type TodolistPropsType = {
     updateTodolistTitle: (todolistId: string, newTitle: string) => void
 }
 
-export const Todolist = ({
+export const Todolist = memo( ({
                              removeTodolist,
                              todolistId,
                              title,
@@ -48,9 +45,18 @@ export const Todolist = ({
                              updateTodolistTitle
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
+    console.log('Todolist')
 
-    const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
-        {tasks.map((t) => {
+    let tasksForTodoList = tasks;
+    if (filter === 'completed') {
+        tasksForTodoList = tasks.filter(t => t.isDone)
+    }
+    if (filter === 'active') {
+        tasksForTodoList = tasks.filter(t => !t.isDone)
+    }
+
+    const tasksList: JSX.Element = tasks.length === 0 ? (<p>There are no tasks</p>) : <List>
+        {tasksForTodoList.map((t) => {
             const removeTaskHandler = () => removeTask(t.id, todolistId)
 
             const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
@@ -73,17 +79,17 @@ export const Todolist = ({
         })}
     </List>
 
-    const changeFilterHandlerCreator = (filter: FilterValuesType) => {
+    const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
         return () => changeFilter(todolistId, filter)
-    }
+    }, [changeFilter,todolistId, filter])
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
     }
 
-    const addTaskHandler = (title: string) => {
+    const addTaskHandler = useCallback(( title: string) => {
         addTask(todolistId, title)
-    }
+    }, [addTask, todolistId])
 
     const updateTodolistTitleHandler = (newTitle: string) => {
         updateTodolistTitle(todolistId, newTitle)
@@ -121,4 +127,5 @@ export const Todolist = ({
             </Box>
         </div>
     )
-}
+} )
+
