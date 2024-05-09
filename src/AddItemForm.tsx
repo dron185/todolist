@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import TextField from '@mui/material/TextField/TextField';
 import IconButton from '@mui/material/IconButton';
 import AddBoxIcon from '@mui/icons-material/AddBox'
@@ -8,7 +8,8 @@ type PropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = ({addItem}: PropsType) => {
+export const AddItemForm = memo( ({addItem}: PropsType) => {
+
     const [newItemTitle, setNewItemTitle] = React.useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
@@ -30,7 +31,10 @@ export const AddItemForm = ({addItem}: PropsType) => {
     }
 
     const addItemOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setInputError(null)
+        if (inputError !== null) {
+            setInputError(null)
+        }
+
         if (e.key === 'Enter' && isAddItemPossible) {
             addNewItemHandler()
         }
@@ -58,6 +62,6 @@ export const AddItemForm = ({addItem}: PropsType) => {
             {/*{newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}*/}
         </div>
     );
-};
+} );
 
 export default AddItemForm;

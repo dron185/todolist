@@ -7,7 +7,8 @@ type PropsType = {
     updateTitle: (newTitle: string) => void
 }
 
-export const EditableSpan = ({oldTitle, spanClass, updateTitle}: PropsType) => {
+export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle}: PropsType) => {
+    console.log('EditableSpan')
     const [edit, setEdit] = useState(false)
     const [newTitle, setNewTitle] = useState(oldTitle)
 
@@ -45,4 +46,4 @@ export const EditableSpan = ({oldTitle, spanClass, updateTitle}: PropsType) => {
         </>
 
     );
-};
+} );

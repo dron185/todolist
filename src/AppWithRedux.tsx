@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import './App.css';
-import {TaskType} from "./Todolist";
+import {TaskType} from "./TodolistWithRedux";
 import AddItemForm from "./AddItemForm";
 
 import AppBar from '@mui/material/AppBar'
@@ -34,7 +34,6 @@ export type TasksStateType = {
 }
 
 function AppWithRedux() {
-
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
@@ -47,53 +46,13 @@ function AppWithRedux() {
 
 
     //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
-    //useSelector - это функция, которая селектит\выбирает что-то из чего-то…
+    //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
-
-   // let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
     const dispatch = useDispatch()
 
-    // CRUD tasks
-    // const removeTask = (taskId: string, todolistId: string) => {
-    //     let action = removeTaskAC(taskId, todolistId);
-    //     dispatch(action);
-    // }
-    //
-    // const addTask = (todolistId: string, title: string) => {
-    //     let action = addTaskAC(title, todolistId);
-    //     dispatch(action);
-    // }
-    //
-    // const changeTaskStatus = (todolistId: string, taskId: string, newIsDoneValue: boolean) => {
-    //     let action = changeTaskStatusAC(taskId, newIsDoneValue, todolistId);
-    //     dispatch(action);
-    // }
-    //
-    // const updateTaskTitle = (todolistId: string, taskId: string, newTitle: string) => {
-    //     let action = changeTaskTitleAC(taskId, newTitle, todolistId)
-    //     dispatch(action);
-    // }
-
-
-    // const changeFilter = (todolistId: string, value: FilterValuesType) => {
-    //     let action = changeTodolistFilterAC(todolistId, value)
-    //     dispatch(action)
-    // }
-    //
-    // const removeTodolist = (todolistId: string) => {
-    //     let action = removeTodolistAC(todolistId)
-    //     dispatch(action)
-    // }
-    //
-    const addTodolist = (title: string) => {
+    const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
-    }
-    //
-    // const updateTodolistTitle = (todolistId: string, newTitle: string) => {
-    //     let action = changeTodolistTitleAC(todolistId, newTitle)
-    //     dispatch(action);
-    // }
+    }, [dispatch]);
 
     const changeModeHandler = () => {
         setThemeMode(themeMode == 'light' ? 'dark' : 'light')
