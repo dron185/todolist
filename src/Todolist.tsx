@@ -11,6 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
+import {Task} from "./Task";
 
 export type TaskType = {
     id: string
@@ -57,31 +58,16 @@ export const Todolist = memo( ({
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>There are no tasks</p>) : <List>
         {tasksForTodoList.map((t) => {
-            const removeTaskHandler = () => removeTask(t.id, todolistId)
-
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(todolistId, t.id, e.currentTarget.checked)
-
-            const updateTaskTitleHandler = (newTitle: string) => {
-                updateTaskTitle(todolistId, t.id, newTitle)
-            }
-
-            return (
-                <ListItem key={t.id} sx={getListItemSx(t.isDone)}>
-                    <div>
-                        <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success" />
-                        <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
-                    </div>
-                    <IconButton onClick={removeTaskHandler}>
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItem>
-            )
+            return <Task
+                key={t.id}
+                task={t}
+                todolistId={todolistId}
+                removeTask={removeTask}
+                changeTaskStatus={changeTaskStatus}
+                updateTaskTitle={updateTaskTitle}
+            />
         })}
     </List>
-
-    // const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
-    //     return () => changeFilter(todolistId, filter)
-    // }, [changeFilter,todolistId, filter])
 
     const OnAllClickHandler  = useCallback( () => changeFilter(todolistId, 'all'), [changeFilter, todolistId])
     const OnActiveClickHandler  = useCallback( () => changeFilter(todolistId, 'active'), [changeFilter, todolistId])
@@ -96,9 +82,9 @@ export const Todolist = memo( ({
         addTask(todolistId, title)
     }, [addTask, todolistId])
 
-    const updateTodolistTitleHandler = (newTitle: string) => {
+    const updateTodolistTitleHandler = useCallback( (newTitle: string) => {
         updateTodolistTitle(todolistId, newTitle)
-    }
+    }, [updateTodolistTitle, todolistId])
 
     return (
         <div className={"todolist"}>
@@ -117,21 +103,18 @@ export const Todolist = memo( ({
                 <MyButton
                     variant={filter === 'all' ? 'outlined' : 'contained'}
                     color={'info'}
-                    // onClick={changeFilterHandlerCreator('all')}
                     onClick={OnAllClickHandler}
                     title={'All'}
                 />
                 <MyButton
                     variant={filter === 'active' ? 'outlined' : 'contained'}
                     color={'secondary'}
-                    // onClick={changeFilterHandlerCreator('active')}
                     onClick={OnActiveClickHandler}
                     title={'Active'}
                 />
                 <MyButton
                     variant={filter === 'completed' ? 'outlined' : 'contained'}
                     color={'success'}
-                    // onClick={changeFilterHandlerCreator('completed')}
                     onClick={OnCompletedClickHandler}
                     title={'Completed'}
                 />
