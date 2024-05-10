@@ -1,15 +1,13 @@
-import React, {ChangeEvent, memo, useCallback} from "react";
+import React, {memo, useCallback} from "react";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button';
-import Checkbox from "@mui/material/Checkbox";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
-import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
+import {filterButtonsContainerSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
 import {Task} from "./Task";
 
