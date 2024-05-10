@@ -10,6 +10,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
+import {ButtonProps} from "@mui/material/Button/Button";
 
 export type TaskType = {
     id: string
@@ -45,7 +46,6 @@ export const Todolist = memo( ({
                              updateTodolistTitle
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
-    console.log('Todolist')
 
     let tasksForTodoList = tasks;
     if (filter === 'completed') {
@@ -79,9 +79,14 @@ export const Todolist = memo( ({
         })}
     </List>
 
-    const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
-        return () => changeFilter(todolistId, filter)
-    }, [changeFilter,todolistId, filter])
+    // const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
+    //     return () => changeFilter(todolistId, filter)
+    // }, [changeFilter,todolistId, filter])
+
+    const OnAllClickHandler  = useCallback( () => changeFilter(todolistId, 'all'), [changeFilter, todolistId])
+    const OnActiveClickHandler  = useCallback( () => changeFilter(todolistId, 'active'), [changeFilter, todolistId])
+    const OnCompletedClickHandler  = useCallback( () => changeFilter(todolistId, 'completed'), [changeFilter, todolistId])
+
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
@@ -109,23 +114,39 @@ export const Todolist = memo( ({
             <AddItemForm addItem={addTaskHandler}/>
             {tasksList}
             <Box sx={filterButtonsContainerSx}>
-                <Button
+                <MyButton
                     variant={filter === 'all' ? 'outlined' : 'contained'}
                     color={'info'}
-                    onClick={changeFilterHandlerCreator('all')}
-                >All</Button>
-                <Button
+                    // onClick={changeFilterHandlerCreator('all')}
+                    onClick={OnAllClickHandler}
+                    title={'All'}
+                />
+                <MyButton
                     variant={filter === 'active' ? 'outlined' : 'contained'}
                     color={'secondary'}
-                    onClick={changeFilterHandlerCreator('active')}
-                >Active</Button>
-                <Button
+                    // onClick={changeFilterHandlerCreator('active')}
+                    onClick={OnActiveClickHandler}
+                    title={'Active'}
+                />
+                <MyButton
                     variant={filter === 'completed' ? 'outlined' : 'contained'}
                     color={'success'}
-                    onClick={changeFilterHandlerCreator('completed')}
-                >Completed</Button>
+                    // onClick={changeFilterHandlerCreator('completed')}
+                    onClick={OnCompletedClickHandler}
+                    title={'Completed'}
+                />
             </Box>
         </div>
     )
 } )
 
+type MyButtonPropsType = {} & ButtonProps
+
+const MyButton = memo( ({variant, color, onClick, title, ...rest}: MyButtonPropsType) => {
+    return <Button
+        variant={variant}
+        color={color}
+        onClick={onClick}
+        {...rest}
+    >{title}</Button>
+} )
