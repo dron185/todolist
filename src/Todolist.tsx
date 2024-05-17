@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react";
+import React, {memo, useCallback, useMemo} from "react";
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -47,12 +47,23 @@ export const Todolist = memo( ({
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     let tasksForTodoList = tasks;
-    if (filter === 'completed') {
-        tasksForTodoList = tasks.filter(t => t.isDone)
-    }
-    if (filter === 'active') {
-        tasksForTodoList = tasks.filter(t => !t.isDone)
-    }
+
+    tasksForTodoList = useMemo(() => {
+        if (filter === 'completed') {
+            tasksForTodoList = tasks.filter(t => t.isDone)
+        }
+        if (filter === 'active') {
+            tasksForTodoList = tasks.filter(t => !t.isDone)
+        }
+        return tasksForTodoList
+    }, [tasks, filter])
+
+    // if (filter === 'completed') {
+    //     tasksForTodoList = tasks.filter(t => t.isDone)
+    // }
+    // if (filter === 'active') {
+    //     tasksForTodoList = tasks.filter(t => !t.isDone)
+    // }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>There are no tasks</p>) : <List>
         {tasksForTodoList.map((t) => {
