@@ -111,7 +111,7 @@ export const removeTaskAC = (taskId: string, todolistId: string) => {
             taskId: taskId,
             todolistId: todolistId,
         }
-    } as const //  as const - можно не писать если указали тип RemoveTaskActionType
+    } as const
 }
 
 export const addTaskAC = (title: string, todolistId: string): AddTaskActionType => {
@@ -121,7 +121,7 @@ export const addTaskAC = (title: string, todolistId: string): AddTaskActionType 
             title,
             id: todolistId,
         }
-    }
+    } //  as const - можно не писать если указали тип RemoveTaskActionType
 }
 
 export const changeTaskStatusAC = (taskId: string, newIsDoneValue: boolean, todolistId: string): ChangeTaskStatusActionType => {

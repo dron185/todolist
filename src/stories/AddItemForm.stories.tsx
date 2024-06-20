@@ -39,7 +39,7 @@ type Story = StoryObj<typeof AddItemForm>;
 export const AddItemFormStory: Story = {}
 
 // 2. старый способ:
-export const AddItemFormStory1 = () => <AddItemForm addItem={action('')}/>
+export const AddItemFormStory1 = () => <AddItemForm addItem={action('addItem')}/>
 
 // 3. еще один способ:
 export const AddItemFormErrorStory: Story = {
