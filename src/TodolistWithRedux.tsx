@@ -17,12 +17,12 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     FilterValuesType,
-    removeTodolistAC
+    removeTodolistAC, TodolistDomainType
 } from "./state/todolists-reducer";
-import {TaskType, TodolistType} from "./api/api";
+import {TaskStatuses, TaskType, TodolistType} from "./api/api";
 
 type TodolistPropsType = {
-    todolist: TodolistType
+    todolist: TodolistDomainType
 }
 
 export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => {
@@ -51,10 +51,10 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
     let tasksForTodolist = tasks;
 
     if (todolist.filter === 'active') {
-        tasksForTodolist = tasks.filter(t => !t.isDone)
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (todolist.filter === 'completed') {
-        tasksForTodolist = tasks.filter(t => t.isDone)
+        tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
@@ -68,9 +68,9 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
             }
 
             return (
-                <ListItem key={t.id} sx={getListItemSx(t.isDone)}>
+                <ListItem key={t.id} sx={getListItemSx(t.status === TaskStatuses.Completed)}>
                     <div>
-                        <Checkbox checked={t.isDone} onChange={changeStatusHandler} color="success"/>
+                        <Checkbox checked={t.status === TaskStatuses.Completed} onChange={changeStatusHandler} color="success"/>
                         <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
                     </div>
                     <IconButton onClick={removeTaskHandler}>

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import './App.css';
 import AddItemForm from "./AddItemForm";
 import AppBar from '@mui/material/AppBar'
@@ -15,16 +15,16 @@ import CssBaseline from '@mui/material/CssBaseline'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, FilterValuesType,
-    removeTodolistAC
+    changeTodolistTitleAC,
+    FilterValuesType,
+    removeTodolistAC,
+    TodolistDomainType
 } from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {TodolistWithRedux} from "./TodolistWithRedux";
-import {v1} from "uuid";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {Todolist} from "./Todolist";
-import {TaskType, TodolistType} from "./api/api";
+import {TaskStatuses, TaskType} from "./api/api";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -45,7 +45,7 @@ function AppWithRedux() {
 
     //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
     //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
@@ -61,7 +61,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        const action = changeTaskStatusAC(taskId, newIsDoneValue, todolistId);
+        const action = changeTaskStatusAC(taskId, status, todolistId);
         dispatch(action);
     }, [dispatch])
 
