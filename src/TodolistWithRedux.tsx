@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useCallback} from "react";
-import {FilterValuesType} from "./App";
+
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton'
@@ -12,15 +12,14 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {TodolistType} from "./AppWithRedux";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./state/todolists-reducer";
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    FilterValuesType,
+    removeTodolistAC
+} from "./state/todolists-reducer";
+import {TaskType, TodolistType} from "./api/api";
 
 type TodolistPropsType = {
     todolist: TodolistType

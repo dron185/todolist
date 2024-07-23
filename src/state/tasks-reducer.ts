@@ -24,7 +24,7 @@ export type ChangeTaskStatusActionType = {
     type: 'CHANGE-TASK-STATUS'
     payload: {
         taskId: string
-        newIsDoneValue: boolean
+        status: TaskStatuses
         todolistId: string
     }
 }
@@ -124,7 +124,7 @@ export const addTaskAC = (title: string, todolistId: string): AddTaskActionType 
     } //  as const - можно не писать если указали тип RemoveTaskActionType
 }
 
-export const changeTaskStatusAC = (taskId: string, newIsDoneValue: boolean, todolistId: string): ChangeTaskStatusActionType => {
+export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string): ChangeTaskStatusActionType => {
     return {
         type: 'CHANGE-TASK-STATUS',
         payload: {

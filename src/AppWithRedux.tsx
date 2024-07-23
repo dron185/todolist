@@ -1,8 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
-import {TaskType} from "./TodolistWithRedux";
 import AddItemForm from "./AddItemForm";
-
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -17,7 +15,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, FilterValuesType,
     removeTodolistAC
 } from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -26,16 +24,9 @@ import {TodolistWithRedux} from "./TodolistWithRedux";
 import {v1} from "uuid";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {Todolist} from "./Todolist";
+import {TaskType, TodolistType} from "./api/api";
 
 type ThemeMode = 'dark' | 'light'
-
-export type FilterValuesType = 'all' | 'completed' | 'active';
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -52,9 +43,6 @@ function AppWithRedux() {
         },
     })
 
-    // let todolistId1 = v1()
-    // let todolistId2 = v1()
-
     //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
     //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
@@ -62,38 +50,38 @@ function AppWithRedux() {
     const dispatch = useDispatch()
 
     // CRUD tasks
-    const removeTask = useCallback( (taskId: string, todolistId: string) => {
+    const removeTask = useCallback((taskId: string, todolistId: string) => {
         const action = removeTaskAC(taskId, todolistId);
         dispatch(action);
     }, [dispatch])
 
-    const addTask = useCallback( (todolistId: string, title: string) => {
+    const addTask = useCallback((todolistId: string, title: string) => {
         const action = addTaskAC(title, todolistId);
         dispatch(action);
     }, [dispatch])
 
-    const changeTaskStatus = useCallback( (todolistId: string, taskId: string, newIsDoneValue: boolean) => {
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
         const action = changeTaskStatusAC(taskId, newIsDoneValue, todolistId);
         dispatch(action);
     }, [dispatch])
 
-    const updateTaskTitle = useCallback( (todolistId: string, taskId: string, newTitle: string) => {
+    const updateTaskTitle = useCallback((todolistId: string, taskId: string, newTitle: string) => {
         const action = changeTaskTitleAC(taskId, newTitle, todolistId)
         dispatch(action);
     }, [dispatch])
 
     // filter
-    const changeFilter = useCallback( (todolistId: string, value: FilterValuesType) => {
+    const changeFilter = useCallback((todolistId: string, value: FilterValuesType) => {
         const action = changeTodolistFilterAC(todolistId, value)
         dispatch(action)
     }, [dispatch])
 
-    const removeTodolist = useCallback( (todolistId: string) => {
+    const removeTodolist = useCallback((todolistId: string) => {
         let action = removeTodolistAC(todolistId)
         dispatch(action)
     }, [dispatch])
 
-    const updateTodolistTitle = useCallback( (todolistId: string, newTitle: string) => {
+    const updateTodolistTitle = useCallback((todolistId: string, newTitle: string) => {
         let action = changeTodolistTitleAC(todolistId, newTitle)
         dispatch(action);
     }, [dispatch])
