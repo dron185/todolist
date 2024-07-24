@@ -61,7 +61,8 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
         {tasksForTodolist.map((t) => {
             const removeTaskHandler = () => dispatch(removeTaskAC(t.id, todolist.id))
 
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked, todolist.id))
+            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) =>
+                dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todolist.id))
 
             const updateTaskTitleHandler = (newTitle: string) => {
                 dispatch(changeTaskTitleAC(t.id, newTitle, todolist.id))
@@ -70,7 +71,11 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
             return (
                 <ListItem key={t.id} sx={getListItemSx(t.status === TaskStatuses.Completed)}>
                     <div>
-                        <Checkbox checked={t.status === TaskStatuses.Completed} onChange={changeStatusHandler} color="success"/>
+                        <Checkbox
+                            checked={t.status === TaskStatuses.Completed}
+                            onChange={changeStatusHandler}
+                            color="success"
+                        />
                         <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
                     </div>
                     <IconButton onClick={removeTaskHandler}>

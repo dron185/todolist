@@ -1,16 +1,9 @@
 import {TasksStateType} from "../App";
 import {v1} from "uuid";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
 
 export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
-
-// export type RemoveTaskActionType = {
-//     type: 'REMOVE-TASK'
-//     payload: {
-//         taskId: string
-//         todolistId: string
-//     }
-// }
 
 export type AddTaskActionType = {
     type: 'ADD-TASK'
@@ -57,10 +50,17 @@ export const tasksReducer = (state: TasksStateType = initialTasksState, action: 
             }
         }
         case "ADD-TASK": {
-            const newTask = {
+            const newTask: TaskType = {
                 id: v1(),
                 title: action.payload.title,
-                isDone: false
+                status: TaskStatuses.New,
+                todoListId: action.payload.id,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
             }
             return {...state,
                 [action.payload.id]: [newTask, ...state[action.payload.id]]
@@ -70,7 +70,7 @@ export const tasksReducer = (state: TasksStateType = initialTasksState, action: 
             return {...state,
                 [action.payload.todolistId]:
                     state[action.payload.todolistId].map(el => el.id === action.payload.taskId ?
-                        {...el, isDone: action.payload.newIsDoneValue} : el)
+                        {...el, status: action.payload.status} : el)
             }
         }
         case "CHANGE-TASK-TITLE": {
@@ -129,7 +129,7 @@ export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolis
         type: 'CHANGE-TASK-STATUS',
         payload: {
             taskId,
-            newIsDoneValue,
+            status,
             todolistId,
         }
     }

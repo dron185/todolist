@@ -3,6 +3,7 @@ import {Task} from "../Task";
 import {fn} from "@storybook/test";
 import {useState} from "react";
 import {v1} from "uuid";
+import {TaskPriorities, TaskStatuses} from "../api/api";
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLISTS/Task',
@@ -12,7 +13,7 @@ const meta: Meta<typeof Task> = {
     },
     tags: ['autodocs'],
     args: {
-        task: {id: 'dfdf', isDone: false, title: 'JS'},
+        task: {id: 'dfdf', title: 'JS',  status: TaskStatuses.New, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
         todolistId: 'dfdsaaa',
         removeTask: fn(),
         changeTaskStatus: fn(),
@@ -27,16 +28,18 @@ export const TaskIsNotDoneStory: Story = {}
 
 export const TaskIsDoneStory: Story = {
     args: {
-        task: {id: 'dfdffghgh', isDone: true, title: 'CSS'},
+        task: {id: 'dfdffghgh', title: 'CSS', status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
     }
 }
 
 export const TaskToggleStory: Story = {
     render: (args) => {
-        const [task, setTask] = useState({id: v1(), isDone: false, title: 'JS'})
+        const [task, setTask] = useState({id: v1(), title: 'JS',  status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low})
 
         function changeTaskStatus () {
-            setTask({...task, isDone: !task.isDone})
+            setTask({...task,
+                status: task.status === TaskStatuses.Completed ? TaskStatuses.New : TaskStatuses.Completed
+            });
         }
 
          function updateTaskTitle (todolistId: string, taskId: string, title: string) {
@@ -52,3 +55,5 @@ export const TaskToggleStory: Story = {
         />
     }
 }
+
+
