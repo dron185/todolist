@@ -33,14 +33,17 @@ export type ChangeTodolistFilterActionType = {
     }
 }
 
-export type setTodolistsActionType = ReturnType<typeof setTodolistsAC>
+export type SetTodolistsActionType = {
+    type: 'SET-TODOLISTS'
+    todolists: Array<TodolistType>
+}
 
 export type ActionsType =
     | RemoveTodolistActionType
     | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
-    | setTodolistsActionType
+    | SetTodolistsActionType
 
 export let initialTodolistsState: TodolistDomainType[] = []
 
@@ -71,6 +74,8 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialTodolistsS
         case 'CHANGE-TODOLIST-FILTER': {
             return state.map(el => el.id === action.payload.id ? {...el, filter: action.payload.filter} : el)
         }
+        case "SET-TODOLISTS":
+            return action.todolists.map(tl => ({...tl, filter: 'all'}))
         default:
             return state
     }
@@ -103,7 +108,5 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesT
     return {type: 'CHANGE-TODOLIST-FILTER', payload: {id: todolistId, filter: filter}} as const
 }
 
-export const setTodolistsAC = (todolists: Array<TodolistType>) => (
-    {type: 'SET-TODOLISTS', todolists} as const
-)
+export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => ({type: 'SET-TODOLISTS', todolists})
 
