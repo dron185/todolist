@@ -15,15 +15,14 @@ import CssBaseline from '@mui/material/CssBaseline'
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    fetchTodolistsThunk,
+    changeTodolistTitleAC, fetchTodolistsTC,
     FilterValuesType,
     removeTodolistAC,
     TodolistDomainType
 } from "./state/todolists-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./state/store";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, removeTaskTC} from "./state/tasks-reducer";
 import {Todolist} from "./Todolist";
 import {TaskStatuses, TaskType} from "./api/api";
 
@@ -51,14 +50,14 @@ function AppWithRedux() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchTodolistsThunk);
+        dispatch(fetchTodolistsTC());
     }, [])
 
 
     // CRUD tasks
     const removeTask = useCallback((taskId: string, todolistId: string) => {
-        const action = removeTaskAC(taskId, todolistId);
-        dispatch(action);
+        //const action = removeTaskAC(taskId, todolistId);
+        dispatch(removeTaskTC(todolistId, taskId));
     }, [dispatch])
 
     const addTask = useCallback((todolistId: string, title: string) => {

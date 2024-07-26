@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from "react";
+import React, {memo, useCallback, useEffect, useMemo} from "react";
 import AddItemForm from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from '@mui/material/IconButton'
@@ -11,6 +11,8 @@ import {ButtonProps} from "@mui/material/Button/Button";
 import {Task} from "./Task";
 import {FilterValuesType} from "./state/todolists-reducer";
 import {TaskStatuses, TaskType} from "./api/api";
+import {useAppDispatch} from "./state/store";
+import {fetchTasksTC} from "./state/tasks-reducer";
 
 
 type TodolistPropsType = {
@@ -41,6 +43,11 @@ export const Todolist = memo( ({
                              updateTodolistTitle
                          }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
+
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(fetchTasksTC(todolistId))
+    }, []);
 
     let tasksForTodoList = tasks;
 
