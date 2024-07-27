@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
-import AddItemForm from "./AddItemForm";
+import AddItemForm from "../components/AddItemForm/AddItemForm";
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
-import {MenuButton} from "./MenuButton";
+import {MenuButton} from "../MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -19,9 +19,9 @@ import {
     FilterValuesType,
     removeTodolistAC, removeTodolistTC,
     TodolistDomainType
-} from "./state/todolists-reducer";
+} from "../state/todolists-reducer";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./state/store";
+import {AppRootStateType, useAppDispatch} from "../state/store";
 import {
     addTaskAC,
     // changeTaskStatusAC,
@@ -29,9 +29,9 @@ import {
     addTaskTC,
     removeTaskAC,
     removeTaskTC, updateTaskTC
-} from "./state/tasks-reducer";
-import {Todolist} from "./Todolist";
-import {TaskStatuses, TaskType} from "./api/api";
+} from "../state/tasks-reducer";
+import {Todolist} from "../Todolist";
+import {TaskStatuses, TaskType} from "../api/api";
 
 type ThemeMode = 'dark' | 'light'
 

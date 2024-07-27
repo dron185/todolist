@@ -2,7 +2,7 @@ import React, {ChangeEvent, memo} from 'react';
 import ListItem from "@mui/material/ListItem";
 import {getListItemSx} from "./Todolist.styles";
 import Checkbox from "@mui/material/Checkbox";
-import {EditableSpan} from "./EditableSpan";
+import {EditableSpan} from "./components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {TaskStatuses, TaskType} from "./api/api";

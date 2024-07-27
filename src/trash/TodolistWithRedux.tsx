@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useCallback} from "react";
 
-import AddItemForm from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import AddItemForm from "../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../components/EditableSpan/EditableSpan";
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button';
@@ -9,17 +9,17 @@ import Checkbox from "@mui/material/Checkbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Box from "@mui/material/Box";
-import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
+import {filterButtonsContainerSx, getListItemSx} from '../Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
-import {addTaskAC, removeTaskAC, updateTaskAC} from "./state/tasks-reducer";
+import {AppRootStateType} from "../state/store";
+import {addTaskAC, removeTaskAC, updateTaskAC} from "../state/tasks-reducer";
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     FilterValuesType,
     removeTodolistAC, TodolistDomainType
-} from "./state/todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "./api/api";
+} from "../state/todolists-reducer";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/api";
 
 type TodolistPropsType = {
     todolist: TodolistDomainType

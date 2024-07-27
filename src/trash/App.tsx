@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import './App.css';
-import {Todolist} from "./Todolist";
+import '../app/App.css';
+import {Todolist} from "../Todolist";
 import {v1} from "uuid";
-import AddItemForm from "./AddItemForm";
+import AddItemForm from "../components/AddItemForm/AddItemForm";
 
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -11,12 +11,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
-import {MenuButton} from "./MenuButton";
+import {MenuButton} from "../MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {FilterValuesType, TodolistDomainType} from "./state/todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "./api/api";
+import {FilterValuesType, TodolistDomainType} from "../state/todolists-reducer";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/api";
 
 type ThemeMode = 'dark' | 'light'
 
