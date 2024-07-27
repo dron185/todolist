@@ -12,14 +12,14 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from './Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC, removeTaskAC, updateTaskAC} from "./state/tasks-reducer";
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     FilterValuesType,
     removeTodolistAC, TodolistDomainType
 } from "./state/todolists-reducer";
-import {TaskStatuses, TaskType, TodolistType} from "./api/api";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "./api/api";
 
 type TodolistPropsType = {
     todolist: TodolistDomainType
@@ -40,7 +40,17 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
     },[todolist.id] )
 
     const addTaskHandler = useCallback( (title: string) => {
-        dispatch(addTaskAC(title, todolist.id))
+        dispatch(addTaskAC({
+            todoListId: todolist.id,
+            title: title,
+            status: TaskStatuses.New,
+            addedDate: '',
+            id: 'id exists',
+            deadline: '',
+            description: '',
+            order: 0,
+            priority: TaskPriorities.Low,
+            startDate: ''}))
     }, [todolist.id] )
 
     const updateTodolistTitleHandler = useCallback( (newTitle: string) => {
@@ -61,11 +71,13 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
         {tasksForTodolist.map((t) => {
             const removeTaskHandler = () => dispatch(removeTaskAC(t.id, todolist.id))
 
-            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) =>
-                dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, todolist.id))
+            const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                const newTaskStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
+                dispatch(updateTaskAC(t.id, {status: newTaskStatus}, todolist.id))
+            }
 
             const updateTaskTitleHandler = (newTitle: string) => {
-                dispatch(changeTaskTitleAC(t.id, newTitle, todolist.id))
+                dispatch(updateTaskAC(t.id, {title: newTitle}, todolist.id))
             }
 
             return (
