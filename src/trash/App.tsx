@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import '../app/App.css';
-import {Todolist} from "../Todolist";
+import {Todolist} from "../features/TodolistsList/Todolist/Todolist";
 import {v1} from "uuid";
 import AddItemForm from "../components/AddItemForm/AddItemForm";
 
@@ -15,7 +15,7 @@ import {MenuButton} from "../MenuButton";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {FilterValuesType, TodolistDomainType} from "../state/todolists-reducer";
+import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/api";
 
 type ThemeMode = 'dark' | 'light'

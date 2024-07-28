@@ -1,6 +1,6 @@
 import React, {memo, useCallback, useEffect, useMemo} from "react";
-import AddItemForm from "./components/AddItemForm/AddItemForm";
-import {EditableSpan} from "./components/EditableSpan/EditableSpan";
+import AddItemForm from "../../../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button';
@@ -8,11 +8,11 @@ import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 import {filterButtonsContainerSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
-import {Task} from "./Task";
-import {FilterValuesType} from "./state/todolists-reducer";
-import {TaskStatuses, TaskType} from "./api/api";
-import {useAppDispatch} from "./state/store";
-import {fetchTasksTC} from "./state/tasks-reducer";
+import {Task} from "./Task/Task";
+import {FilterValuesType} from "../todolists-reducer";
+import {TaskStatuses, TaskType} from "../../../api/api";
+import {useAppDispatch} from "../../../app/store";
+import {fetchTasksTC} from "../tasks-reducer";
 
 
 type TodolistPropsType = {

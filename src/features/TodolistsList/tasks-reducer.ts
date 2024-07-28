@@ -1,8 +1,11 @@
-import {TasksStateType} from "../trash/App";
 import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from "./todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../api/api";
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/api";
 import {Dispatch} from "redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../../app/store";
+
+export type TasksStateType = {
+    [key: string]: TaskType[]
+}
 
 type ActionsType =
     | ReturnType<typeof removeTaskAC>

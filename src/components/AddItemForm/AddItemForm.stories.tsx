@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {fn} from '@storybook/test';
 import {action} from '@storybook/addon-actions';
-import AddItemForm from "../components/AddItemForm/AddItemForm";
+import AddItemForm from "./AddItemForm";
 import TextField from "@mui/material/TextField/TextField";
 import IconButton from "@mui/material/IconButton";
 import AddBoxIcon from "@mui/icons-material/AddBox";

@@ -1,6 +1,6 @@
 import React, {Reducer, useReducer, useState} from 'react';
 import '../app/App.css';
-import {Todolist} from "../Todolist";
+import {Todolist} from "../features/TodolistsList/Todolist/Todolist";
 import {v1} from "uuid";
 import AddItemForm from "../components/AddItemForm/AddItemForm";
 import AppBar from '@mui/material/AppBar'
@@ -20,8 +20,8 @@ import {
     changeTodolistTitleAC, FilterValuesType,
     removeTodolistAC, TodolistDomainType,
     todolistsReducer
-} from "../state/todolists-reducer";
-import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "../state/tasks-reducer";
+} from "../features/TodolistsList/todolists-reducer";
+import {addTaskAC, removeTaskAC, tasksReducer, updateTaskAC} from "../features/TodolistsList/tasks-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
 
 type ThemeMode = 'dark' | 'light'
