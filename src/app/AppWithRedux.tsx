@@ -10,6 +10,10 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import LinearProgress from "@mui/material/LinearProgress";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./store";
+import {RequestStatusType} from "./app-reducer";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -24,8 +28,7 @@ function AppWithRedux() {
         },
     })
 
-
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
     const changeModeHandler = () => {
         setThemeMode(themeMode == 'light' ? 'dark' : 'light')
@@ -46,6 +49,7 @@ function AppWithRedux() {
                         <Switch color={'default'} onChange={changeModeHandler}/>
                     </div>
                 </Toolbar>
+                {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>
 
             <Container fixed>
