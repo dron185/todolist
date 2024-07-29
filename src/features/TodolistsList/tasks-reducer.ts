@@ -1,8 +1,13 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from "./todolists-reducer";
+import {
+    AddTodolistActionType,
+    changeTodolistEntityStatusAC, ChangeTodolistEntityStatusActionType,
+    RemoveTodolistActionType,
+    SetTodolistsActionType
+} from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../app/store";
-import {setAppStatusAC, SetAppStatusActinType} from "../../app/app-reducer";
+import {setAppErrorAC, SetAppErrorActinType, setAppStatusAC, SetAppStatusActinType} from "../../app/app-reducer";
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -17,6 +22,8 @@ type ActionsType =
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof updateTaskAC>
     | SetAppStatusActinType
+    | SetAppErrorActinType
+    | ChangeTodolistEntityStatusActionType
 
 export let initialTasksState: TasksStateType = {}
 
@@ -94,10 +101,21 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: D
 }
 export const addTaskTC = (todolistId: string, taskTitle: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
     todolistsAPI.createTask(todolistId, taskTitle)
         .then(result => {
-            dispatch(addTaskAC(result.data.data.item))
-            dispatch(setAppStatusAC('succeeded'))
+            if (result.data.resultCode === 0) {
+                dispatch(addTaskAC(result.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
+                dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
+            } else {
+                if (result.data.messages.length) {
+                    dispatch(setAppErrorAC(result.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorAC('Some error occurred'))
+                }
+                dispatch(setAppStatusAC('failed'))
+            }
         })
 }
 export type UpdateDomainTaskModelType = {

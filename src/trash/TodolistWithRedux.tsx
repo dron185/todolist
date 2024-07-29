@@ -17,9 +17,10 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     FilterValuesType,
-    removeTodolistAC, TodolistDomainType
+    removeTodolistAC,
+    TodolistDomainType
 } from "../features/TodolistsList/todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
 
 type TodolistPropsType = {
     todolist: TodolistDomainType

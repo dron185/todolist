@@ -9,10 +9,11 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
 import {Task} from "./Task/Task";
-import {FilterValuesType} from "../todolists-reducer";
+import {changeTodolistEntityStatusAC, FilterValuesType} from "../todolists-reducer";
 import {TaskStatuses, TaskType} from "../../../api/api";
 import {useAppDispatch} from "../../../app/store";
 import {fetchTasksTC} from "../tasks-reducer";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 
 type TodolistPropsType = {
@@ -20,6 +21,7 @@ type TodolistPropsType = {
     todolistId: string
     tasks: Array<TaskType>
     filter: FilterValuesType
+    entityStatus: RequestStatusType
     addTask: (todolistId: string, title: string) => void
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
@@ -29,19 +31,20 @@ type TodolistPropsType = {
     updateTodolistTitle: (todolistId: string, newTitle: string) => void
 }
 
-export const Todolist = memo( ({
-                             removeTodolist,
-                             todolistId,
-                             title,
-                             tasks,
-                             filter,
-                             addTask,
-                             removeTask,
-                             changeTaskStatus,
-                             changeFilter,
-                             updateTaskTitle,
-                             updateTodolistTitle
-                         }: TodolistPropsType) => {
+export const Todolist = memo(({
+                                  removeTodolist,
+                                  todolistId,
+                                  title,
+                                  tasks,
+                                  filter,
+                                  entityStatus,
+                                  addTask,
+                                  removeTask,
+                                  changeTaskStatus,
+                                  changeFilter,
+                                  updateTaskTitle,
+                                  updateTodolistTitle
+                              }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     const dispatch = useAppDispatch()
@@ -61,12 +64,6 @@ export const Todolist = memo( ({
         return tasksForTodoList
     }, [tasks, filter])
 
-    // if (filter === 'completed') {
-    //     tasksForTodoList = tasks.filter(t => t.isDone)
-    // }
-    // if (filter === 'active') {
-    //     tasksForTodoList = tasks.filter(t => !t.isDone)
-    // }
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>There are no tasks</p>) : <List>
         {tasksForTodoList.map((t) => {
@@ -81,20 +78,20 @@ export const Todolist = memo( ({
         })}
     </List>
 
-    const OnAllClickHandler  = useCallback( () => changeFilter(todolistId, 'all'), [changeFilter, todolistId])
-    const OnActiveClickHandler  = useCallback( () => changeFilter(todolistId, 'active'), [changeFilter, todolistId])
-    const OnCompletedClickHandler  = useCallback( () => changeFilter(todolistId, 'completed'), [changeFilter, todolistId])
+    const OnAllClickHandler = useCallback(() => changeFilter(todolistId, 'all'), [changeFilter, todolistId])
+    const OnActiveClickHandler = useCallback(() => changeFilter(todolistId, 'active'), [changeFilter, todolistId])
+    const OnCompletedClickHandler = useCallback(() => changeFilter(todolistId, 'completed'), [changeFilter, todolistId])
 
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
     }
 
-    const addTaskHandler = useCallback(( title: string) => {
+    const addTaskHandler = useCallback((title: string) => {
         addTask(todolistId, title)
     }, [addTask, todolistId])
 
-    const updateTodolistTitleHandler = useCallback( (newTitle: string) => {
+    const updateTodolistTitleHandler = useCallback((newTitle: string) => {
         updateTodolistTitle(todolistId, newTitle)
     }, [updateTodolistTitle, todolistId])
 
@@ -105,11 +102,16 @@ export const Todolist = memo( ({
                     oldTitle={title}
                     updateTitle={updateTodolistTitleHandler}
                 />
-                <IconButton onClick={removeTodolistHandler}>
-                    <DeleteIcon />
+                <IconButton
+                    onClick={removeTodolistHandler}
+                    disabled={entityStatus === 'loading'}>
+                    <DeleteIcon/>
                 </IconButton>
             </div>
-            <AddItemForm addItem={addTaskHandler}/>
+            <AddItemForm
+                addItem={addTaskHandler}
+                disabled={entityStatus === 'loading'}
+            />
             {tasksList}
             <Box sx={filterButtonsContainerSx}>
                 <MyButton
@@ -133,15 +135,15 @@ export const Todolist = memo( ({
             </Box>
         </div>
     )
-} )
+})
 
 type MyButtonPropsType = {} & ButtonProps
 
-const MyButton = memo( ({variant, color, onClick, title, ...rest}: MyButtonPropsType) => {
+const MyButton = memo(({variant, color, onClick, title, ...rest}: MyButtonPropsType) => {
     return <Button
         variant={variant}
         color={color}
         onClick={onClick}
         {...rest}
     >{title}</Button>
-} )
+})

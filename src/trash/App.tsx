@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import '../app/App.css';
 import {Todolist} from "../features/TodolistsList/Todolist/Todolist";
 import {v1} from "uuid";
-import AddItemForm from "../components/AddItemForm/AddItemForm";
 
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -16,7 +15,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../api/api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -42,8 +41,8 @@ function App() {
     let todolistId2 = v1()
 
     let [todolists, setTodolists] = useState<TodolistDomainType[]>([
-        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
-        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '', order: 0},
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
@@ -105,7 +104,8 @@ function App() {
             title: title,
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: 'idle'
         }
         setTodolists([newTodolist, ...todolists])
         setTasks({...tasks, [todolistId]: []})
@@ -163,6 +163,7 @@ function App() {
                                             title={el.title}
                                             tasks={tasksForTodoList}
                                             filter={el.filter}
+                                            entityStatus={el.entityStatus}
                                             removeTask={removeTask}
                                             changeFilter={changeFilter}
                                             addTask={addTask}

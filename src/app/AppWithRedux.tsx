@@ -14,6 +14,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 type ThemeMode = 'dark' | 'light'
 
@@ -36,6 +37,7 @@ function AppWithRedux() {
 
     return (
         <ThemeProvider theme={theme}>
+            <ErrorSnackbar />
             <CssBaseline/>
             <AppBar position="static" sx={{mb: '30px'}}>
                 <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>

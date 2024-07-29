@@ -49,8 +49,8 @@ function AppWithReducers() {
 
     //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
     let [todolists, dispatchToTodolists] = useReducer<Reducer<TodolistDomainType[], ActionsType>>(todolistsReducer, [
-        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0,},
-        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '', order: 0,},
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
     ])
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
@@ -169,6 +169,7 @@ function AppWithReducers() {
                                             title={el.title}
                                             tasks={tasksForTodoList}
                                             filter={el.filter}
+                                            entityStatus={el.entityStatus}
                                             removeTask={removeTask}
                                             changeFilter={changeFilter}
                                             addTask={addTask}
