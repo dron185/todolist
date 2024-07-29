@@ -1,6 +1,6 @@
 import {todolistsAPI, TodolistType} from "../../api/api";
 import {Dispatch} from "redux";
-import {RequestStatusType, setAppStatusAC, SetAppStatusActinType} from "../../app/app-reducer";
+import {RequestStatusType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
@@ -13,7 +13,7 @@ export type ActionsType =
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistsActionType
-    | SetAppStatusActinType
+    | SetAppStatusActionType
     | ChangeTodolistEntityStatusActionType
 
 export let initialTodolistsState: TodolistDomainType[] = []

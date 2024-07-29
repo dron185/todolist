@@ -7,7 +7,8 @@ import {
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../app/store";
-import {setAppErrorAC, SetAppErrorActinType, setAppStatusAC, SetAppStatusActinType} from "../../app/app-reducer";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -21,8 +22,8 @@ type ActionsType =
     | SetTodolistsActionType
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof updateTaskAC>
-    | SetAppStatusActinType
-    | SetAppErrorActinType
+    | SetAppStatusActionType
+    | SetAppErrorActionType
     | ChangeTodolistEntityStatusActionType
 
 export let initialTasksState: TasksStateType = {}
@@ -109,13 +110,11 @@ export const addTaskTC = (todolistId: string, taskTitle: string) => (dispatch: D
                 dispatch(setAppStatusAC('succeeded'))
                 dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
             } else {
-                if (result.data.messages.length) {
-                    dispatch(setAppErrorAC(result.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('Some error occurred'))
-                }
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(result.data, dispatch)
             }
+        })
+        .catch(err => {
+            handleServerNetworkError(err, dispatch)
         })
 }
 export type UpdateDomainTaskModelType = {
@@ -144,8 +143,15 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
         }
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
-                dispatch(updateTaskAC(taskId, domainModel, todolistId))
-                dispatch(setAppStatusAC('succeeded'))
+                if (res.data.resultCode === 0) {
+                    dispatch(updateTaskAC(taskId, domainModel, todolistId))
+                    dispatch(setAppStatusAC('succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            })
+            .catch(err => {
+                handleServerNetworkError(err, dispatch)
             })
     }
 }
