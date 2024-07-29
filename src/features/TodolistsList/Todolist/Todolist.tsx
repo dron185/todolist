@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
 import {Task} from "./Task/Task";
-import {changeTodolistEntityStatusAC, FilterValuesType} from "../todolists-reducer";
+import {FilterValuesType} from "../todolists-reducer";
 import {TaskStatuses, TaskType} from "../../../api/api";
 import {useAppDispatch} from "../../../app/store";
 import {fetchTasksTC} from "../tasks-reducer";

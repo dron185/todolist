@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Snackbar from '@mui/material/Snackbar'
-import MuiAlert, { AlertProps } from '@mui/material/Alert'
+import MuiAlert, {AlertProps} from '@mui/material/Alert'
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {setAppErrorAC} from "../../app/app-reducer";
