@@ -15,6 +15,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {Outlet} from "react-router-dom";
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
 type PropsType = {
@@ -60,7 +61,8 @@ function AppWithRedux({demo = false}: PropsType) {
             </AppBar>
 
             <Container fixed>
-                <TodolistsList demo={demo}/>
+                <Outlet/>
+                {/*<TodolistsList demo={demo}/>*/}
             </Container>
         </ThemeProvider>
     );

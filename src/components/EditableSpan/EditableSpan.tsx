@@ -5,9 +5,10 @@ type PropsType = {
     oldTitle: string
     spanClass?: string
     updateTitle: (newTitle: string) => void
+    disabled?: boolean
 }
 
-export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle}: PropsType) => {
+export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle, disabled = false}: PropsType) => {
     const [edit, setEdit] = useState(false)
     const [newTitle, setNewTitle] = useState(oldTitle)
 
@@ -38,6 +39,7 @@ export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle}: Pro
                             onChange={changeTitleHandler}
                             onBlur={editModeHandler}
                             autoFocus
+                            disabled={disabled}
                         />
                     ) :
                     ( <span className={spanClass} onDoubleClick={editModeHandler}>{oldTitle}</span>)

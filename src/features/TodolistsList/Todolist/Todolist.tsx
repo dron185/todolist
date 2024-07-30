@@ -99,10 +99,12 @@ export const Todolist = memo(({
                 <EditableSpan
                     oldTitle={todolist.title}
                     updateTitle={updateTodolistTitleHandler}
+                    disabled={todolist.entityStatus === 'loading'}
                 />
                 <IconButton
                     onClick={removeTodolistHandler}
-                    disabled={todolist.entityStatus === 'loading'}>
+                    disabled={todolist.entityStatus === 'loading'}
+                >
                     <DeleteIcon/>
                 </IconButton>
             </div>

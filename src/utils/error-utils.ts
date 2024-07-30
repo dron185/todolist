@@ -10,7 +10,7 @@ import {ResponseType} from '../api/api'
 type ErrorUtilsDispatchType = Dispatch<SetAppErrorActionType | SetAppStatusActionType>
 
 // generic function
-export const handleServerAppError = <T, >(
+export const handleServerAppError = <T>(
     data: ResponseType<T>,
     dispatch: ErrorUtilsDispatchType
 ) => {
@@ -26,6 +26,6 @@ export const handleServerNetworkError = (
     error: { message: string },
     dispatch: ErrorUtilsDispatchType
 ) => {
-    dispatch(setAppErrorAC(error.message))
+    dispatch(setAppErrorAC(error.message ? error.message : 'Some error occurred'))
     dispatch(setAppStatusAC('failed'))
 }
