@@ -92,3 +92,7 @@ export const AddItemFormErrorStory: Story = {
         </div>
     }
 }
+
+
+export const AddItemFormDisabledExample = (props: any) =>
+    <AddItemForm disabled={true} addItem={action('addItem')}/>

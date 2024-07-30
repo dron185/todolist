@@ -9,7 +9,7 @@ type PropsType = {
     disabled?: boolean
 }
 
-export const AddItemForm = memo( ({addItem, disabled}: PropsType) => {
+export const AddItemForm = memo( ({addItem, disabled = false}: PropsType) => {
     const [newItemTitle, setNewItemTitle] = React.useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
