@@ -17,7 +17,11 @@ import AddItemForm from "../../components/AddItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/Todolist";
 
-export const TodolistsList: React.FC = () => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
@@ -25,6 +29,9 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if (demo) {
+            return;
+        }
         dispatch(fetchTodolistsTC());
     }, [])
 
@@ -93,6 +100,7 @@ export const TodolistsList: React.FC = () => {
                                         removeTodolist={removeTodolist}
                                         updateTaskTitle={updateTaskTitle}
                                         updateTodolistTitle={updateTodolistTitle}
+                                        demo={demo}
                                     />
                                 </Paper>
                             </Grid>

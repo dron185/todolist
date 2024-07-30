@@ -16,9 +16,14 @@ import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
+// demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
+type PropsType = {
+    demo?: boolean
+}
+
 type ThemeMode = 'dark' | 'light'
 
-function AppWithRedux() {
+function AppWithRedux({demo = false}: PropsType) {
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
@@ -55,7 +60,7 @@ function AppWithRedux() {
             </AppBar>
 
             <Container fixed>
-                <TodolistsList/>
+                <TodolistsList demo={demo}/>
             </Container>
         </ThemeProvider>
     );

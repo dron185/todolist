@@ -17,4 +17,8 @@ export default meta;
 /*type Story = StoryObj<typeof AppWithRedux>;*/
 type Story = StoryObj<typeof meta>;
 
-export const AppWithReduxStory: Story = {}
+/*export const AppWithReduxStory: Story = {}*/
+export const AppWithReduxStory = (props: any) => {
+    return (<AppWithRedux demo={true} />)
+}
+
