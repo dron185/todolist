@@ -165,11 +165,8 @@ function AppWithReducers() {
                                     <Paper elevation={5} sx={{p: '20px'}}>
                                         <Todolist
                                             key={el.id}
-                                            todolistId={el.id}
-                                            title={el.title}
+                                            todolist={el}
                                             tasks={tasksForTodoList}
-                                            filter={el.filter}
-                                            entityStatus={el.entityStatus}
                                             removeTask={removeTask}
                                             changeFilter={changeFilter}
                                             addTask={addTask}
