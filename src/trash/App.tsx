@@ -16,11 +16,16 @@ import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
+import {RequestStatusType} from "../app/app-reducer";
 
 type ThemeMode = 'dark' | 'light'
 
+type TaskDomainType = TaskType & {
+    entityStatus: RequestStatusType
+}
+
 export type TasksStateType = {
-    [key: string]: TaskType[]
+    [key: string]: TaskDomainType[]
 }
 
 function App() {
@@ -47,12 +52,12 @@ function App() {
 
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
-            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, todoListId: todolistId1, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: todolistId1, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, todoListId: todolistId1, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, entityStatus: 'idle'},
+            {id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: todolistId1, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, entityStatus: 'idle'},
         ],
         [todolistId2]: [
-            {id: v1(), title: 'HTML&CSS-2', status: TaskStatuses.Completed, todoListId: todolistId2, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
-            {id: v1(), title: 'JS-2', status: TaskStatuses.Completed, todoListId: todolistId2, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'HTML&CSS-2', status: TaskStatuses.Completed, todoListId: todolistId2, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, entityStatus: 'idle'},
+            {id: v1(), title: 'JS-2', status: TaskStatuses.Completed, todoListId: todolistId2, description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, entityStatus: 'idle'},
         ],
     })
     console.log(tasks[todolistId1])
@@ -62,7 +67,7 @@ function App() {
     }
 
     const addTask = (todolistId: string, title: string) => {
-        const newTask = {
+        const newTask: TaskDomainType = {
             id: v1(),
             title: title,
             status: TaskStatuses.New,
@@ -72,7 +77,8 @@ function App() {
             deadline: '',
             addedDate: '',
             order: 0,
-            priority: TaskPriorities.Low
+            priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         };
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
@@ -181,3 +187,5 @@ function App() {
 }
 
 export default App;
+
+

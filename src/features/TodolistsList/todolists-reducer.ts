@@ -105,6 +105,7 @@ export const addTodolistTC = (title: string) => (dispatch: ThunkDispatch) => {
 
 export const changeTodolistTitleTC = (todolistId: string, title: string) => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
     todolistsAPI.updateTodolist(todolistId, title)
         .then(res => {
             dispatch(changeTodolistTitleAC(todolistId, title))
@@ -112,6 +113,9 @@ export const changeTodolistTitleTC = (todolistId: string, title: string) => (dis
         })
         .catch(err => {
             handleServerNetworkError(err, dispatch)
+        })
+        .finally(() => {
+            dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
         })
 }
 

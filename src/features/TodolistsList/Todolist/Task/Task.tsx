@@ -5,11 +5,12 @@ import Checkbox from "@mui/material/Checkbox";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {TaskStatuses, TaskType} from "../../../../api/api";
+import {TaskStatuses} from "../../../../api/api";
+import {TaskDomainType} from "../../tasks-reducer";
 
 
 export type TaskPropsType = {
-    task: TaskType
+    task: TaskDomainType
     todolistId: string
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
@@ -31,12 +32,23 @@ export const Task = memo(({task, removeTask, changeTaskStatus, updateTaskTitle, 
                     checked={task.status === TaskStatuses.Completed}
                     onChange={changeStatusHandler}
                     color="success"
+                    disabled={task.entityStatus === 'loading'}
                 />
-                <EditableSpan oldTitle={task.title} updateTitle={updateTaskTitleHandler}/>
+                <EditableSpan
+                    oldTitle={task.title}
+                    updateTitle={updateTaskTitleHandler}
+                    disabled={task.entityStatus === 'loading'}
+                    entityStatus={task.entityStatus}
+                />
             </div>
-            <IconButton onClick={removeTaskHandler}>
+            <IconButton
+                onClick={removeTaskHandler}
+                disabled={task.entityStatus === 'loading'}
+            >
                 <DeleteIcon/>
             </IconButton>
         </ListItem>
     )
 });
+
+

@@ -4,6 +4,8 @@ import {fn} from "@storybook/test";
 import {useState} from "react";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../../../api/api";
+import { RequestStatusType } from '../../../../app/app-reducer';
+import { TaskDomainType } from '../../tasks-reducer';
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLISTS/Task',
@@ -13,7 +15,19 @@ const meta: Meta<typeof Task> = {
     },
     tags: ['autodocs'],
     args: {
-        task: {id: 'dfdf', title: 'JS',  status: TaskStatuses.New, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+        task: {
+            id: 'dfdf',
+            title: 'JS',
+            status: TaskStatuses.New,
+            todoListId: "todolistId1",
+            description: '',
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriorities.Low,
+            entityStatus: "idle" as RequestStatusType
+        },
         todolistId: 'dfdsaaa',
         removeTask: fn(),
         changeTaskStatus: fn(),
@@ -28,13 +42,25 @@ export const TaskIsNotDoneStory: Story = {}
 
 export const TaskIsDoneStory: Story = {
     args: {
-        task: {id: 'dfdffghgh', title: 'CSS', status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+        task: {id: 'dfdffghgh', title: 'CSS', status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low, entityStatus: "idle"},
     }
 }
 
 export const TaskToggleStory: Story = {
     render: (args) => {
-        const [task, setTask] = useState({id: v1(), title: 'JS',  status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low})
+        const [task, setTask] = useState<TaskDomainType>({
+            id: v1(),
+            title: 'JS',
+            status: TaskStatuses.Completed,
+            todoListId: "todolistId1",
+            description: '',
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriorities.Low,
+            entityStatus: "idle"
+        })
 
         function changeTaskStatus () {
             setTask({...task,

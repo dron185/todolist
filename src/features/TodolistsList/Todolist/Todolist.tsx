@@ -10,14 +10,14 @@ import {filterButtonsContainerSx} from './Todolist.styles'
 import {ButtonProps} from "@mui/material/Button/Button";
 import {Task} from "./Task/Task";
 import {FilterValuesType, TodolistDomainType} from "../todolists-reducer";
-import {TaskStatuses, TaskType} from "../../../api/api";
+import {TaskStatuses} from "../../../api/api";
 import {useAppDispatch} from "../../../app/store";
-import {fetchTasksTC} from "../tasks-reducer";
+import {fetchTasksTC, TaskDomainType} from "../tasks-reducer";
 
 
 type TodolistPropsType = {
     todolist: TodolistDomainType
-    tasks: Array<TaskType>
+    tasks: Array<TaskDomainType>
     addTask: (todolistId: string, title: string) => void
     removeTask: (todolistId: string, taskId: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
@@ -100,6 +100,7 @@ export const Todolist = memo(({
                     oldTitle={todolist.title}
                     updateTitle={updateTodolistTitleHandler}
                     disabled={todolist.entityStatus === 'loading'}
+                    entityStatus={todolist.entityStatus}
                 />
                 <IconButton
                     onClick={removeTodolistHandler}

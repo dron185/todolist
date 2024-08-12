@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import {filterButtonsContainerSx, getListItemSx} from '../features/TodolistsList/Todolist/Todolist.styles'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../app/store";
-import {addTaskAC, removeTaskAC, updateTaskAC} from "../features/TodolistsList/tasks-reducer";
+import {addTaskAC, removeTaskAC, TaskDomainType, updateTaskAC} from "../features/TodolistsList/tasks-reducer";
 import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
@@ -29,7 +29,7 @@ type TodolistPropsType = {
 export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => {
     // const {id, filter, title} = props.todolist
 
-    const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[todolist.id])
+    const tasks = useSelector<AppRootStateType, Array<TaskDomainType>>(state => state.tasks[todolist.id])
     const dispatch = useDispatch()
 
     const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
@@ -89,7 +89,11 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
                             onChange={changeStatusHandler}
                             color="success"
                         />
-                        <EditableSpan oldTitle={t.title} updateTitle={updateTaskTitleHandler}/>
+                        <EditableSpan
+                            oldTitle={t.title}
+                            updateTitle={updateTaskTitleHandler}
+                            entityStatus={t.entityStatus}
+                        />
                     </div>
                     <IconButton onClick={removeTaskHandler}>
                         <DeleteIcon/>
@@ -105,6 +109,7 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
                 <EditableSpan
                     oldTitle={todolist.title}
                     updateTitle={updateTodolistTitleHandler}
+                    entityStatus={todolist.entityStatus}
                 />
                 <IconButton onClick={removeTodolistHandler}>
                     <DeleteIcon/>

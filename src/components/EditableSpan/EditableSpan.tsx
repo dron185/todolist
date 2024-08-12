@@ -1,19 +1,21 @@
 import TextField from '@mui/material/TextField';
 import React, {ChangeEvent, useState} from 'react';
+import {RequestStatusType} from "../../app/app-reducer";
 
 type PropsType = {
     oldTitle: string
     spanClass?: string
     updateTitle: (newTitle: string) => void
     disabled?: boolean
+    entityStatus: RequestStatusType
 }
 
-export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle, disabled = false}: PropsType) => {
+export const EditableSpan = React.memo( ({oldTitle, spanClass, updateTitle, disabled = false, entityStatus}: PropsType) => {
     const [edit, setEdit] = useState(false)
     const [newTitle, setNewTitle] = useState(oldTitle)
 
     const editModeHandler = () => {
-        setEdit(!edit)
+        entityStatus !== 'loading' && setEdit(!edit)
         if (edit) {
             updateTitleHandler()
         }
