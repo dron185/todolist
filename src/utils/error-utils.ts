@@ -15,17 +15,17 @@ export const handleServerAppError = <T>(
     dispatch: ErrorUtilsDispatchType
 ) => {
     if (data.messages.length) {
-        dispatch(setAppErrorAC(data.messages[0]))
+        dispatch(setAppErrorAC({error: data.messages[0]}))
     } else {
-        dispatch(setAppErrorAC('Some error occurred'))
+        dispatch(setAppErrorAC({error: 'Some error occurred'}))
     }
-    dispatch(setAppStatusAC('failed'))
+    dispatch(setAppStatusAC({status: 'failed'}))
 }
 
 export const handleServerNetworkError = (
     error: { message: string },
     dispatch: ErrorUtilsDispatchType
 ) => {
-    dispatch(setAppErrorAC(error.message ? error.message : 'Some error occurred'))
-    dispatch(setAppStatusAC('failed'))
+    dispatch(setAppErrorAC({error: error.message ? error.message : 'Some error occurred'}))
+    dispatch(setAppStatusAC({status: 'failed'}))
 }
