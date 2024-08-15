@@ -20,43 +20,46 @@ import {
     removeTodolistAC,
     TodolistDomainType
 } from "../features/TodolistsList/todolists-reducer";
-import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
+import {TaskPriorities, TaskStatuses} from "../api/api";
 
 type TodolistPropsType = {
     todolist: TodolistDomainType
 }
 
-export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => {
+export const TodolistWithRedux = React.memo(({todolist}: TodolistPropsType) => {
     // const {id, filter, title} = props.todolist
 
     const tasks = useSelector<AppRootStateType, Array<TaskDomainType>>(state => state.tasks[todolist.id])
     const dispatch = useDispatch()
 
-    const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
+    const changeFilterHandlerCreator = useCallback((filter: FilterValuesType) => {
         return () => dispatch(changeTodolistFilterAC({todolistId: todolist.id, filter}))
-    }, [todolist.id, todolist.filter] )
+    }, [todolist.id, todolist.filter])
 
-    const removeTodolistHandler = useCallback( () => {
+    const removeTodolistHandler = useCallback(() => {
         dispatch(removeTodolistAC({todolistId: todolist.id}))
-    },[todolist.id] )
+    }, [todolist.id])
 
-    const addTaskHandler = useCallback( (title: string) => {
+    const addTaskHandler = useCallback((title: string) => {
         dispatch(addTaskAC({
-            todoListId: todolist.id,
-            title: title,
-            status: TaskStatuses.New,
-            addedDate: '',
-            id: 'id exists',
-            deadline: '',
-            description: '',
-            order: 0,
-            priority: TaskPriorities.Low,
-            startDate: ''}))
-    }, [todolist.id] )
+            task: {
+                todoListId: todolist.id,
+                title: title,
+                status: TaskStatuses.New,
+                addedDate: '',
+                id: 'id exists',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: ''
+            }
+        }))
+    }, [todolist.id])
 
-    const updateTodolistTitleHandler = useCallback( (newTitle: string) => {
+    const updateTodolistTitleHandler = useCallback((newTitle: string) => {
         dispatch(changeTodolistTitleAC({todolistId: todolist.id, title: newTitle}))
-    }, [todolist.id] )
+    }, [todolist.id])
 
 
     let tasksForTodolist = tasks;
@@ -70,15 +73,15 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
 
     const tasksList: JSX.Element = tasks.length === 0 ? (<p>Тасок нет</p>) : <List>
         {tasksForTodolist.map((t) => {
-            const removeTaskHandler = () => dispatch(removeTaskAC(t.id, todolist.id))
+            const removeTaskHandler = () => dispatch(removeTaskAC({taskId: t.id, todolistId: todolist.id}))
 
             const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                 const newTaskStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
-                dispatch(updateTaskAC(t.id, {status: newTaskStatus}, todolist.id))
+                dispatch(updateTaskAC({taskId: t.id, model: {status: newTaskStatus}, todolistId: todolist.id}))
             }
 
             const updateTaskTitleHandler = (newTitle: string) => {
-                dispatch(updateTaskAC(t.id, {title: newTitle}, todolist.id))
+                dispatch(updateTaskAC({taskId: t.id, model: {title: newTitle}, todolistId: todolist.id}))
             }
 
             return (
@@ -136,8 +139,7 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
             </Box>
         </div>
     )
-} );
-
+});
 
 
 // const Task => () => {
