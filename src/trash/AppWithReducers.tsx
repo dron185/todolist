@@ -93,23 +93,24 @@ function AppWithReducers() {
 
     // filter
     const changeFilter = (todolistId: string, value: FilterValuesType) => {
-        let action = changeTodolistFilterAC(todolistId, value)
+        let action = changeTodolistFilterAC({todolistId, filter: value})
         dispatchToTodolists(action)
     }
 
     const removeTodolist = (todolistId: string) => {
-        let action = removeTodolistAC(todolistId)
+        let action = removeTodolistAC({todolistId})
         dispatchToTodolists(action)
         dispatchToTasks(action)
     }
 
     const addTodolist = (title: string) => {
         let action = addTodolistAC({
+        todolist: {
             id: v1(),
             addedDate: '',
             order: 0,
             title: title
-        });
+        }});
         dispatchToTodolists(action)
         dispatchToTasks(action)
     }
@@ -120,7 +121,7 @@ function AppWithReducers() {
     }
 
     const updateTodolistTitle = (todolistId: string, newTitle: string) => {
-        let action = changeTodolistTitleAC(todolistId, newTitle)
+        let action = changeTodolistTitleAC({todolistId, title: newTitle})
         dispatchToTodolists(action);
     }
 

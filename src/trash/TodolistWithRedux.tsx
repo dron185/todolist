@@ -33,11 +33,11 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
     const dispatch = useDispatch()
 
     const changeFilterHandlerCreator = useCallback( (filter: FilterValuesType) => {
-        return () => dispatch(changeTodolistFilterAC(todolist.id, filter))
+        return () => dispatch(changeTodolistFilterAC({todolistId: todolist.id, filter}))
     }, [todolist.id, todolist.filter] )
 
     const removeTodolistHandler = useCallback( () => {
-        dispatch(removeTodolistAC(todolist.id))
+        dispatch(removeTodolistAC({todolistId: todolist.id}))
     },[todolist.id] )
 
     const addTaskHandler = useCallback( (title: string) => {
@@ -55,7 +55,7 @@ export const TodolistWithRedux = React.memo( ({todolist}: TodolistPropsType) => 
     }, [todolist.id] )
 
     const updateTodolistTitleHandler = useCallback( (newTitle: string) => {
-        dispatch(changeTodolistTitleAC(todolist.id, newTitle))
+        dispatch(changeTodolistTitleAC({todolistId: todolist.id, title: newTitle}))
     }, [todolist.id] )
 
 

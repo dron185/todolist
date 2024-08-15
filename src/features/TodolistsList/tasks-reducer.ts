@@ -1,8 +1,9 @@
 import {
+    addTodolistAC,
     AddTodolistActionType,
     changeTodolistEntityStatusAC,
-    ChangeTodolistEntityStatusActionType,
-    RemoveTodolistActionType,
+    ChangeTodolistEntityStatusActionType, removeTodolistAC,
+    RemoveTodolistActionType, setTodolistsAC,
     SetTodolistsActionType
 } from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/api";
@@ -23,18 +24,18 @@ export const tasksReducer = (state: TasksStateType = initialTasksState, action: 
             return {...state,
                 [action.todolistId]: state[action.todolistId]
                     .map(t => t.id === action.taskId ? {...t, ...action.model} : t)}
-        case "ADD-TODOLIST":
-            return {...state, [action.todolist.id]: []}
-        case "REMOVE-TODOLIST": {
+        case addTodolistAC.type:
+            return {...state, [action.payload.todolist.id]: []}
+        case removeTodolistAC.type: {
             const stateCopy = {...state};
-            delete stateCopy[action.todolistId]
+            delete stateCopy[action.payload.todolistId]
             return stateCopy
         }
         // фигурные скобки в case нужны тогда, когда мы определяем переменные,
         // чтобы не было пересечения с другими переменными
-        case "SET-TODOLISTS":
+        case setTodolistsAC.type:
             const stateCopy = {...state};
-            action.todolists.forEach(tl => {
+            action.payload.todolists.forEach(tl => {
                 stateCopy[tl.id] = [];
             })
             return stateCopy
@@ -110,13 +111,13 @@ export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: T
 }
 export const addTaskTC = (todolistId: string, taskTitle: string) => (dispatch: ThunkDispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
-    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
+    dispatch(changeTodolistEntityStatusAC({todolistId, status: 'loading'}))
     todolistsAPI.createTask(todolistId, taskTitle)
         .then(result => {
             if (result.data.resultCode === 0) {
                 dispatch(addTaskAC(result.data.data.item))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
-                dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
+                dispatch(changeTodolistEntityStatusAC({todolistId, status: 'succeeded'}))
             } else {
                 handleServerAppError(result.data, dispatch)
             }

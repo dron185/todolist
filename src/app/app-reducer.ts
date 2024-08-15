@@ -11,9 +11,9 @@ export type InitialStateType = {
     isInitialized: boolean
 }
 
-const initialState = {
-    status: 'idle' as RequestStatusType,
-    error: null as null | string,
+const initialState: InitialStateType = {
+    status: 'idle',
+    error: null,
     isInitialized: false
 }
 
@@ -34,9 +34,7 @@ const slice = createSlice({
 })
 
 export const appReducer = slice.reducer;
-
 export const {setAppStatusAC, setAppErrorAC, setAppInitializedAC} = slice.actions;
-
 
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
