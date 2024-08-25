@@ -3,11 +3,13 @@ import {Dispatch} from "redux";
 import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
 import {handleServerNetworkError} from "../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {fetchTasksTC} from "./tasks-reducer";
 
 export type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
 export type AddTodolistActionType = ReturnType<typeof addTodolistAC>
 export type SetTodolistsActionType = ReturnType<typeof setTodolistsAC>
 export type ChangeTodolistEntityStatusActionType = ReturnType<typeof changeTodolistEntityStatusAC>
+export type ClearTodosDataActionType = ReturnType<typeof clearTodosDataAC>
 
 export const initialState: TodolistDomainType[] = []
 
@@ -39,13 +41,16 @@ const slice = createSlice({
             const index = state.findIndex(tl => tl.id === action.payload.todolistId);
             state[index].entityStatus = action.payload.status;
         },
+        clearTodosDataAC() {
+            return []
+        }
 
     }
 })
 
 export const todolistsReducer = slice.reducer;
 export const {removeTodolistAC, addTodolistAC, changeTodolistTitleAC,
-    changeTodolistFilterAC, setTodolistsAC, changeTodolistEntityStatusAC} = slice.actions;
+    changeTodolistFilterAC, setTodolistsAC, changeTodolistEntityStatusAC, clearTodosDataAC} = slice.actions;
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
@@ -54,12 +59,18 @@ export type TodolistDomainType = TodolistType & {
 }
 
 // thunks
-export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+export const fetchTodolistsTC = () => (dispatch: any) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolistsAPI.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC({todolists: res.data}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
+            return res.data
+        })
+        .then((todos) => {
+            todos.forEach(tl => {
+                dispatch(fetchTasksTC(tl.id))
+            })
         })
         .catch(err => {
             handleServerNetworkError(err, dispatch)

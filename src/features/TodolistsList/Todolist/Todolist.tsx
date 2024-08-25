@@ -43,12 +43,12 @@ export const Todolist = memo(({
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        if (demo) {
-            return;
-        }
-        dispatch(fetchTasksTC(todolist.id))
-    }, []);
+    // useEffect(() => {
+    //     if (demo) {
+    //         return;
+    //     }
+    //     dispatch(fetchTasksTC(todolist.id))
+    // }, []);
 
     let tasksForTodoList = tasks;
 

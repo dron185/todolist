@@ -1,4 +1,10 @@
-import {addTodolistAC, changeTodolistEntityStatusAC, removeTodolistAC, setTodolistsAC} from "./todolists-reducer";
+import {
+    addTodolistAC,
+    changeTodolistEntityStatusAC,
+    clearTodosDataAC,
+    removeTodolistAC,
+    setTodolistsAC
+} from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../app/store";
@@ -53,6 +59,9 @@ const slice = createSlice({
             action.payload.todolists.forEach(tl => {
                 state[tl.id] = [];
             })
+        });
+        builder.addCase(clearTodosDataAC, () => {
+            return {}
         });
     }
 })
