@@ -46,7 +46,9 @@ function AppWithRedux({demo = false}: PropsType) {
     }
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        if (!demo) {
+            dispatch(initializeAppTC())
+        }
     }, []);
 
     const logoutHandler = useCallback(() => {

@@ -1,17 +1,20 @@
 import {Provider} from "react-redux";
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {combineReducers} from "redux";
 import {tasksReducer} from "../../features/TodolistsList/tasks-reducer";
 import {todolistsReducer} from "../../features/TodolistsList/todolists-reducer";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/api";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType, RootReducerType} from "../../app/store";
 import {appReducer} from "../../app/app-reducer";
-import thunkMiddleware from "redux-thunk";
+import {authReducer} from "../../features/Login/auth-reducer";
+import {configureStore} from "@reduxjs/toolkit";
+import React from "react";
 
-const rootReducer = combineReducers({
+const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer,
 })
 
 
@@ -32,17 +35,26 @@ const initialGlobalState: AppRootStateType = {
     },
     app: {
         error: null,
-        status: 'idle',
-        isInitialized: false
+        status: 'succeeded',
+        isInitialized: true
     },
     auth: {
-        isLoggedIn: false
+        isLoggedIn: true
     }
 };
 
-export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware));
+//export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware));
+
+export const storyBookStore = configureStore({
+    reducer: rootReducer,
+    preloadedState: initialGlobalState,
+    //middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+});
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
     return <Provider store={storyBookStore}>{storyFn()}</Provider>
 }
 
+// export const BrowserRouterDecorator = (storyFn: () => React.ReactNode) => {
+//     return <MemoryRouter >{storyFn()}</MemoryRouter>
+// }
