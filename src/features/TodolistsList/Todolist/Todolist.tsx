@@ -50,7 +50,7 @@ export const Todolist = memo(
   }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
 
-    const dispatch = useAppDispatch()
+    //const dispatch = useAppDispatch()
     // useEffect(() => {
     //     if (demo) {
     //         return;

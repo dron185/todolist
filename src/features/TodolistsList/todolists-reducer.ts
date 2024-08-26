@@ -35,7 +35,7 @@ const slice = createSlice({
       action: PayloadAction<{ todolistId: string; title: string }>
     ) {
       const index = state.findIndex((tl) => tl.id === action.payload.todolistId)
-      state[index].title = action.payload.title
+      if (index !== -1) state[index].title = action.payload.title
     },
     changeTodolistFilterAC(
       state,

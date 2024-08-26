@@ -99,20 +99,21 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(addTodolistAC, (state, action) => {
-      state[action.payload.todolist.id] = []
-    })
-    builder.addCase(removeTodolistAC, (state, action) => {
-      delete state[action.payload.todolistId]
-    })
-    builder.addCase(setTodolistsAC, (state, action) => {
-      action.payload.todolists.forEach((tl) => {
-        state[tl.id] = []
+    builder
+      .addCase(addTodolistAC, (state, action) => {
+        state[action.payload.todolist.id] = []
       })
-    })
-    builder.addCase(clearTodosDataAC, () => {
-      return {}
-    })
+      .addCase(removeTodolistAC, (state, action) => {
+        delete state[action.payload.todolistId]
+      })
+      .addCase(setTodolistsAC, (state, action) => {
+        action.payload.todolists.forEach((tl) => {
+          state[tl.id] = []
+        })
+      })
+      .addCase(clearTodosDataAC, () => {
+        return {}
+      })
   },
 })
 
