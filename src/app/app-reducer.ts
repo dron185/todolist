@@ -1,11 +1,11 @@
 import { authAPI } from 'api/api'
-import { Dispatch } from 'redux'
 import { setIsLoggedInAC } from 'features/Login/auth-reducer'
 import {
   handleServerAppError,
   handleServerNetworkError,
 } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppThunk } from 'app/store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
@@ -50,7 +50,7 @@ export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 
 // thunks
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = (): AppThunk => (dispatch) => {
   dispatch(setAppStatusAC({ status: 'loading' }))
   authAPI
     .me()
