@@ -1,20 +1,11 @@
-import {
-  setAppErrorAC,
-  setAppStatusAC,
-  SetAppStatusActionType,
-  SetAppErrorActionType,
-} from 'app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from 'app/app-reducer'
 import { Dispatch } from 'redux'
 import { ResponseType } from 'api/api'
-
-type ErrorUtilsDispatchType = Dispatch<
-  SetAppErrorActionType | SetAppStatusActionType
->
 
 // generic function
 export const handleServerAppError = <T>(
   data: ResponseType<T>,
-  dispatch: ErrorUtilsDispatchType
+  dispatch: Dispatch
 ) => {
   if (data.messages.length) {
     dispatch(setAppErrorAC({ error: data.messages[0] }))
@@ -26,7 +17,7 @@ export const handleServerAppError = <T>(
 
 export const handleServerNetworkError = (
   error: { message: string },
-  dispatch: ErrorUtilsDispatchType
+  dispatch: Dispatch
 ) => {
   dispatch(
     setAppErrorAC({

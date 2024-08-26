@@ -46,9 +46,6 @@ export const appReducer = slice.reducer
 export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } =
   slice.actions
 
-export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
-export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-
 // thunks
 export const initializeAppTC = (): AppThunk => (dispatch) => {
   dispatch(setAppStatusAC({ status: 'loading' }))
