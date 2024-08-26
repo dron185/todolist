@@ -1,72 +1,72 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import TextField from '@mui/material/TextField/TextField';
-import IconButton from '@mui/material/IconButton';
+import React, { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
+import TextField from '@mui/material/TextField/TextField'
+import IconButton from '@mui/material/IconButton'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 
-
 type PropsType = {
-    addItem: (title: string) => void
-    disabled?: boolean
+  addItem: (title: string) => void
+  disabled?: boolean
 }
 
-export const AddItemForm = memo( ({addItem, disabled = false}: PropsType) => {
-    const [newItemTitle, setNewItemTitle] = React.useState("")
-    const [inputError, setInputError] = useState<string | null>(null)
+export const AddItemForm = memo(({ addItem, disabled = false }: PropsType) => {
+  const [newItemTitle, setNewItemTitle] = React.useState('')
+  const [inputError, setInputError] = useState<string | null>(null)
 
-    const maxTitleLength = 15
-    const isAddItemPossible = newItemTitle.length && newItemTitle.length <= maxTitleLength
+  const maxTitleLength = 15
+  const isAddItemPossible =
+    newItemTitle.length && newItemTitle.length <= maxTitleLength
 
-    const addNewItemHandler = () => {
-        const trimmedTaskTitle = newItemTitle.trim()
-        if (trimmedTaskTitle !== '') {
-            addItem(trimmedTaskTitle)
-        } else {
-            setInputError('Title is required')
-        }
-        setNewItemTitle("")
+  const addNewItemHandler = () => {
+    const trimmedTaskTitle = newItemTitle.trim()
+    if (trimmedTaskTitle !== '') {
+      addItem(trimmedTaskTitle)
+    } else {
+      setInputError('Title is required')
+    }
+    setNewItemTitle('')
+  }
+
+  const changeNewItemTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewItemTitle(e.currentTarget.value)
+  }
+
+  const addItemOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (inputError !== null) {
+      setInputError(null)
     }
 
-    const changeNewItemTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewItemTitle(e.currentTarget.value)
+    if (e.key === 'Enter' && isAddItemPossible) {
+      addNewItemHandler()
     }
+  }
 
-    const addItemOnKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (inputError !== null) {
-            setInputError(null)
-        }
+  return (
+    <div>
+      <TextField
+        label='Enter a title'
+        variant={'outlined'}
+        className={inputError ? 'error' : ''}
+        value={newItemTitle}
+        size={'small'}
+        error={!!inputError}
+        helperText={inputError}
+        onChange={changeNewItemTitleHandler}
+        onKeyUp={addItemOnKeyDownHandler}
+        disabled={disabled}
+      />
 
-        if (e.key === 'Enter' && isAddItemPossible) {
-            addNewItemHandler()
-        }
-    }
+      <IconButton
+        onClick={addNewItemHandler}
+        color={'primary'}
+        disabled={disabled}
+      >
+        <AddBoxIcon />
+      </IconButton>
 
-    return (
-        <div>
-            <TextField
-                label="Enter a title"
-                variant={'outlined'}
-                className={inputError ? 'error' : ''}
-                value={newItemTitle}
-                size={'small'}
-                error={!!inputError}
-                helperText={inputError}
-                onChange={changeNewItemTitleHandler}
-                onKeyUp={addItemOnKeyDownHandler}
-                disabled={disabled}
-            />
+      {/*{!newItemTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}*/}
+      {/*{newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}*/}
+    </div>
+  )
+})
 
-            <IconButton
-                onClick={addNewItemHandler}
-                color={'primary'}
-                disabled={disabled}
-            >
-                <AddBoxIcon />
-            </IconButton>
-
-            {/*{!newItemTitle.length && <div style={{color: inputError ? "red" : "black"}}>Please, enter title</div>}*/}
-            {/*{newItemTitle.length > maxTitleLength && <div>Task title is too long</div>}*/}
-        </div>
-    );
-} );
-
-export default AddItemForm;
+export default AddItemForm
