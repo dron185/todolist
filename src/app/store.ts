@@ -1,6 +1,6 @@
 import { tasksReducer } from 'features/TodolistsList/tasks-reducer'
 import { todolistsReducer } from 'features/TodolistsList/todolists-reducer'
-import { ThunkDispatch } from 'redux-thunk'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 import { appReducer } from './app-reducer'
 import { authReducer } from 'features/Login/auth-reducer'
@@ -26,6 +26,13 @@ export const store = configureStore({ reducer: rootReducer })
 
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof store.getState>
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppRootStateType,
+  unknown,
+  UnknownAction
+>
 
 export type ThunkDispatchType = ThunkDispatch<
   AppRootStateType,

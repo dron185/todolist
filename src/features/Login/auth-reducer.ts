@@ -1,21 +1,19 @@
-import { Dispatch } from 'redux'
-import {
-  SetAppErrorActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from 'app/app-reducer'
+import { setAppStatusAC } from 'app/app-reducer'
 import { authAPI, LoginParamsType } from 'api/api'
 import {
   handleServerAppError,
   handleServerNetworkError,
 } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {
-  clearTodosDataAC,
-  ClearTodosDataActionType,
-} from '../TodolistsList/todolists-reducer'
+import { clearTodosDataAC } from '../TodolistsList/todolists-reducer'
+import { AppThunk } from 'app/store'
 
-const initialState /*: InitialStateType*/ = {
+// types
+type InitialStateType = {
+  isLoggedIn: boolean
+}
+
+const initialState: InitialStateType = {
   isLoggedIn: false,
 }
 
@@ -50,10 +48,8 @@ export const setIsLoggedInAC = slice.actions.setIsLoggedInAC
 
 // thunks
 export const loginTC =
-  (data: LoginParamsType) =>
-  (
-    dispatch: Dispatch /*<ActionsType | SetAppStatusActionType | SetAppErrorActionType>*/
-  ) => {
+  (data: LoginParamsType): AppThunk =>
+  (dispatch) => {
     dispatch(setAppStatusAC({ status: 'loading' }))
     authAPI
       .login(data)
@@ -70,7 +66,7 @@ export const loginTC =
       })
   }
 
-export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const logoutTC = (): AppThunk => (dispatch) => {
   dispatch(setAppStatusAC({ status: 'loading' }))
   authAPI
     .logout()
@@ -87,14 +83,3 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
       handleServerNetworkError(err, dispatch)
     })
 }
-
-// types
-// type InitialStateType = {
-//     isLoggedIn: boolean
-// }
-
-type ActionsType =
-  | ReturnType<typeof setIsLoggedInAC>
-  | SetAppStatusActionType
-  | SetAppErrorActionType
-  | ClearTodosDataActionType
