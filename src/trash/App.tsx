@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../app/App.css'
-import { Todolist } from '../features/TodolistsList/Todolist/Todolist'
+import { Todolist } from 'features/TodolistsList/Todolist/Todolist'
 import { v1 } from 'uuid'
 
 import AppBar from '@mui/material/AppBar'
@@ -10,16 +10,16 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Unstable_Grid2'
 import Paper from '@mui/material/Paper'
-import { MenuButton } from '../MenuButton'
+import { MenuButton } from 'MenuButton'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
   FilterValuesType,
   TodolistDomainType,
-} from '../features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses, TaskType } from '../api/api'
-import { RequestStatusType } from '../app/app-reducer'
+} from 'features/TodolistsList/todolists-reducer'
+import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
+import { RequestStatusType } from 'app/app-reducer'
 
 type ThemeMode = 'dark' | 'light'
 

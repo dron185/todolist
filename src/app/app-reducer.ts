@@ -1,10 +1,10 @@
-import { authAPI } from '../api/api'
+import { authAPI } from 'api/api'
 import { Dispatch } from 'redux'
-import { setIsLoggedInAC } from '../features/Login/auth-reducer'
+import { setIsLoggedInAC } from 'features/Login/auth-reducer'
 import {
   handleServerAppError,
   handleServerNetworkError,
-} from '../utils/error-utils'
+} from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

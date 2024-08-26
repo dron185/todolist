@@ -3,9 +3,9 @@ import {
   setAppStatusAC,
   SetAppStatusActionType,
   SetAppErrorActionType,
-} from '../app/app-reducer'
+} from 'app/app-reducer'
 import { Dispatch } from 'redux'
-import { ResponseType } from '../api/api'
+import { ResponseType } from 'api/api'
 
 type ErrorUtilsDispatchType = Dispatch<
   SetAppErrorActionType | SetAppStatusActionType

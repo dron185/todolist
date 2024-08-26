@@ -1,7 +1,7 @@
-import { todolistsAPI, TodolistType } from '../../api/api'
+import { todolistsAPI, TodolistType } from 'api/api'
 import { Dispatch } from 'redux'
-import { RequestStatusType, setAppStatusAC } from '../../app/app-reducer'
-import { handleServerNetworkError } from '../../utils/error-utils'
+import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
+import { handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchTasksTC } from './tasks-reducer'
 

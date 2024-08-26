@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import AppWithRedux from './app/AppWithRedux'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
-import { Login } from './features/Login/Login'
-import { TodolistsList } from './features/TodolistsList/TodolistsList'
+import { store } from 'app/store'
+import { Login } from 'features/Login/Login'
+import { TodolistsList } from 'features/TodolistsList/TodolistsList'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import { ErrorPage } from './components/ErrorPage/ErrorPage'
+import { ErrorPage } from 'components/ErrorPage/ErrorPage'
 
 const router = createBrowserRouter([
   {

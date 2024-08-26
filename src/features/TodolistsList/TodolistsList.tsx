@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from '../../app/store'
+import { AppRootStateType, useAppDispatch } from 'app/store'
 import {
   addTodolistTC,
   changeTodolistFilterAC,
@@ -16,9 +16,9 @@ import {
   TasksStateType,
   updateTaskTC,
 } from './tasks-reducer'
-import { TaskStatuses } from '../../api/api'
+import { TaskStatuses } from 'api/api'
 import Grid from '@mui/material/Unstable_Grid2'
-import AddItemForm from '../../components/AddItemForm/AddItemForm'
+import AddItemForm from 'components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'

@@ -3,8 +3,8 @@ import { Task } from './Task'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
 import { v1 } from 'uuid'
-import { TaskPriorities, TaskStatuses } from '../../../../api/api'
-import { RequestStatusType } from '../../../../app/app-reducer'
+import { TaskPriorities, TaskStatuses } from 'api/api'
+import { RequestStatusType } from 'app/app-reducer'
 import { TaskDomainType } from '../../tasks-reducer'
 
 const meta: Meta<typeof Task> = {

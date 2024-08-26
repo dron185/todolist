@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback } from 'react'
 import AddItemForm from '../components/AddItemForm/AddItemForm'
-import { EditableSpan } from '../components/EditableSpan/EditableSpan'
+import { EditableSpan } from 'components/EditableSpan/EditableSpan'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
@@ -11,23 +11,23 @@ import Box from '@mui/material/Box'
 import {
   filterButtonsContainerSx,
   getListItemSx,
-} from '../features/TodolistsList/Todolist/Todolist.styles'
+} from 'features/TodolistsList/Todolist/Todolist.styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from '../app/store'
+import { AppRootStateType } from 'app/store'
 import {
   addTaskAC,
   removeTaskAC,
   TaskDomainType,
   updateTaskAC,
-} from '../features/TodolistsList/tasks-reducer'
+} from 'features/TodolistsList/tasks-reducer'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   FilterValuesType,
   removeTodolistAC,
   TodolistDomainType,
-} from '../features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses } from '../api/api'
+} from 'features/TodolistsList/todolists-reducer'
+import { TaskPriorities, TaskStatuses } from 'api/api'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType
