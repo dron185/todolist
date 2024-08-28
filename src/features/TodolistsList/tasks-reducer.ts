@@ -1,7 +1,6 @@
 import {
   addTodolistAC,
   changeTodolistEntityStatusAC,
-  clearTodosDataAC,
   removeTodolistAC,
   setTodolistsAC,
 } from './todolists-reducer'
@@ -19,6 +18,7 @@ import {
   handleServerNetworkError,
 } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { clearTasksAndTodolists } from 'common/actions/common.actions'
 
 // types
 export type UpdateDomainTaskModelType = {
@@ -111,7 +111,7 @@ const slice = createSlice({
           state[tl.id] = []
         })
       })
-      .addCase(clearTodosDataAC, () => {
+      .addCase(clearTasksAndTodolists, () => {
         return {}
       })
   },

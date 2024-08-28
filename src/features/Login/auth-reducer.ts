@@ -5,8 +5,8 @@ import {
   handleServerNetworkError,
 } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { clearTodosDataAC } from '../TodolistsList/todolists-reducer'
 import { AppThunk } from 'app/store'
+import { clearTasksAndTodolists } from 'common/actions/common.actions'
 
 // types
 type InitialStateType = {
@@ -74,7 +74,7 @@ export const logoutTC = (): AppThunk => (dispatch) => {
       if (res.data.resultCode === 0) {
         dispatch(setIsLoggedInAC({ value: false }))
         dispatch(setAppStatusAC({ status: 'succeeded' }))
-        dispatch(clearTodosDataAC())
+        dispatch(clearTasksAndTodolists())
       } else {
         handleServerAppError(res.data, dispatch)
       }
