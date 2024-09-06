@@ -50,7 +50,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
   // CRUD tasks
   const removeTask = useCallback((taskId: string, todolistId: string) => {
-    dispatch(removeTaskTC(todolistId, taskId))
+    dispatch(removeTaskTC({ todolistId, taskId }))
   }, [])
 
   const addTask = useCallback(

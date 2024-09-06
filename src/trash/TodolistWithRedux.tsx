@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from 'app/store'
 import {
   addTaskAC,
-  removeTaskAC,
+  removeTaskTC,
   TaskDomainType,
   updateTaskAC,
 } from 'features/TodolistsList/tasks-reducer'
@@ -103,7 +103,13 @@ export const TodolistWithRedux = React.memo(
         <List>
           {tasksForTodolist.map((t) => {
             const removeTaskHandler = () =>
-              dispatch(removeTaskAC({ taskId: t.id, todolistId: todolist.id }))
+              dispatch(
+                removeTaskTC.fulfilled(
+                  { taskId: t.id, todolistId: todolist.id },
+                  '',
+                  { taskId: t.id, todolistId: todolist.id }
+                )
+              )
 
             const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
               const newTaskStatus = e.currentTarget.checked

@@ -24,7 +24,7 @@ import {
 } from 'features/TodolistsList/todolists-reducer'
 import {
   addTaskAC,
-  removeTaskAC,
+  removeTaskTC,
   tasksReducer,
   updateTaskAC,
 } from 'features/TodolistsList/tasks-reducer'
@@ -133,7 +133,10 @@ function AppWithReducers() {
 
   // CRUD tasks
   const removeTask = (taskId: string, todolistId: string) => {
-    let action = removeTaskAC({ taskId, todolistId })
+    let action = removeTaskTC.fulfilled({ taskId, todolistId }, '', {
+      taskId,
+      todolistId,
+    })
     dispatchToTasks(action)
   }
 
