@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/store'
 import {
   addTodolistTC,
   changeTodolistFilterAC,
@@ -8,20 +8,17 @@ import {
   fetchTodolistsTC,
   FilterValuesType,
   removeTodolistTC,
-  TodolistDomainType,
 } from './todolists-reducer'
-import {
-  addTaskTC,
-  removeTaskTC,
-  TasksStateType,
-  updateTaskTC,
-} from './tasks-reducer'
+import { addTaskTC, removeTaskTC, updateTaskTC } from './tasks-reducer'
 import { TaskStatuses } from 'api/api'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddItemForm from 'components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
+import { selectTodolists } from 'features/TodolistsList/todolists.selectors'
+import { selectTasks } from 'features/TodolistsList/tasks.selectors'
+import { selectIsLoggedIn } from 'features/Login/auth.selectors'
 
 type PropsType = {
   demo?: boolean
@@ -29,16 +26,12 @@ type PropsType = {
 
 export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
-  const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(
-    (state) => state.todolists
-  )
-  const tasks = useSelector<AppRootStateType, TasksStateType>(
-    (state) => state.tasks
-  )
+
+  const todolists = useSelector(selectTodolists)
+  const tasks = useSelector(selectTasks)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
   const dispatch = useAppDispatch()
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(
-    (state) => state.auth.isLoggedIn
-  )
 
   useEffect(() => {
     if (demo || !isLoggedIn) {

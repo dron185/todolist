@@ -12,8 +12,7 @@ import {
   filterButtonsContainerSx,
   getListItemSx,
 } from 'features/TodolistsList/Todolist/Todolist.styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from 'app/store'
+import { useDispatch } from 'react-redux'
 import {
   addTaskAC,
   removeTaskTC,
@@ -31,15 +30,11 @@ import { TaskPriorities, TaskStatuses } from 'api/api'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType
+  tasks: Array<TaskDomainType>
 }
 
 export const TodolistWithRedux = React.memo(
-  ({ todolist }: TodolistPropsType) => {
-    // const {id, filter, title} = props.todolist
-
-    const tasks = useSelector<AppRootStateType, Array<TaskDomainType>>(
-      (state) => state.tasks[todolist.id]
-    )
+  ({ todolist, tasks }: TodolistPropsType) => {
     const dispatch = useDispatch()
 
     const changeFilterHandlerCreator = useCallback(

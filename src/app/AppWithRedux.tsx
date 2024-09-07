@@ -11,12 +11,14 @@ import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from './store'
-import { initializeAppTC, RequestStatusType } from './app-reducer'
+import { useAppDispatch } from './store'
+import { initializeAppTC } from './app-reducer'
 import { ErrorSnackbar } from 'components/ErrorSnackbar/ErrorSnackbar'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 import { logoutTC } from 'features/Login/auth-reducer'
+import { selectAppStatus, selectIsInitialized } from 'app/app.selectors'
+import { selectIsLoggedIn } from 'features/Login/auth.selectors'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
 type PropsType = {
@@ -36,16 +38,11 @@ function AppWithRedux({ demo = false }: PropsType) {
     },
   })
 
-  const status = useSelector<AppRootStateType, RequestStatusType>(
-    (state) => state.app.status
-  )
+  const status = useSelector(selectAppStatus)
+  const isInitialized = useSelector(selectIsInitialized)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
   const dispatch = useAppDispatch()
-  const isInitialized = useSelector<AppRootStateType, boolean>(
-    (state) => state.app.isInitialized
-  )
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(
-    (state) => state.auth.isLoggedIn
-  )
 
   const changeModeHandler = () => {
     setThemeMode(themeMode == 'light' ? 'dark' : 'light')
