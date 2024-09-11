@@ -9,8 +9,17 @@ import { AppThunk } from 'app/store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
+  /**
+   * происходит ли сейчас взаимодействие с сервером
+   */
   status: RequestStatusType
+  /**
+   * если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
+   */
   error: null | string
+  /**
+   * true когда приложение проинициализировалось (проверили юзера, настройки получили и т.д.)
+   */
   isInitialized: boolean
 }
 
