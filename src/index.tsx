@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import AppWithRedux from './app/AppWithRedux'
+import App from 'app/App'
 import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import { Login } from 'features/Login/Login'
@@ -12,7 +12,7 @@ import { ErrorPage } from 'components/ErrorPage/ErrorPage'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppWithRedux />,
+    element: <App />,
     errorElement: <Navigate to='/404' />,
     children: [
       {

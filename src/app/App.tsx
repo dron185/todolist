@@ -29,7 +29,7 @@ type PropsType = {
 
 type ThemeMode = 'dark' | 'light'
 
-function AppWithRedux({ demo = false }: PropsType) {
+function App({ demo = false }: PropsType) {
   const [themeMode, setThemeMode] = useState<ThemeMode>('light')
   const theme = createTheme({
     palette: {
@@ -110,4 +110,4 @@ function AppWithRedux({ demo = false }: PropsType) {
   )
 }
 
-export default AppWithRedux
+export default App

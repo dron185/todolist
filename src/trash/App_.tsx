@@ -31,7 +31,7 @@ export type TasksStateType = {
   [key: string]: TaskDomainType[]
 }
 
-function App() {
+function App_() {
   const [themeMode, setThemeMode] = useState<ThemeMode>('light')
 
   const theme = createTheme({
@@ -286,4 +286,4 @@ function App() {
   )
 }
 
-export default App
+export default App_
