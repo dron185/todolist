@@ -4,20 +4,16 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 import { appSlice } from './app-reducer'
 import { authSlice } from 'features/Login/auth-reducer'
-import {
-  configureStore,
-  combineReducers,
-  UnknownAction,
-} from '@reduxjs/toolkit'
+import { configureStore, UnknownAction, combineSlices } from '@reduxjs/toolkit'
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
-const rootReducer = combineReducers({
-  [tasksSlice.reducerPath]: tasksSlice.reducer,
-  [todolistsSlice.reducerPath]: todolistsSlice.reducer,
-  [appSlice.reducerPath]: appSlice.reducer,
-  [authSlice.reducerPath]: authSlice.reducer,
-})
+const rootReducer = combineSlices(
+  tasksSlice,
+  todolistsSlice,
+  appSlice,
+  authSlice
+)
 
 // непосредственно создаём store
 //export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
