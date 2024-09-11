@@ -8,7 +8,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type InitialStateType = {
+export type AppInitialState = {
   /**
    * происходит ли сейчас взаимодействие с сервером
    */
@@ -23,7 +23,7 @@ export type InitialStateType = {
   isInitialized: boolean
 }
 
-const initialState: InitialStateType = {
+const initialState: AppInitialState = {
   status: 'idle',
   error: null,
   isInitialized: false,
@@ -39,12 +39,15 @@ export const appSlice = createSlice({
     ) {
       stateDraft.status = action.payload.status
     },
-    setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
+    setAppErrorAC(
+      state,
+      action: PayloadAction<{ error: AppInitialState['error'] }>
+    ) {
       state.error = action.payload.error
     },
     setAppInitializedAC(
       state,
-      action: PayloadAction<{ isInitialized: boolean }>
+      action: PayloadAction<{ isInitialized: AppInitialState['isInitialized'] }>
     ) {
       state.isInitialized = action.payload.isInitialized
     },
