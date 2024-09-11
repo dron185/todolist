@@ -19,6 +19,7 @@ import {
 } from 'utils/error-utils'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 // types
 export type UpdateDomainTaskModelType = {
@@ -38,23 +39,26 @@ export type TasksStateType = {
 
 export let initialTasksState: TasksStateType = {}
 
-export const fetchTasksTC = createAsyncThunk(
-  'tasks/fetchTasks',
-  async (todolistId: string, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
+export const fetchTasksTC = createAppAsyncThunk<
+  {
+    tasks: TaskType[]
+    todolistId: string
+  },
+  string
+>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
 
-    try {
-      dispatch(setAppStatusAC({ status: 'loading' }))
-      const res = await todolistsAPI.getTasks(todolistId)
-      const tasks = res.data.items
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
-      return { tasks, todolistId }
-    } catch (err: any) {
-      handleServerNetworkError(err, dispatch)
-      return rejectWithValue(null)
-    }
+  try {
+    dispatch(setAppStatusAC({ status: 'loading' }))
+    const res = await todolistsAPI.getTasks(todolistId)
+    const tasks = res.data.items
+    dispatch(setAppStatusAC({ status: 'succeeded' }))
+    return { tasks, todolistId }
+  } catch (err: any) {
+    handleServerNetworkError(err, dispatch)
+    return rejectWithValue(null)
   }
-)
+})
 
 export const removeTaskTC = createAsyncThunk(
   'tasks/removeTask',
