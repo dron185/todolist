@@ -14,7 +14,7 @@ export type TodolistDomainType = TodolistType & {
 
 export const initialState: TodolistDomainType[] = []
 
-const todolistsSlice = createSlice({
+export const todolistsSlice = createSlice({
   name: 'todolists',
   initialState,
   reducers: {
@@ -73,7 +73,6 @@ const todolistsSlice = createSlice({
   },
 })
 
-export const todolistsReducer = todolistsSlice.reducer
 export const {
   removeTodolistAC,
   addTodolistAC,

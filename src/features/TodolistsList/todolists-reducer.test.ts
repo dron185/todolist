@@ -9,7 +9,7 @@ import {
   removeTodolistAC,
   setTodolistsAC,
   TodolistDomainType,
-  todolistsReducer,
+  todolistsSlice,
 } from './todolists-reducer'
 import { TodolistType } from 'api/api'
 import { RequestStatusType } from 'app/app-reducer'
@@ -17,6 +17,7 @@ import { RequestStatusType } from 'app/app-reducer'
 let todolistID1: string
 let todolistID2: string
 let startState: TodolistDomainType[]
+const todolistsReducer = todolistsSlice.reducer
 
 beforeEach(() => {
   todolistID1 = v1()

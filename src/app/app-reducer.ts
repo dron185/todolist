@@ -20,7 +20,7 @@ const initialState: InitialStateType = {
   isInitialized: false,
 }
 
-const appSlice = createSlice({
+export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
@@ -47,7 +47,7 @@ const appSlice = createSlice({
   },
 })
 
-export const appReducer = appSlice.reducer
+//export const appReducer = appSlice.reducer
 export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } =
   appSlice.actions
 

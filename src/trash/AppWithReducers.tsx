@@ -20,12 +20,12 @@ import {
   changeTodolistTitleAC,
   FilterValuesType,
   removeTodolistAC,
-  todolistsReducer,
+  todolistsSlice,
 } from 'features/TodolistsList/todolists-reducer'
 import {
   addTaskAC,
   removeTaskTC,
-  tasksReducer,
+  tasksSlice,
   updateTaskAC,
 } from 'features/TodolistsList/tasks-reducer'
 import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
@@ -50,6 +50,9 @@ function AppWithReducers() {
 
   let todolistId1 = v1()
   let todolistId2 = v1()
+
+  const todolistsReducer = todolistsSlice.reducer
+  const tasksReducer = tasksSlice.reducer
 
   //пример типизации: useReducer<Reducer<TodolistType[], ActionsType>>
   let [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [

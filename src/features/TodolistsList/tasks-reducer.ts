@@ -203,7 +203,7 @@ export const updateTaskTC =
     }
   }
 
-const tasksSlice = createSlice({
+export const tasksSlice = createSlice({
   name: 'tasks',
   initialState: initialTasksState,
   reducers: {
@@ -287,7 +287,7 @@ const tasksSlice = createSlice({
   },
 })
 
-export const tasksReducer = tasksSlice.reducer
+//export const tasksReducer = tasksSlice.reducer
 export const { addTaskAC, updateTaskAC, changeTaskEntityStatusAC } =
   tasksSlice.actions
 export const { selectTasks } = tasksSlice.selectors

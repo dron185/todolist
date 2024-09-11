@@ -2,7 +2,7 @@ import {
   addTaskAC,
   fetchTasksTC,
   removeTaskTC,
-  tasksReducer,
+  tasksSlice,
   TasksStateType,
   updateTaskAC,
 } from './tasks-reducer'
@@ -14,6 +14,7 @@ import {
 import { TaskPriorities, TaskStatuses } from 'api/api'
 
 let startState: TasksStateType
+const tasksReducer = tasksSlice.reducer
 
 beforeEach(() => {
   startState = {

@@ -58,7 +58,7 @@ export const loginTC = createAppAsyncThunk(
 //       })
 //   }
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
@@ -76,7 +76,6 @@ const authSlice = createSlice({
   },
 })
 
-export const authReducer = authSlice.reducer
 export const setIsLoggedInAC = authSlice.actions.setIsLoggedInAC
 export const { selectIsLoggedIn } = authSlice.selectors
 

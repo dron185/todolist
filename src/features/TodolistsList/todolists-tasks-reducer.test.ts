@@ -1,10 +1,13 @@
 import {
   addTodolistAC,
   TodolistDomainType,
-  todolistsReducer,
+  todolistsSlice,
 } from './todolists-reducer'
-import { tasksReducer, TasksStateType } from './tasks-reducer'
+import { tasksSlice, TasksStateType } from './tasks-reducer'
 import { TodolistType } from 'api/api'
+
+const todolistsReducer = todolistsSlice.reducer
+const tasksReducer = tasksSlice.reducer
 
 test('ids should be equals', () => {
   const startTasksState: TasksStateType = {}
