@@ -34,12 +34,12 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   UnknownAction
 >
 
-export type ThunkDispatchType = ThunkDispatch<
+export type AppDispatch = ThunkDispatch<
   AppRootStateType,
   unknown,
   UnknownAction
 >
-export const useAppDispatch = () => useDispatch<ThunkDispatchType>()
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore

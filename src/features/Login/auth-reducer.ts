@@ -4,9 +4,10 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from 'utils/error-utils'
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 // types
 type InitialStateType = {
@@ -17,7 +18,7 @@ const initialState: InitialStateType = {
   isLoggedIn: false,
 }
 
-export const loginTC = createAsyncThunk(
+export const loginTC = createAppAsyncThunk(
   'auth/login',
   async (data: LoginParamsType, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -57,7 +58,7 @@ export const loginTC = createAsyncThunk(
 //       })
 //   }
 
-const slice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
@@ -70,10 +71,14 @@ const slice = createSlice({
       state.isLoggedIn = action.payload.isLoggedIn
     })
   },
+  selectors: {
+    selectIsLoggedIn: (state) => state.isLoggedIn,
+  },
 })
 
-export const authReducer = slice.reducer
-export const setIsLoggedInAC = slice.actions.setIsLoggedInAC
+export const authReducer = authSlice.reducer
+export const setIsLoggedInAC = authSlice.actions.setIsLoggedInAC
+export const { selectIsLoggedIn } = authSlice.selectors
 
 // export const authReducer = (
 //     state: InitialStateType = initialState,

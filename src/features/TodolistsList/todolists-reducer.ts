@@ -14,8 +14,8 @@ export type TodolistDomainType = TodolistType & {
 
 export const initialState: TodolistDomainType[] = []
 
-const slice = createSlice({
-  name: 'app',
+const todolistsSlice = createSlice({
+  name: 'todolists',
   initialState,
   reducers: {
     removeTodolistAC(state, action: PayloadAction<{ todolistId: string }>) {
@@ -68,9 +68,12 @@ const slice = createSlice({
       return []
     })
   },
+  selectors: {
+    selectTodolists: (state) => state,
+  },
 })
 
-export const todolistsReducer = slice.reducer
+export const todolistsReducer = todolistsSlice.reducer
 export const {
   removeTodolistAC,
   addTodolistAC,
@@ -78,7 +81,8 @@ export const {
   changeTodolistFilterAC,
   setTodolistsAC,
   changeTodolistEntityStatusAC,
-} = slice.actions
+} = todolistsSlice.actions
+export const { selectTodolists } = todolistsSlice.selectors
 
 // thunks
 export const fetchTodolistsTC = (): AppThunk => (dispatch) => {

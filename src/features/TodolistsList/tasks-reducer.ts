@@ -17,7 +17,7 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from 'utils/error-utils'
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
@@ -60,7 +60,7 @@ export const fetchTasksTC = createAppAsyncThunk<
   }
 })
 
-export const removeTaskTC = createAsyncThunk(
+export const removeTaskTC = createAppAsyncThunk(
   'tasks/removeTask',
   async (param: { todolistId: string; taskId: string }, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -203,7 +203,7 @@ export const updateTaskTC =
     }
   }
 
-const slice = createSlice({
+const tasksSlice = createSlice({
   name: 'tasks',
   initialState: initialTasksState,
   reducers: {
@@ -282,9 +282,13 @@ const slice = createSlice({
         }
       })
   },
+  selectors: {
+    selectTasks: (state) => state,
+  },
 })
 
-export const tasksReducer = slice.reducer
+export const tasksReducer = tasksSlice.reducer
 export const { addTaskAC, updateTaskAC, changeTaskEntityStatusAC } =
-  slice.actions
+  tasksSlice.actions
+export const { selectTasks } = tasksSlice.selectors
 // export const tasksThunks = { fetchTasksTC, removeTaskTC }
