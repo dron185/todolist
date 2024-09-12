@@ -11,7 +11,7 @@ import {
   removeTodolistAC,
   setTodolistsAC,
 } from './todolists-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/api'
+import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
 
 let startState: TasksStateType
 const tasksReducer = tasksSlice.reducer
@@ -280,19 +280,24 @@ test('empty arrays should be added when we set todolists', () => {
 })
 
 test('tasks should be added for todolist', () => {
-  // const action = setTasksAC({
-  //   tasks: startState['todolistId1'],
-  //   todolistId: 'todolistId1',
-  // })
+  type Action = Omit<ReturnType<typeof fetchTasksTC.fulfilled>, 'meta'>
 
-  const action = fetchTasksTC.fulfilled(
+  const action: Action = {
+    type: fetchTasksTC.fulfilled.type,
+    payload: {
+      tasks: startState['todolistId1'],
+      todolistId: 'todolistId1',
+    },
+  }
+
+  /*const action = fetchTasksTC.fulfilled(
     {
       tasks: startState['todolistId1'],
       todolistId: 'todolistId1',
     },
     'requestId', // можно просто пустую строку передать ''
     'todolistId1' // можно просто пустую строку передать ''
-  )
+  )*/
 
   const endState = tasksReducer(
     {
