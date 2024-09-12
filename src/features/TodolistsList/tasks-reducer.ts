@@ -54,7 +54,7 @@ export const fetchTasksTC = createAppAsyncThunk<
     const tasks = res.data.items
     dispatch(setAppStatusAC({ status: 'succeeded' }))
     return { tasks, todolistId }
-  } catch (err: any) {
+  } catch (err) {
     handleServerNetworkError(err, dispatch)
     return rejectWithValue(null)
   }
