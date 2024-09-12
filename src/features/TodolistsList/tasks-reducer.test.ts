@@ -12,6 +12,7 @@ import {
   setTodolistsAC,
 } from './todolists-reducer'
 import { TaskPriorities, TaskStatuses } from 'api/api'
+import { TestAction } from 'common/types/types'
 
 let startState: TasksStateType
 const tasksReducer = tasksSlice.reducer
@@ -187,7 +188,7 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('correct task should be added to correct array', () => {
-  type Action = Omit<ReturnType<typeof addTaskTC.fulfilled>, 'meta'>
+  type Action = TestAction<typeof addTaskTC.fulfilled>
 
   const action: Action = {
     type: addTaskTC.fulfilled.type,
@@ -217,7 +218,7 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  type Action = Omit<ReturnType<typeof updateTaskTC.fulfilled>, 'meta'>
+  type Action = TestAction<typeof updateTaskTC.fulfilled>
 
   const action: Action = {
     type: updateTaskTC.fulfilled.type,
@@ -234,7 +235,7 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  type Action = Omit<ReturnType<typeof updateTaskTC.fulfilled>, 'meta'>
+  type Action = TestAction<typeof updateTaskTC.fulfilled>
 
   const action: Action = {
     type: updateTaskTC.fulfilled.type,
@@ -295,9 +296,7 @@ test('empty arrays should be added when we set todolists', () => {
 })
 
 test('tasks should be added for todolist', () => {
-  type Action = Omit<ReturnType<typeof fetchTasksTC.fulfilled>, 'meta'>
-
-  const action: Action = {
+  const action: TestAction<typeof fetchTasksTC.fulfilled> = {
     type: fetchTasksTC.fulfilled.type,
     payload: {
       tasks: startState['todolistId1'],
