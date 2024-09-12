@@ -4,14 +4,14 @@ import {
   removeTaskTC,
   tasksSlice,
   TasksStateType,
-  updateTaskAC,
+  updateTaskTC,
 } from './tasks-reducer'
 import {
   addTodolistAC,
   removeTodolistAC,
   setTodolistsAC,
 } from './todolists-reducer'
-import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
+import { TaskPriorities, TaskStatuses } from 'api/api'
 
 let startState: TasksStateType
 const tasksReducer = tasksSlice.reducer
@@ -217,11 +217,16 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  const action = updateTaskAC({
-    taskId: '2',
-    model: { status: TaskStatuses.New },
-    todolistId: 'todolistId2',
-  })
+  type Action = Omit<ReturnType<typeof updateTaskTC.fulfilled>, 'meta'>
+
+  const action: Action = {
+    type: updateTaskTC.fulfilled.type,
+    payload: {
+      taskId: '2',
+      model: { status: TaskStatuses.New },
+      todolistId: 'todolistId2',
+    },
+  }
   const endState = tasksReducer(startState, action)
 
   expect(endState['todolistId2'][1].status).toBe(TaskStatuses.New)
@@ -229,11 +234,16 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  const action = updateTaskAC({
-    taskId: '2',
-    model: { title: 'Milkyway' },
-    todolistId: 'todolistId2',
-  })
+  type Action = Omit<ReturnType<typeof updateTaskTC.fulfilled>, 'meta'>
+
+  const action: Action = {
+    type: updateTaskTC.fulfilled.type,
+    payload: {
+      taskId: '2',
+      model: { title: 'Milkyway' },
+      todolistId: 'todolistId2',
+    },
+  }
   const endState = tasksReducer(startState, action)
 
   // expect(endState['todolistId2'][1].isDone).toBe(false)

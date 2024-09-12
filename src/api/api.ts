@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { UpdateDomainTaskModelType } from 'features/TodolistsList/tasks-reducer'
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1',
@@ -76,6 +77,12 @@ export const todolistsAPI = {
 }
 
 // types
+export type UpdateTaskArgs = {
+  taskId: string
+  model: UpdateDomainTaskModelType
+  todolistId: string
+}
+
 export type TodolistType = {
   id: string
   addedDate: string
