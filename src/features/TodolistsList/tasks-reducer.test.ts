@@ -1,5 +1,5 @@
 import {
-  addTaskAC,
+  addTaskTC,
   fetchTasksTC,
   removeTaskTC,
   tasksSlice,
@@ -187,20 +187,25 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('correct task should be added to correct array', () => {
-  const action = addTaskAC({
-    task: {
-      todoListId: 'todolistId2',
-      title: 'juice',
-      status: TaskStatuses.New,
-      addedDate: '',
-      id: 'id exists',
-      deadline: '',
-      description: '',
-      order: 0,
-      priority: TaskPriorities.Low,
-      startDate: '',
+  type Action = Omit<ReturnType<typeof addTaskTC.fulfilled>, 'meta'>
+
+  const action: Action = {
+    type: addTaskTC.fulfilled.type,
+    payload: {
+      task: {
+        todoListId: 'todolistId2',
+        title: 'juice',
+        status: TaskStatuses.New,
+        addedDate: '',
+        id: 'id exists',
+        deadline: '',
+        description: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        startDate: '',
+      },
     },
-  })
+  }
 
   const endState = tasksReducer(startState, action)
 
