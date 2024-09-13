@@ -14,10 +14,10 @@ import {
 } from 'features/TodolistsList/Todolist/Todolist.styles'
 import { useDispatch } from 'react-redux'
 import {
-  addTaskAC,
+  addTaskTC,
   removeTaskTC,
   TaskDomainType,
-  updateTaskAC,
+  updateTaskTC,
 } from 'features/TodolistsList/tasks-reducer'
 import {
   changeTodolistFilterAC,
@@ -27,6 +27,7 @@ import {
   TodolistDomainType,
 } from 'features/TodolistsList/todolists-reducer'
 import { TaskPriorities, TaskStatuses } from 'api/api'
+import { TestAction } from 'common/types/types'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType
@@ -51,8 +52,9 @@ export const TodolistWithRedux = React.memo(
 
     const addTaskHandler = useCallback(
       (title: string) => {
-        dispatch(
-          addTaskAC({
+        const action: TestAction<typeof addTaskTC.fulfilled> = {
+          type: addTaskTC.fulfilled.type,
+          payload: {
             task: {
               todoListId: todolist.id,
               title: title,
@@ -65,8 +67,10 @@ export const TodolistWithRedux = React.memo(
               priority: TaskPriorities.Low,
               startDate: '',
             },
-          })
-        )
+          },
+        }
+
+        dispatch(action)
       },
       [todolist.id]
     )
@@ -110,23 +114,28 @@ export const TodolistWithRedux = React.memo(
               const newTaskStatus = e.currentTarget.checked
                 ? TaskStatuses.Completed
                 : TaskStatuses.New
-              dispatch(
-                updateTaskAC({
+
+              const action: TestAction<typeof updateTaskTC.fulfilled> = {
+                type: updateTaskTC.fulfilled.type,
+                payload: {
                   taskId: t.id,
                   model: { status: newTaskStatus },
                   todolistId: todolist.id,
-                })
-              )
+                },
+              }
+              dispatch(action)
             }
 
             const updateTaskTitleHandler = (newTitle: string) => {
-              dispatch(
-                updateTaskAC({
+              const action: TestAction<typeof updateTaskTC.fulfilled> = {
+                type: updateTaskTC.fulfilled.type,
+                payload: {
                   taskId: t.id,
                   model: { title: newTitle },
                   todolistId: todolist.id,
-                })
-              )
+                },
+              }
+              dispatch(action)
             }
 
             return (

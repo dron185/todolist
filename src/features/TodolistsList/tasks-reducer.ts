@@ -158,6 +158,36 @@ export const addTaskTC = createAppAsyncThunk<
   }
 })
 
+export const removeTaskTC = createAppAsyncThunk<
+  { todolistId: string; taskId: string },
+  { todolistId: string; taskId: string }
+>(`${tasksSlice.name}/removeTask`, async (arg, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+
+  try {
+    dispatch(setAppStatusAC({ status: 'loading' }))
+    dispatch(
+      changeTaskEntityStatusAC({
+        todolistId: arg.todolistId,
+        taskId: arg.taskId,
+        status: 'loading',
+      })
+    )
+
+    const res = await todolistsAPI.deleteTask(arg.todolistId, arg.taskId)
+    if (res.data.resultCode === 0) {
+      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      return { taskId: arg.taskId, todolistId: arg.todolistId }
+    } else {
+      handleServerAppError(res.data, dispatch)
+      return rejectWithValue(null)
+    }
+  } catch (err: any) {
+    handleServerNetworkError(err, dispatch)
+    return rejectWithValue(null)
+  }
+})
+
 export const updateTaskTC = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
   `${tasksSlice.name}/updateTask`,
   async (arg, thunkAPI) => {
@@ -210,36 +240,6 @@ export const updateTaskTC = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
         return rejectWithValue(null)
       }
     } catch (err) {
-      handleServerNetworkError(err, dispatch)
-      return rejectWithValue(null)
-    }
-  }
-)
-
-export const removeTaskTC = createAppAsyncThunk(
-  'tasks/removeTask',
-  async (param: { todolistId: string; taskId: string }, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
-
-    try {
-      dispatch(setAppStatusAC({ status: 'loading' }))
-      dispatch(
-        changeTaskEntityStatusAC({
-          todolistId: param.todolistId,
-          taskId: param.taskId,
-          status: 'loading',
-        })
-      )
-
-      const res = await todolistsAPI.deleteTask(param.todolistId, param.taskId)
-      if (res.data.resultCode === 0) {
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
-        return { taskId: param.taskId, todolistId: param.todolistId }
-      } else {
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue(null)
-      }
-    } catch (err: any) {
       handleServerNetworkError(err, dispatch)
       return rejectWithValue(null)
     }
