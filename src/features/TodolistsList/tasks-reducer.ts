@@ -133,6 +133,12 @@ export const fetchTasksTC = createAppAsyncThunk<
   }
 })
 
+enum ResultCode {
+  Success = 0,
+  Error = 1,
+  Captcha = 10,
+}
+
 export const addTaskTC = createAppAsyncThunk<
   { task: TaskType },
   { todolistId: string; taskTitle: string }
@@ -142,7 +148,7 @@ export const addTaskTC = createAppAsyncThunk<
     dispatch(setAppStatusAC({ status: 'loading' }))
     dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'loading' }))
     const res = await todolistsAPI.createTask(todolistId, taskTitle)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(setAppStatusAC({ status: 'succeeded' }))
       dispatch(
         changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' })
