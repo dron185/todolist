@@ -3,9 +3,9 @@ import { handleServerAppError, handleServerNetworkError } from 'common/utils/err
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
-import { createAppAsyncThunk } from 'common/utils/create-app-async-thunk'
 import { LoginParamsType } from 'features/Login/api/authApi.types'
 import { authAPI } from 'features/Login/api/authApi'
+import { createAppAsyncThunk } from 'common/utils'
 
 // types
 type InitialStateType = {

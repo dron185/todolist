@@ -1,7 +1,7 @@
 import { UpdateDomainTaskModelType } from 'features/TodolistsList/tasks-reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
-import { BaseResponse } from 'common/types/types'
 import { instance } from 'common/instance/instance'
+import { BaseResponse } from 'common/types'
 
 // api
 
