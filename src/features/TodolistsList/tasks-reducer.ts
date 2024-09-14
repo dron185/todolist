@@ -1,22 +1,7 @@
-import {
-  addTodolistAC,
-  changeTodolistEntityStatusAC,
-  removeTodolistAC,
-  setTodolistsAC,
-} from './todolists-reducer'
-import {
-  TaskPriorities,
-  TaskStatuses,
-  TaskType,
-  todolistsAPI,
-  UpdateTaskArgs,
-  UpdateTaskModelType,
-} from 'api/api'
+import { addTodolistAC, changeTodolistEntityStatusAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
+import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskArgs, UpdateTaskModelType } from 'api/api'
 import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
-import {
-  handleServerAppError,
-  handleServerNetworkError,
-} from 'utils/error-utils'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
@@ -139,30 +124,28 @@ enum ResultCode {
   Captcha = 10,
 }
 
-export const addTaskTC = createAppAsyncThunk<
-  { task: TaskType },
-  { todolistId: string; taskTitle: string }
->(`${tasksSlice.name}/addTask`, async ({ todolistId, taskTitle }, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  try {
-    dispatch(setAppStatusAC({ status: 'loading' }))
-    dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'loading' }))
-    const res = await todolistsAPI.createTask(todolistId, taskTitle)
-    if (res.data.resultCode === ResultCode.Success) {
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
-      dispatch(
-        changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' })
-      )
-      return { task: res.data.data.item }
-    } else {
-      handleServerAppError(res.data, dispatch)
+export const addTaskTC = createAppAsyncThunk<{ task: TaskType }, { todolistId: string; taskTitle: string }>(
+  `${tasksSlice.name}/addTask`,
+  async ({ todolistId, taskTitle }, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI
+    try {
+      dispatch(setAppStatusAC({ status: 'loading' }))
+      dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'loading' }))
+      const res = await todolistsAPI.createTask(todolistId, taskTitle)
+      if (res.data.resultCode === ResultCode.Success) {
+        dispatch(setAppStatusAC({ status: 'succeeded' }))
+        dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' }))
+        return { task: res.data.data.item }
+      } else {
+        handleServerAppError(res.data, dispatch)
+        return rejectWithValue(null)
+      }
+    } catch (err) {
+      handleServerNetworkError(err, dispatch)
       return rejectWithValue(null)
     }
-  } catch (err) {
-    handleServerNetworkError(err, dispatch)
-    return rejectWithValue(null)
   }
-})
+)
 
 export const removeTaskTC = createAppAsyncThunk<
   { todolistId: string; taskId: string },
@@ -208,9 +191,7 @@ export const updateTaskTC = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
         })
       )
 
-      const task = getState().tasks[arg.todolistId].find(
-        (t) => t.id === arg.taskId
-      )
+      const task = getState().tasks[arg.todolistId].find((t) => t.id === arg.taskId)
       if (!task) {
         console.warn('Task not found in the state')
         return rejectWithValue(null)
@@ -226,11 +207,7 @@ export const updateTaskTC = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
         ...arg.model,
       }
 
-      const res = await todolistsAPI.updateTask(
-        arg.todolistId,
-        arg.taskId,
-        apiModel
-      )
+      const res = await todolistsAPI.updateTask(arg.todolistId, arg.taskId, apiModel)
       if (res.data.resultCode === 0) {
         dispatch(setAppStatusAC({ status: 'succeeded' }))
         dispatch(

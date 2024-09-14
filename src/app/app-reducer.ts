@@ -1,9 +1,6 @@
 import { authAPI } from 'api/api'
 import { setIsLoggedInAC } from 'features/Login/auth-reducer'
-import {
-  handleServerAppError,
-  handleServerNetworkError,
-} from 'utils/error-utils'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 
@@ -33,22 +30,13 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setAppStatusAC(
-      stateDraft,
-      action: PayloadAction<{ status: RequestStatusType }>
-    ) {
+    setAppStatusAC(stateDraft, action: PayloadAction<{ status: RequestStatusType }>) {
       stateDraft.status = action.payload.status
     },
-    setAppErrorAC(
-      state,
-      action: PayloadAction<{ error: AppInitialState['error'] }>
-    ) {
+    setAppErrorAC(state, action: PayloadAction<{ error: AppInitialState['error'] }>) {
       state.error = action.payload.error
     },
-    setAppInitializedAC(
-      state,
-      action: PayloadAction<{ isInitialized: AppInitialState['isInitialized'] }>
-    ) {
+    setAppInitializedAC(state, action: PayloadAction<{ isInitialized: AppInitialState['isInitialized'] }>) {
       state.isInitialized = action.payload.isInitialized
     },
   },
@@ -60,11 +48,9 @@ export const appSlice = createSlice({
 })
 
 //export const appReducer = appSlice.reducer
-export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } =
-  appSlice.actions
+export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } = appSlice.actions
 
-export const { selectAppStatus, selectAppError, selectIsInitialized } =
-  appSlice.selectors
+export const { selectAppStatus, selectAppError, selectIsInitialized } = appSlice.selectors
 
 // thunks
 export const initializeAppTC = (): AppThunk => (dispatch) => {

@@ -38,21 +38,16 @@ type Story = StoryObj<typeof AddItemForm>
 export const AddItemFormStory: Story = {}
 
 // 2. старый способ:
-export const AddItemFormStory1 = () => (
-  <AddItemForm addItem={action('addItem')} />
-)
+export const AddItemFormStory1 = () => <AddItemForm addItem={action('addItem')} />
 
 // 3. еще один способ:
 export const AddItemFormErrorStory: Story = {
   render: (args) => {
     const [newItemTitle, setNewItemTitle] = React.useState('')
-    const [inputError, setInputError] = useState<string | null>(
-      'Title is required'
-    )
+    const [inputError, setInputError] = useState<string | null>('Title is required')
 
     const maxTitleLength = 15
-    const isAddItemPossible =
-      newItemTitle.length && newItemTitle.length <= maxTitleLength
+    const isAddItemPossible = newItemTitle.length && newItemTitle.length <= maxTitleLength
 
     const addNewItemHandler = () => {
       const trimmedTaskTitle = newItemTitle.trim()

@@ -19,18 +19,10 @@ type TodolistPropsType = {
   tasks: Array<TaskDomainType>
   addTask: (todolistId: string, title: string) => void
   removeTask: (todolistId: string, taskId: string) => void
-  changeTaskStatus: (
-    todolistId: string,
-    taskId: string,
-    status: TaskStatuses
-  ) => void
+  changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
   changeFilter: (todolistId: string, value: FilterValuesType) => void
   removeTodolist: (todolistId: string) => void
-  updateTaskTitle: (
-    todolistId: string,
-    taskId: string,
-    newTitle: string
-  ) => void
+  updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
   updateTodolistTitle: (todolistId: string, newTitle: string) => void
   demo?: boolean
 }
@@ -62,9 +54,7 @@ export const Todolist = memo(
 
     tasksForTodoList = useMemo(() => {
       if (todolist.filter === 'completed') {
-        tasksForTodoList = tasks.filter(
-          (t) => t.status === TaskStatuses.Completed
-        )
+        tasksForTodoList = tasks.filter((t) => t.status === TaskStatuses.Completed)
       }
       if (todolist.filter === 'active') {
         tasksForTodoList = tasks.filter((t) => t.status === TaskStatuses.New)
@@ -92,14 +82,8 @@ export const Todolist = memo(
         </List>
       )
 
-    const OnAllClickHandler = useCallback(
-      () => changeFilter(todolist.id, 'all'),
-      [changeFilter, todolist.id]
-    )
-    const OnActiveClickHandler = useCallback(
-      () => changeFilter(todolist.id, 'active'),
-      [changeFilter, todolist.id]
-    )
+    const OnAllClickHandler = useCallback(() => changeFilter(todolist.id, 'all'), [changeFilter, todolist.id])
+    const OnActiveClickHandler = useCallback(() => changeFilter(todolist.id, 'active'), [changeFilter, todolist.id])
     const OnCompletedClickHandler = useCallback(
       () => changeFilter(todolist.id, 'completed'),
       [changeFilter, todolist.id]
@@ -171,17 +155,15 @@ export const Todolist = memo(
 
 type MyButtonPropsType = {} & ButtonProps
 
-const MyButton = memo(
-  ({ variant, color, onClick, title, ...rest }: MyButtonPropsType) => {
-    return (
-      <Button
-        variant={variant}
-        color={color}
-        onClick={onClick}
-        {...rest}
-      >
-        {title}
-      </Button>
-    )
-  }
-)
+const MyButton = memo(({ variant, color, onClick, title, ...rest }: MyButtonPropsType) => {
+  return (
+    <Button
+      variant={variant}
+      color={color}
+      onClick={onClick}
+      {...rest}
+    >
+      {title}
+    </Button>
+  )
+})

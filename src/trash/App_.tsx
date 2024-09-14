@@ -14,10 +14,7 @@ import { MenuButton } from 'MenuButton'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {
-  FilterValuesType,
-  TodolistDomainType,
-} from 'features/TodolistsList/todolists-reducer'
+import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/todolists-reducer'
 import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
 import { RequestStatusType } from 'app/app-reducer'
 
@@ -149,26 +146,16 @@ function App_() {
     setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] })
   }
 
-  const changeTaskStatus = (
-    todolistId: string,
-    taskId: string,
-    status: TaskStatuses
-  ) => {
+  const changeTaskStatus = (todolistId: string, taskId: string, status: TaskStatuses) => {
     setTasks({
       ...tasks,
-      [todolistId]: tasks[todolistId].map((t) =>
-        t.id === taskId ? { ...t, status: status } : t
-      ),
+      [todolistId]: tasks[todolistId].map((t) => (t.id === taskId ? { ...t, status: status } : t)),
     })
   }
 
   // filter
   const changeFilter = (todolistId: string, value: FilterValuesType) => {
-    setTodolists(
-      todolists.map((el) =>
-        el.id === todolistId ? { ...el, filter: value } : el
-      )
-    )
+    setTodolists(todolists.map((el) => (el.id === todolistId ? { ...el, filter: value } : el)))
   }
 
   const removeTodolist = (todolistId: string) => {
@@ -193,25 +180,15 @@ function App_() {
     setTasks({ ...tasks, [todolistId]: [] })
   }
 
-  const updateTaskTitle = (
-    todolistId: string,
-    taskId: string,
-    newTitle: string
-  ) => {
+  const updateTaskTitle = (todolistId: string, taskId: string, newTitle: string) => {
     setTasks({
       ...tasks,
-      [todolistId]: tasks[todolistId].map((el) =>
-        el.id === taskId ? { ...el, title: newTitle } : el
-      ),
+      [todolistId]: tasks[todolistId].map((el) => (el.id === taskId ? { ...el, title: newTitle } : el)),
     })
   }
 
   const updateTodolistTitle = (todolistId: string, newTitle: string) => {
-    setTodolists(
-      todolists.map((el) =>
-        el.id === todolistId ? { ...el, title: newTitle } : el
-      )
-    )
+    setTodolists(todolists.map((el) => (el.id === todolistId ? { ...el, title: newTitle } : el)))
   }
 
   const changeModeHandler = () => {
@@ -249,14 +226,10 @@ function App_() {
           {todolists.map((el) => {
             let tasksForTodoList = tasks[el.id]
             if (el.filter === 'completed') {
-              tasksForTodoList = tasks[el.id].filter(
-                (t) => t.status === TaskStatuses.Completed
-              )
+              tasksForTodoList = tasks[el.id].filter((t) => t.status === TaskStatuses.Completed)
             }
             if (el.filter === 'active') {
-              tasksForTodoList = tasks[el.id].filter(
-                (t) => t.status === TaskStatuses.New
-              )
+              tasksForTodoList = tasks[el.id].filter((t) => t.status === TaskStatuses.New)
             }
             return (
               <Grid>

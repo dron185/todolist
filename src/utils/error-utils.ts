@@ -5,10 +5,7 @@ import { AppDispatch } from 'app/store'
 import axios from 'axios'
 
 // generic function
-export const handleServerAppError = <T>(
-  data: ResponseType<T>,
-  dispatch: AppDispatch
-) => {
+export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: AppDispatch) => {
   if (data.messages.length) {
     dispatch(setAppErrorAC({ error: data.messages[0] }))
   } else {
@@ -17,22 +14,7 @@ export const handleServerAppError = <T>(
   dispatch(setAppStatusAC({ status: 'failed' }))
 }
 
-// export const handleServerNetworkError_ = (
-//   error: { message: string },
-//   dispatch: AppDispatch
-// ) => {
-//   dispatch(
-//     setAppErrorAC({
-//       error: error.message ? error.message : 'Some error occurred',
-//     })
-//   )
-//   dispatch(setAppStatusAC({ status: 'failed' }))
-// }
-
-export const handleServerNetworkError = (
-  err: unknown,
-  dispatch: AppDispatch
-): void => {
+export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): void => {
   let errorMessage = 'Some error occurred'
 
   // ❗Проверка на наличие axios ошибки

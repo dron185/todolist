@@ -13,8 +13,7 @@ export const AddItemForm = memo(({ addItem, disabled = false }: PropsType) => {
   const [inputError, setInputError] = useState<string | null>(null)
 
   const maxTitleLength = 15
-  const isAddItemPossible =
-    newItemTitle.length && newItemTitle.length <= maxTitleLength
+  const isAddItemPossible = newItemTitle.length && newItemTitle.length <= maxTitleLength
 
   const addNewItemHandler = () => {
     const trimmedTaskTitle = newItemTitle.trim()

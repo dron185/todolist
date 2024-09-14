@@ -44,10 +44,7 @@ beforeEach(() => {
 
 test('correct todolist should be removed', () => {
   // 2. Действие
-  const endState = todolistsReducer(
-    startState,
-    removeTodolistAC({ todolistId: todolistID1 })
-  )
+  const endState = todolistsReducer(startState, removeTodolistAC({ todolistId: todolistID1 }))
 
   // 3. Проверяем, что наши действия (изменения state) соответствуют ожиданию
   // в массиве останется один тудулист

@@ -1,9 +1,4 @@
-import {
-  appSlice,
-  AppInitialState,
-  setAppErrorAC,
-  setAppStatusAC,
-} from './app-reducer'
+import { appSlice, AppInitialState, setAppErrorAC, setAppStatusAC } from './app-reducer'
 
 let startState: AppInitialState
 const appReducer = appSlice.reducer
@@ -17,10 +12,7 @@ beforeEach(() => {
 })
 
 test('correct error message should be set', () => {
-  const endState = appReducer(
-    startState,
-    setAppErrorAC({ error: 'some error' })
-  )
+  const endState = appReducer(startState, setAppErrorAC({ error: 'some error' }))
 
   expect(endState.error).toBe('some error')
 })

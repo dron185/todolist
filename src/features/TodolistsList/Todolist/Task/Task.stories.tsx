@@ -77,18 +77,11 @@ export const TaskToggleStory: Story = {
     function changeTaskStatus() {
       setTask({
         ...task,
-        status:
-          task.status === TaskStatuses.Completed
-            ? TaskStatuses.New
-            : TaskStatuses.Completed,
+        status: task.status === TaskStatuses.Completed ? TaskStatuses.New : TaskStatuses.Completed,
       })
     }
 
-    function updateTaskTitle(
-      todolistId: string,
-      taskId: string,
-      title: string
-    ) {
+    function updateTaskTitle(todolistId: string, taskId: string, title: string) {
       setTask({ ...task, title: title })
     }
 

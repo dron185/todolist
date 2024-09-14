@@ -12,11 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from './store'
-import {
-  initializeAppTC,
-  selectAppStatus,
-  selectIsInitialized,
-} from './app-reducer'
+import { initializeAppTC, selectAppStatus, selectIsInitialized } from './app-reducer'
 import { ErrorSnackbar } from 'components/ErrorSnackbar/ErrorSnackbar'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -89,9 +85,7 @@ function App({ demo = false }: PropsType) {
           </IconButton>
           <div>
             {/*<MenuButton>Login</MenuButton>*/}
-            {isLoggedIn && (
-              <MenuButton onClick={logoutHandler}>Log out</MenuButton>
-            )}
+            {isLoggedIn && <MenuButton onClick={logoutHandler}>Log out</MenuButton>}
             <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
             <Switch
               color={'default'}

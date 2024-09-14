@@ -10,12 +10,7 @@ import {
   removeTodolistTC,
   selectTodolists,
 } from './todolists-reducer'
-import {
-  addTaskTC,
-  removeTaskTC,
-  selectTasks,
-  updateTaskTC,
-} from './tasks-reducer'
+import { addTaskTC, removeTaskTC, selectTasks, updateTaskTC } from './tasks-reducer'
 import { TaskStatuses } from 'api/api'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddItemForm from 'components/AddItemForm/AddItemForm'

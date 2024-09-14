@@ -1,9 +1,6 @@
 import { setAppStatusAC } from 'app/app-reducer'
 import { authAPI, LoginParamsType } from 'api/api'
-import {
-  handleServerAppError,
-  handleServerNetworkError,
-} from 'utils/error-utils'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
@@ -18,26 +15,23 @@ const initialState: InitialStateType = {
   isLoggedIn: false,
 }
 
-export const loginTC = createAppAsyncThunk(
-  'auth/login',
-  async (data: LoginParamsType, thunkAPI) => {
-    const { dispatch, rejectWithValue } = thunkAPI
-    try {
-      dispatch(setAppStatusAC({ status: 'loading' }))
-      const res = await authAPI.login(data)
-      if (res.data.resultCode === 0) {
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
-        return { isLoggedIn: true }
-      } else {
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue(null)
-      }
-    } catch (err: any) {
-      handleServerNetworkError(err, dispatch)
+export const loginTC = createAppAsyncThunk('auth/login', async (data: LoginParamsType, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+  try {
+    dispatch(setAppStatusAC({ status: 'loading' }))
+    const res = await authAPI.login(data)
+    if (res.data.resultCode === 0) {
+      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      return { isLoggedIn: true }
+    } else {
+      handleServerAppError(res.data, dispatch)
       return rejectWithValue(null)
     }
+  } catch (err: any) {
+    handleServerNetworkError(err, dispatch)
+    return rejectWithValue(null)
   }
-)
+})
 
 // export const loginTC_ =
 //   (data: LoginParamsType): AppThunk =>

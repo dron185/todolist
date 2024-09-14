@@ -31,34 +31,22 @@ export const todolistsSlice = createSlice({
         entityStatus: 'idle',
       })
     },
-    changeTodolistTitleAC(
-      state,
-      action: PayloadAction<{ todolistId: string; title: string }>
-    ) {
+    changeTodolistTitleAC(state, action: PayloadAction<{ todolistId: string; title: string }>) {
       const index = state.findIndex((tl) => tl.id === action.payload.todolistId)
       if (index !== -1) state[index].title = action.payload.title
     },
-    changeTodolistFilterAC(
-      state,
-      action: PayloadAction<{ todolistId: string; filter: FilterValuesType }>
-    ) {
+    changeTodolistFilterAC(state, action: PayloadAction<{ todolistId: string; filter: FilterValuesType }>) {
       const index = state.findIndex((tl) => tl.id === action.payload.todolistId)
       state[index].filter = action.payload.filter
     },
-    setTodolistsAC(
-      state,
-      action: PayloadAction<{ todolists: Array<TodolistType> }>
-    ) {
+    setTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
       return action.payload.todolists.map((tl) => ({
         ...tl,
         filter: 'all',
         entityStatus: 'idle',
       }))
     },
-    changeTodolistEntityStatusAC(
-      state,
-      action: PayloadAction<{ todolistId: string; status: RequestStatusType }>
-    ) {
+    changeTodolistEntityStatusAC(state, action: PayloadAction<{ todolistId: string; status: RequestStatusType }>) {
       const index = state.findIndex((tl) => tl.id === action.payload.todolistId)
       state[index].entityStatus = action.payload.status
     },
@@ -149,8 +137,6 @@ export const changeTodolistTitleTC =
         handleServerNetworkError(err, dispatch)
       })
       .finally(() => {
-        dispatch(
-          changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' })
-        )
+        dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' }))
       })
   }
