@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
+import { TaskPriorities, TaskStatuses, TaskType } from 'features/TodolistsList/api'
 import { RequestStatusType } from 'app/app-reducer'
 
 type ThemeMode = 'dark' | 'light'

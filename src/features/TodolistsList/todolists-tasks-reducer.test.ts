@@ -1,6 +1,6 @@
 import { addTodolistAC, TodolistDomainType, todolistsSlice } from './todolists-reducer'
 import { tasksSlice, TasksStateType } from './tasks-reducer'
-import { TodolistType } from 'api/api'
+import { TodolistType } from 'features/TodolistsList/api'
 
 const todolistsReducer = todolistsSlice.reducer
 const tasksReducer = tasksSlice.reducer

@@ -3,7 +3,7 @@ import { todolistsSlice } from 'features/TodolistsList/todolists-reducer'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 import { appSlice } from './app-reducer'
-import { authSlice } from 'features/Login/auth-reducer'
+import { authSlice } from 'features/Login/model/authSlice'
 import { configureStore, UnknownAction, combineSlices } from '@reduxjs/toolkit'
 
 // объединяя reducer-ы с помощью combineReducers,

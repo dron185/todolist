@@ -1,11 +1,11 @@
 import { setAppErrorAC, setAppStatusAC } from 'app/app-reducer'
 import { Dispatch } from 'redux'
-import { ResponseType } from 'api/api'
 import { AppDispatch } from 'app/store'
 import axios from 'axios'
+import { BaseResponse } from 'common/types/types'
 
 // generic function
-export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: AppDispatch) => {
+export const handleServerAppError = <T>(data: BaseResponse<T>, dispatch: AppDispatch) => {
   if (data.messages.length) {
     dispatch(setAppErrorAC({ error: data.messages[0] }))
   } else {

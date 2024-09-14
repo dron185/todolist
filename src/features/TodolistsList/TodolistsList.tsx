@@ -11,13 +11,13 @@ import {
   selectTodolists,
 } from './todolists-reducer'
 import { addTaskTC, removeTaskTC, selectTasks, updateTaskTC } from './tasks-reducer'
-import { TaskStatuses } from 'api/api'
+import { TaskStatuses } from 'features/TodolistsList/api'
 import Grid from '@mui/material/Unstable_Grid2'
-import AddItemForm from 'components/AddItemForm/AddItemForm'
+import AddItemForm from 'common/components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
 import { Todolist } from './Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
-import { selectIsLoggedIn } from 'features/Login/auth-reducer'
+import { selectIsLoggedIn } from 'features/Login/model/authSlice'
 
 type PropsType = {
   demo?: boolean

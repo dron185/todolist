@@ -1,7 +1,7 @@
 import { addTaskTC, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTaskTC } from './tasks-reducer'
 import { addTodolistAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/api'
 import { TestAction } from 'common/types/types'
+import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 
 let startState: TasksStateType
 const tasksReducer = tasksSlice.reducer

@@ -1,8 +1,8 @@
-import { authAPI } from 'api/api'
-import { setIsLoggedInAC } from 'features/Login/auth-reducer'
-import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
+import { setIsLoggedInAC } from 'features/Login/model/authSlice'
+import { handleServerAppError, handleServerNetworkError } from 'common/utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from 'app/store'
+import { authAPI } from 'features/Login/api/authApi'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type AppInitialState = {

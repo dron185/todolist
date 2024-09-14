@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback } from 'react'
-import AddItemForm from '../components/AddItemForm/AddItemForm'
-import { EditableSpan } from 'components/EditableSpan/EditableSpan'
+import AddItemForm from '../common/components/AddItemForm/AddItemForm'
+import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
@@ -18,7 +18,7 @@ import {
   removeTodolistAC,
   TodolistDomainType,
 } from 'features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/api'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/api'
 import { TestAction } from 'common/types/types'
 
 type TodolistPropsType = {
