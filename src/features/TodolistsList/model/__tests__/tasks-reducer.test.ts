@@ -1,5 +1,12 @@
-import { addTask, fetchTasks, removeTask, tasksSlice, TasksStateType, updateTask } from './tasks-reducer'
-import { addTodolistAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
+import {
+  addTask,
+  fetchTasks,
+  removeTask,
+  tasksSlice,
+  TasksStateType,
+  updateTask,
+} from 'features/TodolistsList/model/tasksSlice'
+import { addTodolistAC, removeTodolistAC, setTodolistsAC } from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 

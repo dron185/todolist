@@ -10,8 +10,8 @@ import {
   setTodolistsAC,
   TodolistDomainType,
   todolistsSlice,
-} from './todolists-reducer'
-import { TodolistType } from 'features/TodolistsList/api'
+} from 'features/TodolistsList/model/todolistsSlice'
+import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/app-reducer'
 
 let todolistID1: string

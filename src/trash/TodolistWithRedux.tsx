@@ -8,16 +8,16 @@ import Checkbox from '@mui/material/Checkbox'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
-import { filterButtonsContainerSx, getListItemSx } from 'features/TodolistsList/Todolist/Todolist.styles'
+import { filterButtonsContainerSx, getListItemSx } from 'features/TodolistsList/ui/Todolist/Todolist.styles'
 import { useDispatch } from 'react-redux'
-import { addTask, removeTask, TaskDomainType, updateTask } from 'features/TodolistsList/tasks-reducer'
+import { addTask, removeTask, TaskDomainType, updateTask } from 'features/TodolistsList/model/tasksSlice'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
   FilterValuesType,
   removeTodolistAC,
   TodolistDomainType,
-} from 'features/TodolistsList/todolists-reducer'
+} from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 

@@ -1,5 +1,5 @@
-import { tasksSlice } from 'features/TodolistsList/tasks-reducer'
-import { todolistsSlice } from 'features/TodolistsList/todolists-reducer'
+import { tasksSlice } from 'features/TodolistsList/model/tasksSlice'
+import { todolistsSlice } from 'features/TodolistsList/model/todolistsSlice'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
 import { appSlice } from './app-reducer'

@@ -1,5 +1,16 @@
-import { addTodolistAC, changeTodolistEntityStatusAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
-import { AddTaskArgs, TaskType, todolistsAPI, UpdateTaskArgs, UpdateTaskModelType } from 'features/TodolistsList/api'
+import {
+  addTodolistAC,
+  changeTodolistEntityStatusAC,
+  removeTodolistAC,
+  setTodolistsAC,
+} from 'features/TodolistsList/model/todolistsSlice'
+import {
+  AddTaskArgs,
+  TaskType,
+  todolistsAPI,
+  UpdateTaskArgs,
+  UpdateTaskModelType,
+} from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'

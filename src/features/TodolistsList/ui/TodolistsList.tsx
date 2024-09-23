@@ -9,12 +9,12 @@ import {
   FilterValuesType,
   removeTodolistTC,
   selectTodolists,
-} from './todolists-reducer'
-import { addTask, removeTask, selectTasks, updateTask } from './tasks-reducer'
+} from 'features/TodolistsList/model/todolistsSlice'
+import { addTask, removeTask, selectTasks, updateTask } from 'features/TodolistsList/model/tasksSlice'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddItemForm from 'common/components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
-import { Todolist } from './Todolist/Todolist'
+import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/Login/model/authSlice'
 import { TaskStatuses } from 'common/enums'

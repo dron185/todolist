@@ -1,4 +1,4 @@
-import { UpdateDomainTaskModelType } from 'features/TodolistsList/tasks-reducer'
+import { UpdateDomainTaskModelType } from 'features/TodolistsList/model/tasksSlice'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { instance } from 'common/instance/instance'
 import { BaseResponse } from 'common/types'
