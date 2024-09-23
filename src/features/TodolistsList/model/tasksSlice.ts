@@ -6,6 +6,7 @@ import {
 } from 'features/TodolistsList/model/todolistsSlice'
 import {
   AddTaskArgs,
+  RemoveTaskArgType,
   TaskType,
   todolistsAPI,
   UpdateTaskArgs,
@@ -153,35 +154,35 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
   }
 )
 
-export const removeTask = createAppAsyncThunk<
-  { todolistId: string; taskId: string },
-  { todolistId: string; taskId: string }
->(`${tasksSlice.name}/removeTask`, async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
+export const removeTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
+  `${tasksSlice.name}/removeTask`,
+  async (arg, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI
 
-  try {
-    dispatch(setAppStatusAC({ status: 'loading' }))
-    dispatch(
-      changeTaskEntityStatusAC({
-        todolistId: arg.todolistId,
-        taskId: arg.taskId,
-        status: 'loading',
-      })
-    )
+    try {
+      dispatch(setAppStatusAC({ status: 'loading' }))
+      dispatch(
+        changeTaskEntityStatusAC({
+          todolistId: arg.todolistId,
+          taskId: arg.taskId,
+          status: 'loading',
+        })
+      )
 
-    const res = await todolistsAPI.deleteTask(arg.todolistId, arg.taskId)
-    if (res.data.resultCode === 0) {
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
-      return { taskId: arg.taskId, todolistId: arg.todolistId }
-    } else {
-      handleServerAppError(res.data, dispatch)
+      const res = await todolistsAPI.deleteTask(arg)
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatusAC({ status: 'succeeded' }))
+        return arg
+      } else {
+        handleServerAppError(res.data, dispatch)
+        return rejectWithValue(null)
+      }
+    } catch (err: any) {
+      handleServerNetworkError(err, dispatch)
       return rejectWithValue(null)
     }
-  } catch (err: any) {
-    handleServerNetworkError(err, dispatch)
-    return rejectWithValue(null)
   }
-})
+)
 
 export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
   `${tasksSlice.name}/updateTask`,
