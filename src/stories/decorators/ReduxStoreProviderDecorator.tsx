@@ -3,12 +3,12 @@ import { combineReducers } from 'redux'
 import { tasksSlice } from 'features/TodolistsList/model/tasksSlice'
 import { todolistsSlice } from 'features/TodolistsList/model/todolistsSlice'
 import { v1 } from 'uuid'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/api/todolistsApi'
 import { AppRootStateType } from 'app/store'
 import { appSlice } from 'app/app-reducer'
 import { authSlice } from 'features/Login/model/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 const rootReducer = combineReducers({
   [tasksSlice.reducerPath]: tasksSlice.reducer,

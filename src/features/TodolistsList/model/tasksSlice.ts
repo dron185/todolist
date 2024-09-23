@@ -15,7 +15,8 @@ import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
-import { ResultCode, TaskPriorities, TaskStatuses } from 'common/enums'
+import { ResultCode } from 'common/enums'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 // types
 export type UpdateDomainTaskModelType = {

@@ -6,7 +6,7 @@ import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
-import { TaskStatuses } from 'common/enums/enums'
+import { TaskStatuses } from 'features/TodolistsList/lib'
 
 export type TaskPropsType = {
   task: TaskDomainType

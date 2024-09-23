@@ -17,7 +17,7 @@ import Paper from '@mui/material/Paper'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/Login/model/authSlice'
-import { TaskStatuses } from 'common/enums'
+import { TaskStatuses } from 'features/TodolistsList/lib'
 
 type PropsType = {
   demo?: boolean

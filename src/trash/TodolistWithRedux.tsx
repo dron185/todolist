@@ -19,7 +19,7 @@ import {
   TodolistDomainType,
 } from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
-import { TaskPriorities, TaskStatuses } from 'common/enums'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType

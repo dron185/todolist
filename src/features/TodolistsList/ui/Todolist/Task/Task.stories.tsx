@@ -3,9 +3,9 @@ import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
 import { v1 } from 'uuid'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/app-reducer'
 import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 const meta: Meta<typeof Task> = {
   title: 'TODOLISTS/Task',

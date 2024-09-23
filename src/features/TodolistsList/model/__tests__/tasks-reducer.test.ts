@@ -8,7 +8,7 @@ import {
 } from 'features/TodolistsList/model/tasksSlice'
 import { addTodolistAC, removeTodolistAC, setTodolistsAC } from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
-import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 let startState: TasksStateType
 const tasksReducer = tasksSlice.reducer

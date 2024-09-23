@@ -1,7 +1,7 @@
 import { UpdateDomainTaskModelType } from 'features/TodolistsList/model/tasksSlice'
-import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { instance } from 'common/instance/instance'
 import { BaseResponse } from 'common/types'
+import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
 // api
 

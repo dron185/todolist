@@ -11,7 +11,7 @@ import { ButtonProps } from '@mui/material/Button/Button'
 import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/model/todolistsSlice'
 import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
-import { TaskStatuses } from 'common/enums/enums'
+import { TaskStatuses } from 'features/TodolistsList/lib'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType
