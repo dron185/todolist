@@ -10,7 +10,7 @@ import {
   removeTodolistTC,
   selectTodolists,
 } from './todolists-reducer'
-import { addTask, removeTaskTC, selectTasks, updateTask } from './tasks-reducer'
+import { addTask, removeTask, selectTasks, updateTask } from './tasks-reducer'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddItemForm from 'common/components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
@@ -41,8 +41,8 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   }, [])
 
   // CRUD tasks
-  const removeTask = useCallback((taskId: string, todolistId: string) => {
-    dispatch(removeTaskTC({ todolistId, taskId }))
+  const removeTaskCallback = useCallback((taskId: string, todolistId: string) => {
+    dispatch(removeTask({ todolistId, taskId }))
   }, [])
 
   const addTaskCallback = useCallback(
@@ -127,7 +127,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                   todolist={tl}
                   key={tl.id}
                   tasks={tasks[tl.id]}
-                  removeTask={removeTask}
+                  removeTask={removeTaskCallback}
                   changeFilter={changeFilter}
                   addTask={addTaskCallback}
                   changeTaskStatus={changeTaskStatus}

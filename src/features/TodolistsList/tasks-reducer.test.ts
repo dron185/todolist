@@ -1,4 +1,4 @@
-import { addTask, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTask } from './tasks-reducer'
+import { addTask, fetchTasks, removeTask, tasksSlice, TasksStateType, updateTask } from './tasks-reducer'
 import { addTodolistAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
@@ -96,7 +96,7 @@ beforeEach(() => {
 test('correct task should be deleted from correct array', () => {
   //const action = removeTaskAC({ taskId: '2', todolistId: 'todolistId2' })
   let param = { taskId: '2', todolistId: 'todolistId2' }
-  const action = removeTaskTC.fulfilled(param, '', param)
+  const action = removeTask.fulfilled(param, '', param)
   const endState = tasksReducer(startState, action)
 
   // expect(endState['todolistId1'].length).toBe(3);
@@ -285,8 +285,8 @@ test('empty arrays should be added when we set todolists', () => {
 })
 
 test('tasks should be added for todolist', () => {
-  const action: TestAction<typeof fetchTasksTC.fulfilled> = {
-    type: fetchTasksTC.fulfilled.type,
+  const action: TestAction<typeof fetchTasks.fulfilled> = {
+    type: fetchTasks.fulfilled.type,
     payload: {
       tasks: startState['todolistId1'],
       todolistId: 'todolistId1',

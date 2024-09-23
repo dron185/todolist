@@ -61,7 +61,7 @@ export const tasksSlice = createSlice({
       .addCase(clearTasksAndTodolists, () => {
         return {}
       })
-      .addCase(fetchTasksTC.fulfilled, (state, action) => {
+      .addCase(fetchTasks.fulfilled, (state, action) => {
         state[action.payload.todolistId] = action.payload.tasks.map((task) => ({
           ...task,
           entityStatus: 'idle',
@@ -80,7 +80,7 @@ export const tasksSlice = createSlice({
           tasks[index] = { ...tasks[index], ...action.payload.model }
         }
       })
-      .addCase(removeTaskTC.fulfilled, (state, action) => {
+      .addCase(removeTask.fulfilled, (state, action) => {
         const tasks = state[action.payload.todolistId]
         const index = tasks.findIndex((t) => t.id === action.payload.taskId)
         if (index > -1) {
@@ -99,7 +99,7 @@ export const { selectTasks } = tasksSlice.selectors
 // export const tasksThunks = { fetchTasksTC, removeTaskTC }
 
 // thunks
-export const fetchTasksTC = createAppAsyncThunk<
+export const fetchTasks = createAppAsyncThunk<
   {
     tasks: TaskType[]
     todolistId: string
@@ -143,7 +143,7 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
   }
 )
 
-export const removeTaskTC = createAppAsyncThunk<
+export const removeTask = createAppAsyncThunk<
   { todolistId: string; taskId: string },
   { todolistId: string; taskId: string }
 >(`${tasksSlice.name}/removeTask`, async (arg, thunkAPI) => {

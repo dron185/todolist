@@ -10,7 +10,7 @@ import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import { filterButtonsContainerSx, getListItemSx } from 'features/TodolistsList/Todolist/Todolist.styles'
 import { useDispatch } from 'react-redux'
-import { addTask, removeTaskTC, TaskDomainType, updateTask } from 'features/TodolistsList/tasks-reducer'
+import { addTask, removeTask, TaskDomainType, updateTask } from 'features/TodolistsList/tasks-reducer'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
@@ -89,7 +89,7 @@ export const TodolistWithRedux = React.memo(({ todolist, tasks }: TodolistPropsT
         {tasksForTodolist.map((t) => {
           const removeTaskHandler = () =>
             dispatch(
-              removeTaskTC.fulfilled({ taskId: t.id, todolistId: todolist.id }, '', {
+              removeTask.fulfilled({ taskId: t.id, todolistId: todolist.id }, '', {
                 taskId: t.id,
                 todolistId: todolist.id,
               })
