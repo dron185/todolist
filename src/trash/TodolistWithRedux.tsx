@@ -18,8 +18,8 @@ import {
   removeTodolistAC,
   TodolistDomainType,
 } from 'features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/api'
 import { TestAction } from 'common/types/types'
+import { TaskPriorities, TaskStatuses } from 'common/enums'
 
 type TodolistPropsType = {
   todolist: TodolistDomainType

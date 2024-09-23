@@ -105,7 +105,7 @@ export const fetchTasksTC = createAppAsyncThunk<
     todolistId: string
   },
   string
->('tasks/fetchTasks', async (todolistId, thunkAPI) => {
+>(`${tasksSlice.name}/fetchTasks`, async (todolistId, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
