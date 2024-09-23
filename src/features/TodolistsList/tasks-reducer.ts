@@ -1,5 +1,5 @@
 import { addTodolistAC, changeTodolistEntityStatusAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
-import { TaskType, todolistsAPI, UpdateTaskArgs, UpdateTaskModelType } from 'features/TodolistsList/api'
+import { AddTaskArgs, TaskType, todolistsAPI, UpdateTaskArgs, UpdateTaskModelType } from 'features/TodolistsList/api'
 import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
 // import { handleServerAppError, handleServerNetworkError } from 'common/utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -120,17 +120,17 @@ export const fetchTasksTC = createAppAsyncThunk<
   }
 })
 
-export const addTask = createAppAsyncThunk<{ task: TaskType }, { todolistId: string; taskTitle: string }>(
+export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
   `${tasksSlice.name}/addTask`,
-  async ({ todolistId, taskTitle }, thunkAPI) => {
+  async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
       dispatch(setAppStatusAC({ status: 'loading' }))
-      dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'loading' }))
-      const res = await todolistsAPI.createTask(todolistId, taskTitle)
+      dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'loading' }))
+      const res = await todolistsAPI.createTask(arg)
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatusAC({ status: 'succeeded' }))
-        dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' }))
+        dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'succeeded' }))
         return { task: res.data.data.item }
       } else {
         handleServerAppError(res.data, dispatch)

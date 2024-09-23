@@ -26,8 +26,11 @@ export const todolistsAPI = {
   deleteTask: (todolistId: string, taskId: string) => {
     return instance.delete<BaseResponse>(`/todo-lists/${todolistId}/tasks/${taskId}`)
   },
-  createTask: (todolistId: string, taskTitle: string) => {
-    return instance.post<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, { title: taskTitle })
+  createTask: (args: AddTaskArgs) => {
+    const { todolistId, taskTitle } = args
+    return instance.post<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {
+      title: taskTitle,
+    })
   },
   updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
     return instance.put<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
@@ -35,6 +38,11 @@ export const todolistsAPI = {
 }
 
 // types
+export type AddTaskArgs = {
+  todolistId: string
+  taskTitle: string
+}
+
 export type UpdateTaskArgs = {
   taskId: string
   model: UpdateDomainTaskModelType
