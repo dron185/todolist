@@ -1,4 +1,4 @@
-import { addTaskTC, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTaskTC } from './tasks-reducer'
+import { addTask, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTaskTC } from './tasks-reducer'
 import { addTodolistAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
@@ -177,10 +177,10 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('correct task should be added to correct array', () => {
-  type Action = TestAction<typeof addTaskTC.fulfilled>
+  type Action = TestAction<typeof addTask.fulfilled>
 
   const action: Action = {
-    type: addTaskTC.fulfilled.type,
+    type: addTask.fulfilled.type,
     payload: {
       task: {
         todoListId: 'todolistId2',

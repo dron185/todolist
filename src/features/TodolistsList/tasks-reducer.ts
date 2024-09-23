@@ -67,7 +67,7 @@ export const tasksSlice = createSlice({
           entityStatus: 'idle',
         }))
       })
-      .addCase(addTaskTC.fulfilled, (state, action) => {
+      .addCase(addTask.fulfilled, (state, action) => {
         state[action.payload.task.todoListId].unshift({
           ...action.payload.task,
           entityStatus: 'idle',
@@ -120,7 +120,7 @@ export const fetchTasksTC = createAppAsyncThunk<
   }
 })
 
-export const addTaskTC = createAppAsyncThunk<{ task: TaskType }, { todolistId: string; taskTitle: string }>(
+export const addTask = createAppAsyncThunk<{ task: TaskType }, { todolistId: string; taskTitle: string }>(
   `${tasksSlice.name}/addTask`,
   async ({ todolistId, taskTitle }, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
