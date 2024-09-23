@@ -10,7 +10,7 @@ import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import { filterButtonsContainerSx, getListItemSx } from 'features/TodolistsList/Todolist/Todolist.styles'
 import { useDispatch } from 'react-redux'
-import { addTask, removeTaskTC, TaskDomainType, updateTaskTC } from 'features/TodolistsList/tasks-reducer'
+import { addTask, removeTaskTC, TaskDomainType, updateTask } from 'features/TodolistsList/tasks-reducer'
 import {
   changeTodolistFilterAC,
   changeTodolistTitleAC,
@@ -98,8 +98,8 @@ export const TodolistWithRedux = React.memo(({ todolist, tasks }: TodolistPropsT
           const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
             const newTaskStatus = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
 
-            const action: TestAction<typeof updateTaskTC.fulfilled> = {
-              type: updateTaskTC.fulfilled.type,
+            const action: TestAction<typeof updateTask.fulfilled> = {
+              type: updateTask.fulfilled.type,
               payload: {
                 taskId: t.id,
                 model: { status: newTaskStatus },
@@ -110,8 +110,8 @@ export const TodolistWithRedux = React.memo(({ todolist, tasks }: TodolistPropsT
           }
 
           const updateTaskTitleHandler = (newTitle: string) => {
-            const action: TestAction<typeof updateTaskTC.fulfilled> = {
-              type: updateTaskTC.fulfilled.type,
+            const action: TestAction<typeof updateTask.fulfilled> = {
+              type: updateTask.fulfilled.type,
               payload: {
                 taskId: t.id,
                 model: { title: newTitle },

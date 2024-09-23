@@ -10,7 +10,7 @@ import {
   removeTodolistTC,
   selectTodolists,
 } from './todolists-reducer'
-import { addTask, removeTaskTC, selectTasks, updateTaskTC } from './tasks-reducer'
+import { addTask, removeTaskTC, selectTasks, updateTask } from './tasks-reducer'
 import Grid from '@mui/material/Unstable_Grid2'
 import AddItemForm from 'common/components/AddItemForm/AddItemForm'
 import Paper from '@mui/material/Paper'
@@ -54,14 +54,14 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
   const changeTaskStatus = useCallback(
     (todolistId: string, taskId: string, status: TaskStatuses) => {
-      dispatch(updateTaskTC({ taskId, model: { status }, todolistId }))
+      dispatch(updateTask({ taskId, model: { status }, todolistId }))
     },
     [dispatch]
   )
 
   const updateTaskTitle = useCallback(
     (todolistId: string, taskId: string, title: string) => {
-      dispatch(updateTaskTC({ taskId, model: { title }, todolistId }))
+      dispatch(updateTask({ taskId, model: { title }, todolistId }))
     },
     [dispatch]
   )

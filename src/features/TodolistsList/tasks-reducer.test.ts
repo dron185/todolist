@@ -1,4 +1,4 @@
-import { addTask, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTaskTC } from './tasks-reducer'
+import { addTask, fetchTasksTC, removeTaskTC, tasksSlice, TasksStateType, updateTask } from './tasks-reducer'
 import { addTodolistAC, removeTodolistAC, setTodolistsAC } from './todolists-reducer'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
@@ -207,10 +207,10 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  type Action = TestAction<typeof updateTaskTC.fulfilled>
+  type Action = TestAction<typeof updateTask.fulfilled>
 
   const action: Action = {
-    type: updateTaskTC.fulfilled.type,
+    type: updateTask.fulfilled.type,
     payload: {
       taskId: '2',
       model: { status: TaskStatuses.New },
@@ -224,10 +224,10 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  type Action = TestAction<typeof updateTaskTC.fulfilled>
+  type Action = TestAction<typeof updateTask.fulfilled>
 
   const action: Action = {
-    type: updateTaskTC.fulfilled.type,
+    type: updateTask.fulfilled.type,
     payload: {
       taskId: '2',
       model: { title: 'Milkyway' },

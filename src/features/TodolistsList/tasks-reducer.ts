@@ -73,7 +73,7 @@ export const tasksSlice = createSlice({
           entityStatus: 'idle',
         })
       })
-      .addCase(updateTaskTC.fulfilled, (state, action) => {
+      .addCase(updateTask.fulfilled, (state, action) => {
         const tasks = state[action.payload.todolistId]
         const index = tasks.findIndex((t) => t.id === action.payload.taskId)
         if (index > -1) {
@@ -173,7 +173,7 @@ export const removeTaskTC = createAppAsyncThunk<
   }
 })
 
-export const updateTaskTC = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
+export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
   `${tasksSlice.name}/updateTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue, getState } = thunkAPI
