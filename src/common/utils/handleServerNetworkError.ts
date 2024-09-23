@@ -1,18 +1,6 @@
-import { setAppErrorAC, setAppStatusAC } from 'app/app-reducer'
-import { Dispatch } from 'redux'
 import { AppDispatch } from 'app/store'
 import axios from 'axios'
-import { BaseResponse } from 'common/types/types'
-
-// generic function
-export const handleServerAppError = <T>(data: BaseResponse<T>, dispatch: AppDispatch) => {
-  if (data.messages.length) {
-    dispatch(setAppErrorAC({ error: data.messages[0] }))
-  } else {
-    dispatch(setAppErrorAC({ error: 'Some error occurred' }))
-  }
-  dispatch(setAppStatusAC({ status: 'failed' }))
-}
+import { setAppErrorAC, setAppStatusAC } from 'app/app-reducer'
 
 export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): void => {
   let errorMessage = 'Some error occurred'
