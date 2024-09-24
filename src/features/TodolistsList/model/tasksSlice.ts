@@ -1,10 +1,8 @@
 import {
-  addTodolistAC,
+  addTodolist,
   changeTodolistEntityStatusAC,
   fetchTodolists,
   removeTodolist,
-  /*removeTodolistAC,*/
-  /*setTodolistsAC,*/
 } from 'features/TodolistsList/model/todolistsSlice'
 import {
   AddTaskArgs,
@@ -60,9 +58,12 @@ export const tasksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addTodolistAC, (state, action) => {
+      .addCase(addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
+      /*.addCase(addTodolistAC, (state, action) => {
+        state[action.payload.todolist.id] = []
+      })*/
       .addCase(removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.todolistId]
       })
