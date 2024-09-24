@@ -2,7 +2,8 @@ import {
   addTodolistAC,
   changeTodolistEntityStatusAC,
   fetchTodolists,
-  removeTodolistAC,
+  removeTodolist,
+  /*removeTodolistAC,*/
   /*setTodolistsAC,*/
 } from 'features/TodolistsList/model/todolistsSlice'
 import {
@@ -62,9 +63,12 @@ export const tasksSlice = createSlice({
       .addCase(addTodolistAC, (state, action) => {
         state[action.payload.todolist.id] = []
       })
-      .addCase(removeTodolistAC, (state, action) => {
+      .addCase(removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.todolistId]
       })
+      /*.addCase(removeTodolistAC, (state, action) => {
+        delete state[action.payload.todolistId]
+      })*/
       /*.addCase(setTodolistsAC, (state, action) => {
         action.payload.todolists.forEach((tl) => {
           state[tl.id] = []

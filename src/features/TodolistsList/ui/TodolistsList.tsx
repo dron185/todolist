@@ -7,7 +7,7 @@ import {
   changeTodolistTitleTC,
   fetchTodolists,
   FilterValuesType,
-  removeTodolistTC,
+  removeTodolist,
   selectTodolists,
 } from 'features/TodolistsList/model/todolistsSlice'
 import { addTask, removeTask, selectTasks, updateTask } from 'features/TodolistsList/model/tasksSlice'
@@ -75,9 +75,9 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     [dispatch]
   )
 
-  const removeTodolist = useCallback(
+  const removeTodolistCallback = useCallback(
     (todolistId: string) => {
-      const thunk = removeTodolistTC(todolistId)
+      const thunk = removeTodolist(todolistId)
       dispatch(thunk)
     },
     [dispatch]
@@ -131,7 +131,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                   changeFilter={changeFilter}
                   addTask={addTaskCallback}
                   changeTaskStatus={changeTaskStatus}
-                  removeTodolist={removeTodolist}
+                  removeTodolist={removeTodolistCallback}
                   updateTaskTitle={updateTaskTitle}
                   updateTodolistTitle={updateTodolistTitle}
                   demo={demo}
