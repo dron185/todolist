@@ -5,14 +5,16 @@ import {
   changeTodolistEntityStatusAC,
   changeTodolistFilterAC,
   changeTodolistTitleAC,
+  fetchTodolists,
   FilterValuesType,
-  removeTodolistAC,
-  setTodolistsAC,
+  removeTodolist,
   TodolistDomainType,
   todolistsSlice,
 } from 'features/TodolistsList/model/todolistsSlice'
 import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/app-reducer'
+import { TestAction } from 'common/types'
+import { addTask } from 'features/TodolistsList/model/tasksSlice'
 
 let todolistID1: string
 let todolistID2: string
@@ -44,7 +46,15 @@ beforeEach(() => {
 
 test('correct todolist should be removed', () => {
   // 2. Действие
-  const endState = todolistsReducer(startState, removeTodolistAC({ todolistId: todolistID1 }))
+  type Action = TestAction<typeof removeTodolist.fulfilled>
+
+  const action: Action = {
+    type: removeTodolist.fulfilled.type,
+    payload: {
+      todolistId: todolistID1,
+    },
+  }
+  const endState = todolistsReducer(startState, action)
 
   // 3. Проверяем, что наши действия (изменения state) соответствуют ожиданию
   // в массиве останется один тудулист
@@ -104,7 +114,12 @@ test('correct filter of todolist should be changed', () => {
 })
 
 test('todolists should be set to the state', () => {
-  const action = setTodolistsAC({ todolists: startState })
+  type Action = TestAction<typeof fetchTodolists.fulfilled>
+
+  const action: Action = {
+    type: fetchTodolists.fulfilled.type,
+    payload: { todolists: startState },
+  }
   const endState = todolistsReducer([], action)
 
   expect(endState.length).toBe(2)

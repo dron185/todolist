@@ -6,7 +6,7 @@ import {
   TasksStateType,
   updateTask,
 } from 'features/TodolistsList/model/tasksSlice'
-import { addTodolistAC, removeTodolistAC, setTodolistsAC } from 'features/TodolistsList/model/todolistsSlice'
+import { addTodolistAC, fetchTodolists, removeTodolist } from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
@@ -266,7 +266,14 @@ test('new property with new array should be added when new todolist is added', (
 })
 
 test('property with todolistId should be deleted', () => {
-  const action = removeTodolistAC({ todolistId: 'todolistId2' })
+  type Action = TestAction<typeof removeTodolist.fulfilled>
+
+  const action: Action = {
+    type: removeTodolist.fulfilled.type,
+    payload: {
+      todolistId: 'todolistId2',
+    },
+  }
   const endState = tasksReducer(startState, action)
   const keys = Object.keys(endState)
 
@@ -275,12 +282,16 @@ test('property with todolistId should be deleted', () => {
 })
 
 test('empty arrays should be added when we set todolists', () => {
-  const action = setTodolistsAC({
-    todolists: [
-      { id: '1', title: 'title-1', order: 0, addedDate: '' },
-      { id: '2', title: 'title-2', order: 0, addedDate: '' },
-    ],
-  })
+  type Action = TestAction<typeof fetchTodolists.fulfilled>
+  const action: Action = {
+    type: fetchTodolists.fulfilled.type,
+    payload: {
+      todolists: [
+        { id: '1', title: 'title-1', order: 0, addedDate: '' },
+        { id: '2', title: 'title-2', order: 0, addedDate: '' },
+      ],
+    },
+  }
 
   const endState = tasksReducer({}, action)
 
