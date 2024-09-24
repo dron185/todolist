@@ -1,6 +1,12 @@
-import { addTodolistAC, TodolistDomainType, todolistsSlice } from 'features/TodolistsList/model/todolistsSlice'
+import {
+  addTodolist,
+  fetchTodolists,
+  TodolistDomainType,
+  todolistsSlice,
+} from 'features/TodolistsList/model/todolistsSlice'
 import { tasksSlice, TasksStateType } from 'features/TodolistsList/model/tasksSlice'
 import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
+import { TestAction } from 'common/types'
 
 const todolistsReducer = todolistsSlice.reducer
 const tasksReducer = tasksSlice.reducer
@@ -15,8 +21,11 @@ test('ids should be equals', () => {
     addedDate: '',
     order: 0,
   }
-
-  const action = addTodolistAC({ todolist })
+  type Action = TestAction<typeof addTodolist.fulfilled>
+  const action: Action = {
+    type: addTodolist.fulfilled.type,
+    payload: { todolist },
+  }
   const endTasksState = tasksReducer(startTasksState, action)
   const endTodolistsState = todolistsReducer(startTodolistsState, action)
 

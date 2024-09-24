@@ -6,7 +6,7 @@ import {
   TasksStateType,
   updateTask,
 } from 'features/TodolistsList/model/tasksSlice'
-import { addTodolistAC, fetchTodolists, removeTodolist } from 'features/TodolistsList/model/todolistsSlice'
+import { addTodolist, fetchTodolists, removeTodolist } from 'features/TodolistsList/model/todolistsSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 
@@ -101,15 +101,10 @@ beforeEach(() => {
 })
 
 test('correct task should be deleted from correct array', () => {
-  //const action = removeTaskAC({ taskId: '2', todolistId: 'todolistId2' })
   let param = { taskId: '2', todolistId: 'todolistId2' }
   const action = removeTask.fulfilled(param, '', param)
   const endState = tasksReducer(startState, action)
 
-  // expect(endState['todolistId1'].length).toBe(3);
-  // expect(endState['todolistId2'].length).toBe(2);
-  // expect(endState['todolistId2'].every(t => t.id !== "2")).toBeTruthy();
-  // toBeTruthy() - тоже самое что и - toBe(true)
   expect(endState).toEqual({
     ['todolistId1']: [
       {
@@ -250,9 +245,13 @@ test('title of specified task should be changed', () => {
 })
 
 test('new property with new array should be added when new todolist is added', () => {
-  const action = addTodolistAC({
-    todolist: { id: '1', title: 'New title', addedDate: '', order: 0 },
-  })
+  type Action = TestAction<typeof addTodolist.fulfilled>
+  const action: Action = {
+    type: addTodolist.fulfilled.type,
+    payload: {
+      todolist: { id: '1', title: 'New title', addedDate: '', order: 0 },
+    },
+  }
   const endState = tasksReducer(startState, action)
 
   const keys = Object.keys(endState)

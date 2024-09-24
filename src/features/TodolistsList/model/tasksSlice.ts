@@ -181,7 +181,7 @@ export const removeTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgTy
       )
 
       const res = await todolistsAPI.deleteTask(arg)
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatusAC({ status: 'succeeded' }))
         return arg
       } else {
@@ -226,7 +226,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
       }
 
       const res = await todolistsAPI.updateTask(arg.todolistId, arg.taskId, apiModel)
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatusAC({ status: 'succeeded' }))
         dispatch(
           changeTaskEntityStatusAC({
