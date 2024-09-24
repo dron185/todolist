@@ -5,7 +5,7 @@ import {
   addTodolistTC,
   changeTodolistFilterAC,
   changeTodolistTitleTC,
-  fetchTodolistsTC,
+  fetchTodolists,
   FilterValuesType,
   removeTodolistTC,
   selectTodolists,
@@ -37,7 +37,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
       return
     }
 
-    dispatch(fetchTodolistsTC())
+    dispatch(fetchTodolists())
   }, [])
 
   // CRUD tasks

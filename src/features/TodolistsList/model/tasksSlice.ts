@@ -1,7 +1,7 @@
 import {
   addTodolistAC,
   changeTodolistEntityStatusAC,
-  fetchTodolistsTC,
+  fetchTodolists,
   removeTodolistAC,
   /*setTodolistsAC,*/
 } from 'features/TodolistsList/model/todolistsSlice'
@@ -70,7 +70,7 @@ export const tasksSlice = createSlice({
           state[tl.id] = []
         })
       })*/
-      .addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+      .addCase(fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => {
           state[tl.id] = []
         })

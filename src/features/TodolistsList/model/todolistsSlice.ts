@@ -53,7 +53,7 @@ export const todolistsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+      .addCase(fetchTodolists.fulfilled, (state, action) => {
         return action.payload.todolists.map((tl) => ({
           ...tl,
           filter: 'all',
@@ -81,7 +81,7 @@ export const { selectTodolists } = todolistsSlice.selectors
 
 // thunks
 
-export const fetchTodolistsTC = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
+export const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistType[] }, void>(
   `${todolistsSlice.name}/fetchTodolists`,
   async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -99,25 +99,6 @@ export const fetchTodolistsTC = createAppAsyncThunk<{ todolists: TodolistType[] 
     }
   }
 )
-
-// export const fetchTodolistsTC_ = (): AppThunk => (dispatch) => {
-//   dispatch(setAppStatusAC({ status: 'loading' }))
-//   todolistsAPI
-//     .getTodolists()
-//     .then((res) => {
-//       dispatch(setTodolistsAC({ todolists: res.data }))
-//       dispatch(setAppStatusAC({ status: 'succeeded' }))
-//       return res.data
-//     })
-//     .then((todos) => {
-//       todos.forEach((tl) => {
-//         dispatch(fetchTasks(tl.id))
-//       })
-//     })
-//     .catch((err) => {
-//       handleServerNetworkError(err, dispatch)
-//     })
-// }
 
 export const removeTodolistTC =
   (todolistId: string): AppThunk =>
@@ -168,3 +149,22 @@ export const changeTodolistTitleTC =
         dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' }))
       })
   }
+
+// export const fetchTodolistsTC_ = (): AppThunk => (dispatch) => {
+//   dispatch(setAppStatusAC({ status: 'loading' }))
+//   todolistsAPI
+//     .getTodolists()
+//     .then((res) => {
+//       dispatch(setTodolistsAC({ todolists: res.data }))
+//       dispatch(setAppStatusAC({ status: 'succeeded' }))
+//       return res.data
+//     })
+//     .then((todos) => {
+//       todos.forEach((tl) => {
+//         dispatch(fetchTasks(tl.id))
+//       })
+//     })
+//     .catch((err) => {
+//       handleServerNetworkError(err, dispatch)
+//     })
+// }
