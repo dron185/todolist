@@ -12,7 +12,7 @@ import {
   todolistsSlice,
 } from 'features/TodolistsList/model/todolistsSlice'
 import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
-import { RequestStatusType } from 'app/app-reducer'
+import { RequestStatusType } from 'app/appSlice'
 import { TestAction } from 'common/types'
 
 let todolistID1: string

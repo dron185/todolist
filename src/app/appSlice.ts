@@ -46,22 +46,3 @@ export const appSlice = createSlice({
 export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } = appSlice.actions
 
 export const { selectAppStatus, selectAppError, selectIsInitialized } = appSlice.selectors
-
-// thunks
-// export const initializeApp = (): AppThunk => (dispatch) => {
-//   dispatch(setAppStatusAC({ status: 'loading' }))
-//   authAPI
-//     .me()
-//     .then((res) => {
-//       if (res.data.resultCode === 0) {
-//         dispatch(setIsLoggedInAC({ value: true }))
-//         dispatch(setAppStatusAC({ status: 'succeeded' }))
-//       } else {
-//         handleServerAppError(res.data, dispatch)
-//       }
-//       dispatch(setAppInitializedAC({ isInitialized: true }))
-//     })
-//     .catch((err) => {
-//       handleServerNetworkError(err, dispatch)
-//     })
-// }

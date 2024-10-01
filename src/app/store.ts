@@ -2,7 +2,7 @@ import { tasksSlice } from 'features/TodolistsList/model/tasksSlice'
 import { todolistsSlice } from 'features/TodolistsList/model/todolistsSlice'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { useDispatch } from 'react-redux'
-import { appSlice } from './app-reducer'
+import { appSlice } from 'app/appSlice'
 import { authSlice } from 'features/Login/model/authSlice'
 import { configureStore, UnknownAction, combineSlices } from '@reduxjs/toolkit'
 

@@ -1,4 +1,4 @@
-import { setAppInitializedAC, setAppStatusAC } from 'app/app-reducer'
+import { setAppInitializedAC, setAppStatusAC } from 'app/appSlice'
 import { createSlice } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { LoginParamsType } from 'features/Login/api/authApi.types'

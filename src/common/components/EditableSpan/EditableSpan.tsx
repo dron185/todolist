@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField'
 import React, { ChangeEvent, useState } from 'react'
-import { RequestStatusType } from 'app/app-reducer'
+import { RequestStatusType } from 'app/appSlice'
 
 type PropsType = {
   oldTitle: string

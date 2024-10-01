@@ -1,4 +1,4 @@
-import { setAppErrorAC, setAppStatusAC } from 'app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from 'app/appSlice'
 import { AppDispatch } from 'app/store'
 import { BaseResponse } from 'common/types/types'
 

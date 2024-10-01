@@ -3,7 +3,7 @@ import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
 import { v1 } from 'uuid'
-import { RequestStatusType } from 'app/app-reducer'
+import { RequestStatusType } from 'app/appSlice'
 import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 

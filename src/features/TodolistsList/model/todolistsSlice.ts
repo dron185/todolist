@@ -1,5 +1,5 @@
 import { todolistsAPI, TodolistType, UpdateTodolistTitleArgType } from 'features/TodolistsList/api/todolistsApi'
-import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
+import { RequestStatusType, setAppStatusAC } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchTasks } from 'features/TodolistsList/model/tasksSlice'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'

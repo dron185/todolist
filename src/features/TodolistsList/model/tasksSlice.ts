@@ -12,7 +12,7 @@ import {
   UpdateTaskArgs,
   UpdateTaskModelType,
 } from 'features/TodolistsList/api/todolistsApi'
-import { RequestStatusType, setAppStatusAC } from 'app/app-reducer'
+import { RequestStatusType, setAppStatusAC } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
