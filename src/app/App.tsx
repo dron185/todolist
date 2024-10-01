@@ -12,11 +12,11 @@ import CssBaseline from '@mui/material/CssBaseline'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from './store'
-import { initializeAppTC, selectAppStatus, selectIsInitialized } from './app-reducer'
+import { selectAppStatus, selectIsInitialized } from './app-reducer'
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
-import { logoutTC, selectIsLoggedIn } from 'features/Login/model/authSlice'
+import { initializeApp, logout, selectIsLoggedIn } from 'features/Login/model/authSlice'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
 type PropsType = {
@@ -48,12 +48,12 @@ function App({ demo = false }: PropsType) {
 
   useEffect(() => {
     if (!demo) {
-      dispatch(initializeAppTC())
+      dispatch(initializeApp())
     }
   }, [])
 
   const logoutHandler = useCallback(() => {
-    dispatch(logoutTC())
+    dispatch(logout())
   }, [])
 
   if (!isInitialized) {

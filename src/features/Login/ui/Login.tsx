@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
 import { useAppDispatch } from 'app/store'
-import { loginTC, selectIsLoggedIn } from 'features/Login/model/authSlice'
+import { login, selectIsLoggedIn } from 'features/Login/model/authSlice'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
@@ -47,7 +47,7 @@ export const Login = () => {
     },
     onSubmit: (values) => {
       //alert(JSON.stringify(values, null, 2))
-      dispatch(loginTC(values))
+      dispatch(login(values))
       formik.resetForm()
     },
   })
