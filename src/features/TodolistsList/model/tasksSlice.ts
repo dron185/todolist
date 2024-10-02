@@ -12,10 +12,10 @@ import {
   UpdateTaskArgs,
   UpdateTaskModelType,
 } from 'features/TodolistsList/api/todolistsApi'
-import { RequestStatusType, setAppStatusAC } from 'app/appSlice'
+import { RequestStatusType } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
+import { createAppAsyncThunk, handleServerAppError } from 'common/utils'
 import { ResultCode } from 'common/enums'
 import { thunkTryCatch } from 'common/utils/thunkTryCatch'
 
