@@ -115,6 +115,8 @@ export const removeTodolist = createAppAsyncThunk<{ todolistId: string }, string
         handleServerAppError(res.data, dispatch)
         return rejectWithValue(null)
       }
+    }).finally(() => {
+      dispatch(changeTodolistEntityStatusAC({ todolistId, status: 'succeeded' }))
     })
   }
 )
@@ -185,15 +187,16 @@ export const changeTodolistTitle = createAppAsyncThunk<UpdateTodolistTitleArgTyp
   (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     return thunkTryCatch(thunkAPI, async () => {
-      //dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'loading' }))
+      dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'loading' }))
       const res = await todolistsAPI.updateTodolist(arg)
       if (res.data.resultCode === ResultCode.Success) {
-        //dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'succeeded' }))
         return arg
       } else {
         handleServerAppError(res.data, dispatch)
         return rejectWithValue(null)
       }
+    }).finally(() => {
+      dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'succeeded' }))
     })
   }
 )
