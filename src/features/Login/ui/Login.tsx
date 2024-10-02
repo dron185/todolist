@@ -12,6 +12,7 @@ import { useAppDispatch } from 'app/store'
 import { login, selectIsLoggedIn } from 'features/Login/model/authSlice'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
+import { BaseResponse } from 'common/types'
 
 type FormikErrorType = {
   email?: string
@@ -30,25 +31,32 @@ export const Login = () => {
       rememberMe: false,
     },
     validate: (values) => {
-      const errors: FormikErrorType = {}
-      if (!values.email) {
-        errors.email = 'Required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-
-      if (!values.password) {
-        errors.password = 'Required'
-      } else if (values.password.length < 6) {
-        errors.password = 'Must be 6 characters or more'
-      }
-
-      return errors
+      // const errors: FormikErrorType = {}
+      // if (!values.email) {
+      //   errors.email = 'Required'
+      // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      //   errors.email = 'Invalid email address'
+      // }
+      //
+      // if (!values.password) {
+      //   errors.password = 'Required'
+      // } else if (values.password.length < 6) {
+      //   errors.password = 'Must be 6 characters or more'
+      // }
+      //
+      // return errors
     },
-    onSubmit: (values) => {
+    onSubmit: (values, formikHelpers) => {
       //alert(JSON.stringify(values, null, 2))
       dispatch(login(values))
-      formik.resetForm()
+        .unwrap()
+        .then((res) => {})
+        .catch((err: BaseResponse) => {
+          err.fieldsErrors?.forEach((fieldError) => {
+            formikHelpers.setFieldError(fieldError.field, fieldError.error)
+          })
+        })
+      //formik.resetForm()
     },
   })
 
@@ -73,6 +81,7 @@ export const Login = () => {
                 <a
                   href={'https://social-network.samuraijs.com/'}
                   target={'_blank'}
+                  rel='noreferrer'
                 >
                   here
                 </a>
@@ -85,7 +94,7 @@ export const Login = () => {
               <TextField
                 label='Email'
                 margin='normal'
-                type='email'
+                //type='email'
                 {...formik.getFieldProps('email')}
                 // name="email"
                 // onChange={formik.handleChange}

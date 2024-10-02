@@ -48,7 +48,7 @@ export const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsTyp
         return { isLoggedIn: true }
       } else {
         handleServerAppError(res.data, dispatch)
-        return rejectWithValue(null)
+        return rejectWithValue(res.data)
       }
     } catch (err) {
       handleServerNetworkError(err, dispatch)
