@@ -47,7 +47,7 @@ export const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsTyp
         dispatch(setAppStatusAC({ status: 'succeeded' }))
         return { isLoggedIn: true }
       } else {
-        handleServerAppError(res.data, dispatch)
+        handleServerAppError(res.data, dispatch, false)
         return rejectWithValue(res.data)
       }
     } catch (err) {
@@ -88,13 +88,13 @@ export const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefi
   async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     try {
-      dispatch(setAppStatusAC({ status: 'loading' }))
+      //dispatch(setAppStatusAC({ status: 'loading' }))
       const res = await authAPI.me()
       if (res.data.resultCode === ResultCode.Success) {
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
+        //dispatch(setAppStatusAC({ status: 'succeeded' }))
         return { isLoggedIn: true }
       } else {
-        handleServerAppError(res.data, dispatch)
+        handleServerAppError(res.data, dispatch, false)
         return rejectWithValue(null)
       }
     } catch (err) {
