@@ -17,18 +17,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { ResultCode } from 'common/enums'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 import { thunkTryCatch } from 'common/utils/thunkTryCatch'
 
 // types
-export type UpdateDomainTaskModelType = {
-  title?: string
-  description?: string
-  status?: TaskStatuses
-  priority?: TaskPriorities
-  startDate?: string
-  deadline?: string
-}
+export type UpdateDomainTaskModelType = Partial<UpdateTaskModelType>
 export type TaskDomainType = TaskType & {
   entityStatus: RequestStatusType
 }
