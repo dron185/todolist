@@ -16,7 +16,7 @@ import { selectAppStatus, selectIsInitialized } from 'app/appSlice'
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
-import { initializeApp, logout, selectIsLoggedIn } from 'features/Login/model/authSlice'
+import { authThunks, selectIsLoggedIn } from 'features/Login/model/authSlice'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
 type PropsType = {
@@ -48,12 +48,12 @@ function App({ demo = false }: PropsType) {
 
   useEffect(() => {
     if (!demo) {
-      dispatch(initializeApp())
+      dispatch(authThunks.initializeApp())
     }
   }, [])
 
   const logoutHandler = useCallback(() => {
-    dispatch(logout())
+    dispatch(authThunks.logout())
   }, [])
 
   if (!isInitialized) {
