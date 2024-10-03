@@ -108,7 +108,7 @@ test('correct filter of todolist should be changed', () => {
   //     },
   // } as const
 
-  const action = todolistsActions.changeTodolistFilterAC({
+  const action = todolistsActions.changeTodolistFilter({
     todolistId: todolistID2,
     filter: newFilter,
   })
@@ -133,7 +133,7 @@ test('todolists should be set to the state', () => {
 
 test('correct entity status of todolist should be changed', () => {
   let newStatus: RequestStatusType = 'loading'
-  const action = todolistsActions.changeTodolistEntityStatusAC({
+  const action = todolistsActions.changeTodolistEntityStatus({
     todolistId: todolistID2,
     status: newStatus,
   })

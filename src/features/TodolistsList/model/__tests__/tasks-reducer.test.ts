@@ -1,11 +1,4 @@
-import {
-  addTask,
-  fetchTasks,
-  removeTask,
-  tasksSlice,
-  TasksStateType,
-  updateTask,
-} from 'features/TodolistsList/model/tasksSlice'
+import { tasksSlice, TasksStateType, tasksThunks } from 'features/TodolistsList/model/tasksSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 import { todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
@@ -102,7 +95,7 @@ beforeEach(() => {
 
 test('correct task should be deleted from correct array', () => {
   let param = { taskId: '2', todolistId: 'todolistId2' }
-  const action = removeTask.fulfilled(param, '', param)
+  const action = tasksThunks.removeTask.fulfilled(param, '', param)
   const endState = tasksReducer(startState, action)
 
   expect(endState).toEqual({
@@ -179,10 +172,10 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('correct task should be added to correct array', () => {
-  type Action = TestAction<typeof addTask.fulfilled>
+  type Action = TestAction<typeof tasksThunks.addTask.fulfilled>
 
   const action: Action = {
-    type: addTask.fulfilled.type,
+    type: tasksThunks.addTask.fulfilled.type,
     payload: {
       task: {
         todoListId: 'todolistId2',
@@ -209,10 +202,10 @@ test('correct task should be added to correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  type Action = TestAction<typeof updateTask.fulfilled>
+  type Action = TestAction<typeof tasksThunks.updateTask.fulfilled>
 
   const action: Action = {
-    type: updateTask.fulfilled.type,
+    type: tasksThunks.updateTask.fulfilled.type,
     payload: {
       taskId: '2',
       model: { status: TaskStatuses.New },
@@ -226,10 +219,10 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  type Action = TestAction<typeof updateTask.fulfilled>
+  type Action = TestAction<typeof tasksThunks.updateTask.fulfilled>
 
   const action: Action = {
-    type: updateTask.fulfilled.type,
+    type: tasksThunks.updateTask.fulfilled.type,
     payload: {
       taskId: '2',
       model: { title: 'Milkyway' },
@@ -302,8 +295,8 @@ test('empty arrays should be added when we set todolists', () => {
 })
 
 test('tasks should be added for todolist', () => {
-  const action: TestAction<typeof fetchTasks.fulfilled> = {
-    type: fetchTasks.fulfilled.type,
+  const action: TestAction<typeof tasksThunks.fetchTasks.fulfilled> = {
+    type: tasksThunks.fetchTasks.fulfilled.type,
     payload: {
       tasks: startState['todolistId1'],
       todolistId: 'todolistId1',
