@@ -1,9 +1,4 @@
-import {
-  addTodolist,
-  changeTodolistEntityStatusAC,
-  fetchTodolists,
-  removeTodolist,
-} from 'features/TodolistsList/model/todolistsSlice'
+import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
 import {
   AddTaskArgs,
   RemoveTaskArgType,
@@ -51,13 +46,13 @@ export const tasksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addTodolist.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
-      .addCase(removeTodolist.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.todolistId]
       })
-      .addCase(fetchTodolists.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => {
           state[tl.id] = []
         })
@@ -140,7 +135,7 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
   (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
     return thunkTryCatch(thunkAPI, async () => {
-      dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'loading' }))
+      dispatch(todolistsActions.changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'loading' }))
       const res = await todolistsAPI.createTask(arg)
       if (res.data.resultCode === ResultCode.Success) {
         return { task: res.data.data.item }
@@ -149,7 +144,7 @@ export const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
         return rejectWithValue(null)
       }
     }).finally(() => {
-      dispatch(changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'succeeded' }))
+      dispatch(todolistsActions.changeTodolistEntityStatusAC({ todolistId: arg.todolistId, status: 'succeeded' }))
     })
   }
 )

@@ -1,15 +1,11 @@
 import { v1 } from 'uuid'
 
 import {
-  addTodolist,
-  changeTodolistEntityStatusAC,
-  changeTodolistFilterAC,
-  changeTodolistTitle,
-  fetchTodolists,
   FilterValuesType,
-  removeTodolist,
   TodolistDomainType,
+  todolistsActions,
   todolistsSlice,
+  todolistsThunks,
 } from 'features/TodolistsList/model/todolistsSlice'
 import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/appSlice'
@@ -45,10 +41,10 @@ beforeEach(() => {
 
 test('correct todolist should be removed', () => {
   // 2. Действие
-  type Action = TestAction<typeof removeTodolist.fulfilled>
+  type Action = TestAction<typeof todolistsThunks.removeTodolist.fulfilled>
 
   const action: Action = {
-    type: removeTodolist.fulfilled.type,
+    type: todolistsThunks.removeTodolist.fulfilled.type,
     payload: {
       todolistId: todolistID1,
     },
@@ -63,7 +59,7 @@ test('correct todolist should be removed', () => {
 })
 
 test('correct todolist should be added', () => {
-  type Action = TestAction<typeof addTodolist.fulfilled>
+  type Action = TestAction<typeof todolistsThunks.addTodolist.fulfilled>
 
   let todolist: TodolistType = {
     id: 'any id',
@@ -73,7 +69,7 @@ test('correct todolist should be added', () => {
   }
 
   const action: Action = {
-    type: addTodolist.fulfilled.type,
+    type: todolistsThunks.addTodolist.fulfilled.type,
     payload: { todolist },
   }
   const endState = todolistsReducer(startState, action)
@@ -84,11 +80,11 @@ test('correct todolist should be added', () => {
 })
 
 test('correct todolist should change its name', () => {
-  type Action = TestAction<typeof changeTodolistTitle.fulfilled>
+  type Action = TestAction<typeof todolistsThunks.changeTodolistTitle.fulfilled>
   let newTitle = 'New Todolist'
 
   const action: Action = {
-    type: changeTodolistTitle.fulfilled.type,
+    type: todolistsThunks.changeTodolistTitle.fulfilled.type,
     payload: {
       todolistId: todolistID2,
       title: newTitle,
@@ -112,7 +108,7 @@ test('correct filter of todolist should be changed', () => {
   //     },
   // } as const
 
-  const action = changeTodolistFilterAC({
+  const action = todolistsActions.changeTodolistFilterAC({
     todolistId: todolistID2,
     filter: newFilter,
   })
@@ -124,10 +120,10 @@ test('correct filter of todolist should be changed', () => {
 })
 
 test('todolists should be set to the state', () => {
-  type Action = TestAction<typeof fetchTodolists.fulfilled>
+  type Action = TestAction<typeof todolistsThunks.fetchTodolists.fulfilled>
 
   const action: Action = {
-    type: fetchTodolists.fulfilled.type,
+    type: todolistsThunks.fetchTodolists.fulfilled.type,
     payload: { todolists: startState },
   }
   const endState = todolistsReducer([], action)
@@ -137,7 +133,7 @@ test('todolists should be set to the state', () => {
 
 test('correct entity status of todolist should be changed', () => {
   let newStatus: RequestStatusType = 'loading'
-  const action = changeTodolistEntityStatusAC({
+  const action = todolistsActions.changeTodolistEntityStatusAC({
     todolistId: todolistID2,
     status: newStatus,
   })
