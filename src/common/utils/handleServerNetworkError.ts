@@ -1,6 +1,6 @@
 import { AppDispatch } from 'app/store'
 import axios from 'axios'
-import { setAppErrorAC, setAppStatusAC } from 'app/appSlice'
+import { appActions } from 'app/appSlice'
 
 /**
  * Handles server network errors by dispatching appropriate actions to update the application state.
@@ -35,6 +35,6 @@ export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): v
     errorMessage = JSON.stringify(err)
   }
 
-  dispatch(setAppErrorAC({ error: errorMessage }))
-  dispatch(setAppStatusAC({ status: 'failed' }))
+  dispatch(appActions.setAppError({ error: errorMessage }))
+  dispatch(appActions.setAppStatus({ status: 'failed' }))
 }

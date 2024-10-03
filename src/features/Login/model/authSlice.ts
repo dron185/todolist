@@ -1,4 +1,3 @@
-import { setAppInitializedAC } from 'app/appSlice'
 import { createSlice } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { LoginParamsType } from 'features/Login/api/authApi.types'
@@ -6,6 +5,7 @@ import { authAPI } from 'features/Login/api/authApi'
 import { createAppAsyncThunk, handleServerAppError } from 'common/utils'
 import { ResultCode } from 'common/enums'
 import { thunkTryCatch } from 'common/utils/thunkTryCatch'
+import { appActions } from 'app/appSlice'
 
 // types
 type InitialStateType = {
@@ -80,7 +80,7 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
         return rejectWithValue(null)
       }
     }).finally(() => {
-      dispatch(setAppInitializedAC({ isInitialized: true }))
+      dispatch(appActions.setAppInitialized({ isInitialized: true }))
     })
   }
 )

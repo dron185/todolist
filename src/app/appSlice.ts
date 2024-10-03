@@ -26,13 +26,13 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setAppStatusAC(stateDraft, action: PayloadAction<{ status: RequestStatusType }>) {
+    setAppStatus(stateDraft, action: PayloadAction<{ status: RequestStatusType }>) {
       stateDraft.status = action.payload.status
     },
-    setAppErrorAC(state, action: PayloadAction<{ error: AppInitialState['error'] }>) {
+    setAppError(state, action: PayloadAction<{ error: AppInitialState['error'] }>) {
       state.error = action.payload.error
     },
-    setAppInitializedAC(state, action: PayloadAction<{ isInitialized: AppInitialState['isInitialized'] }>) {
+    setAppInitialized(state, action: PayloadAction<{ isInitialized: AppInitialState['isInitialized'] }>) {
       state.isInitialized = action.payload.isInitialized
     },
   },
@@ -43,6 +43,5 @@ export const appSlice = createSlice({
   },
 })
 
-export const { setAppStatusAC, setAppErrorAC, setAppInitializedAC } = appSlice.actions
-
+export const appActions = appSlice.actions
 export const { selectAppStatus, selectAppError, selectIsInitialized } = appSlice.selectors

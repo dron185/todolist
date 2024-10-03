@@ -1,6 +1,6 @@
-import { setAppErrorAC, setAppStatusAC } from 'app/appSlice'
 import { AppDispatch } from 'app/store'
 import { BaseResponse } from 'common/types/types'
+import { appActions } from 'app/appSlice'
 
 /**
  * Handles server errors and updates the application state accordingly.
@@ -16,7 +16,7 @@ import { BaseResponse } from 'common/types/types'
 export const handleServerAppError = <T>(data: BaseResponse<T>, dispatch: AppDispatch, isShowError: boolean = true) => {
   if (isShowError) {
     const error = data.messages.length ? data.messages[0] : 'Some error occurred'
-    dispatch(setAppErrorAC({ error }))
+    dispatch(appActions.setAppError({ error }))
   }
-  dispatch(setAppStatusAC({ status: 'failed' }))
+  dispatch(appActions.setAppStatus({ status: 'failed' }))
 }
