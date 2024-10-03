@@ -13,10 +13,10 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from './store'
 import { selectAppStatus, selectIsInitialized } from 'app/appSlice'
-import { ErrorSnackbar } from 'common/components/ErrorSnackbar/ErrorSnackbar'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 import { authThunks, selectIsLoggedIn } from 'features/Login/model/authSlice'
+import { ErrorSnackbar } from 'common/components'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
 type PropsType = {

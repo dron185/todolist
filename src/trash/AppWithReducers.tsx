@@ -2,7 +2,6 @@
 // import '../app/App.css'
 // import { Todolist } from 'features/TodolistsList/Todolist/Todolist'
 // import { v1 } from 'uuid'
-// import AddItemForm from '../components/AddItemForm/AddItemForm'
 // import AppBar from '@mui/material/AppBar'
 // import Toolbar from '@mui/material/Toolbar'
 // import IconButton from '@mui/material/IconButton'
@@ -28,6 +27,7 @@
 //   updateTaskAC,
 // } from 'features/TodolistsList/tasks-reducer'
 // import { TaskPriorities, TaskStatuses, TaskType } from 'api/api'
+// import { AddItemForm } from 'common/components'
 //
 // type ThemeMode = 'dark' | 'light'
 //
@@ -291,5 +291,5 @@
 // }
 //
 // export default AppWithReducers
-
+//
 // export default {}

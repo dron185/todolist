@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
 import { action } from '@storybook/addon-actions'
-import AddItemForm from 'common/components/AddItemForm/AddItemForm'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { AddItemForm } from 'common/components'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof AddItemForm> = {

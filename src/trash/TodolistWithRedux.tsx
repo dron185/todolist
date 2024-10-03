@@ -1,5 +1,4 @@
 // import React, { ChangeEvent, useCallback } from 'react'
-// import AddItemForm from '../common/components/AddItemForm/AddItemForm'
 // import { EditableSpan } from 'common/components/EditableSpan/EditableSpan'
 // import IconButton from '@mui/material/IconButton'
 // import DeleteIcon from '@mui/icons-material/Delete'
@@ -14,6 +13,7 @@
 // import { FilterValuesType, TodolistDomainType, todolistsActions } from 'features/TodolistsList/model/todolistsSlice'
 // import { TestAction } from 'common/types/types'
 // import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
+// import { AddItemForm } from 'common/components'
 //
 // type TodolistPropsType = {
 //   todolist: TodolistDomainType
