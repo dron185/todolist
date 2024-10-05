@@ -16,7 +16,6 @@ import {
 import { tasksApi } from 'features/TodolistsList/api/tasksApi'
 
 // types
-export type UpdateDomainTaskModelType = Partial<UpdateTaskModelType>
 export type TaskDomainType = TaskType & {
   entityStatus: RequestStatusType
 }

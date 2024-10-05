@@ -1,5 +1,4 @@
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
-import { UpdateDomainTaskModelType } from 'features/TodolistsList/model/tasksSlice'
 
 export type TaskType = {
   id: string
@@ -33,11 +32,13 @@ export type AddTaskArgs = {
   todolistId: string
   taskTitle: string
 }
+
 export type UpdateTaskArgs = {
   taskId: string
-  model: UpdateDomainTaskModelType
+  model: Partial<UpdateTaskModelType>
   todolistId: string
 }
+
 export type RemoveTaskArgType = {
   todolistId: string
   taskId: string
