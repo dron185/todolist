@@ -2,12 +2,9 @@ import { useAppDispatch } from 'app/store'
 import { useFormik } from 'formik'
 import { authThunks } from 'features/Login/model/authSlice'
 import { BaseResponse } from 'common/types'
+import { LoginParamsType } from 'features/Login/api/authApi.types'
 
-type FormikErrorType = {
-  email?: string
-  password?: string
-  rememberMe?: boolean
-}
+type FormikErrorType = Omit<Partial<LoginParamsType>, 'captcha'>
 
 export const useLogin = () => {
   const dispatch = useAppDispatch()
