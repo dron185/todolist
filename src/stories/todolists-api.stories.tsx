@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { todolistsAPI } from 'features/TodolistsList/api/todolistsApi'
+import { tasksApi } from 'features/TodolistsList/api/tasksApi'
 
 export default {
   title: 'API',
@@ -63,7 +64,7 @@ export const GetTasks = () => {
 
   useEffect(() => {
     const todolistId = '7c61320f-410a-4016-90ec-197c3956e41c'
-    todolistsAPI.getTasks(todolistId).then((res) => {
+    tasksApi.getTasks(todolistId).then((res) => {
       setState(res.data)
     })
   }, [])

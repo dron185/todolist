@@ -7,9 +7,9 @@ import {
   todolistsSlice,
   todolistsThunks,
 } from 'features/TodolistsList/model/todolistsSlice'
-import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/appSlice'
 import { TestAction } from 'common/types'
+import { TodolistType } from 'features/TodolistsList/api/todolistsApi.types'
 
 let todolistID1: string
 let todolistID2: string

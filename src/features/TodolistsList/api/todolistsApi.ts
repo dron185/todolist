@@ -1,7 +1,6 @@
-import { UpdateDomainTaskModelType } from 'features/TodolistsList/model/tasksSlice'
 import { instance } from 'common/instance/instance'
 import { BaseResponse } from 'common/types'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
+import { TodolistType, UpdateTodolistTitleArgType } from './todolistsApi.types'
 
 // api
 
@@ -20,74 +19,4 @@ export const todolistsAPI = {
   updateTodolist: (arg: UpdateTodolistTitleArgType) => {
     return instance.put<BaseResponse>(`/todo-lists/${arg.todolistId}`, { title: arg.title })
   },
-  getTasks: (todolistId: string) => {
-    return instance.get<GetTasksBaseResponse>(`/todo-lists/${todolistId}/tasks`)
-  },
-  deleteTask: (arg: RemoveTaskArgType) => {
-    return instance.delete<BaseResponse>(`/todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
-  },
-  createTask: (args: AddTaskArgs) => {
-    const { todolistId, taskTitle } = args
-    return instance.post<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {
-      title: taskTitle,
-    })
-  },
-  updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
-    return instance.put<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
-  },
-}
-
-// types
-export type AddTaskArgs = {
-  todolistId: string
-  taskTitle: string
-}
-
-export type UpdateTaskArgs = {
-  taskId: string
-  model: UpdateDomainTaskModelType
-  todolistId: string
-}
-
-export type TodolistType = {
-  id: string
-  addedDate: string
-  order: number
-  title: string
-}
-
-export type TaskType = {
-  id: string
-  title: string
-  description: string
-  todoListId: string
-  order: number
-  status: TaskStatuses
-  priority: TaskPriorities
-  startDate: string
-  deadline: string
-  addedDate: string
-}
-export type UpdateTaskModelType = {
-  title: string
-  description: string
-  status: TaskStatuses
-  priority: TaskPriorities
-  startDate: string
-  deadline: string
-}
-type GetTasksBaseResponse = {
-  items: TaskType[]
-  totalCount: number
-  error: string
-}
-
-export type RemoveTaskArgType = {
-  todolistId: string
-  taskId: string
-}
-
-export type UpdateTodolistTitleArgType = {
-  todolistId: string
-  title: string
 }

@@ -1,7 +1,7 @@
 import { TodolistDomainType, todolistsSlice, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
 import { tasksSlice, TasksStateType } from 'features/TodolistsList/model/tasksSlice'
-import { TodolistType } from 'features/TodolistsList/api/todolistsApi'
 import { TestAction } from 'common/types'
+import { TodolistType } from 'features/TodolistsList/api/todolistsApi.types'
 
 const todolistsReducer = todolistsSlice.reducer
 const tasksReducer = tasksSlice.reducer

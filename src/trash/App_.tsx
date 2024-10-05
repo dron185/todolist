@@ -15,9 +15,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import { FilterValuesType, TodolistDomainType } from 'features/TodolistsList/model/todolistsSlice'
-import { TaskType } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/appSlice'
 import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
+import { TaskType } from 'features/TodolistsList/api/tasksApi.types'
 
 type ThemeMode = 'dark' | 'light'
 
