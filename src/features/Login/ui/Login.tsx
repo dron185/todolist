@@ -51,12 +51,7 @@ export const Login = () => {
               <TextField
                 label='Email'
                 margin='normal'
-                //type='email'
                 {...formik.getFieldProps('email')}
-                // name="email"
-                // onChange={formik.handleChange}
-                // value={formik.values.email}
-                // onBlur={formik.handleBlur}
               />
               {formik.touched.email && formik.errors.email ? (
                 <div style={{ color: 'red' }}>{formik.errors.email}</div>
@@ -77,8 +72,6 @@ export const Login = () => {
                   <Checkbox
                     checked={formik.values.rememberMe}
                     {...formik.getFieldProps('rememberMe')}
-                    // onChange={formik.handleChange}
-                    // name="rememberMe"
                   />
                 }
               />
