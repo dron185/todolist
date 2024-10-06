@@ -16,11 +16,8 @@ type TodolistPropsType = {
   todolist: TodolistDomainType
   tasks: Array<TaskDomainType>
   addTask: (todolistId: string, title: string) => void
-  removeTask: (todolistId: string, taskId: string) => void
-  changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
   changeFilter: (todolistId: string, value: FilterValuesType) => void
   removeTodolist: (todolistId: string) => void
-  updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
   updateTodolistTitle: (todolistId: string, newTitle: string) => void
   demo?: boolean
 }
@@ -31,22 +28,11 @@ export const Todolist = memo(
     removeTodolist,
     tasks,
     addTask,
-    removeTask,
-    changeTaskStatus,
     changeFilter,
-    updateTaskTitle,
     updateTodolistTitle,
     demo = false,
   }: TodolistPropsType) => {
     //деструктурирующее присваивание: const { title, tasks, removeTask, changeFilter, addTask } = props
-
-    //const dispatch = useAppDispatch()
-    // useEffect(() => {
-    //     if (demo) {
-    //         return;
-    //     }
-    //     dispatch(fetchTasksTC(todolist.id))
-    // }, []);
 
     let tasksForTodoList = tasks
 
@@ -71,9 +57,6 @@ export const Todolist = memo(
                 key={t.id}
                 task={t}
                 todolistId={todolist.id}
-                removeTask={removeTask}
-                changeTaskStatus={changeTaskStatus}
-                updateTaskTitle={updateTaskTitle}
               />
             )
           })}

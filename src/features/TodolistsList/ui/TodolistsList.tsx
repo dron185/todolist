@@ -21,8 +21,6 @@ type PropsType = {
 }
 
 export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
-  //useSelector - это функция, которая селектит\выбирает что-то из чего-то… Выполняет 2 функции: 1.вытащить данные. 2. определить надо ли компоненту перерендерить(в зависимости от того получил ли он старые или новые данные)
-
   const todolists = useSelector(selectTodolists)
   const tasks = useSelector(selectTasks)
   const isLoggedIn = useSelector(selectIsLoggedIn)
@@ -37,27 +35,10 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   }, [])
 
   // CRUD tasks
-  const removeTaskCallback = useCallback((taskId: string, todolistId: string) => {
-    dispatch(tasksThunks.removeTask({ todolistId, taskId }))
-  }, [])
 
   const addTaskCallback = useCallback(
     (todolistId: string, taskTitle: string) => {
       dispatch(tasksThunks.addTask({ todolistId, taskTitle }))
-    },
-    [dispatch]
-  )
-
-  const changeTaskStatus = useCallback(
-    (todolistId: string, taskId: string, status: TaskStatuses) => {
-      dispatch(tasksThunks.updateTask({ taskId, model: { status }, todolistId }))
-    },
-    [dispatch]
-  )
-
-  const updateTaskTitle = useCallback(
-    (todolistId: string, taskId: string, title: string) => {
-      dispatch(tasksThunks.updateTask({ taskId, model: { title }, todolistId }))
     },
     [dispatch]
   )
@@ -123,12 +104,9 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                   todolist={tl}
                   key={tl.id}
                   tasks={tasks[tl.id]}
-                  removeTask={removeTaskCallback}
                   changeFilter={changeFilter}
                   addTask={addTaskCallback}
-                  changeTaskStatus={changeTaskStatus}
                   removeTodolist={removeTodolistCallback}
-                  updateTaskTitle={updateTaskTitle}
                   updateTodolistTitle={updateTodolistTitle}
                   demo={demo}
                 />

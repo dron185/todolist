@@ -1,51 +1,61 @@
-import React, { ChangeEvent, memo } from 'react'
+import React, { ChangeEvent } from 'react'
 import ListItem from '@mui/material/ListItem'
 import { getListItemSx } from 'features/TodolistsList/ui/Todolist/Todolist.styles'
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
+import { TaskDomainType, tasksThunks } from 'features/TodolistsList/model/tasksSlice'
 import { TaskStatuses } from 'features/TodolistsList/lib'
 import { EditableSpan } from 'common/components'
+import { useAppDispatch } from 'app/store'
 
-export type TaskPropsType = {
+type Props = {
   task: TaskDomainType
   todolistId: string
-  removeTask: (todolistId: string, taskId: string) => void
-  changeTaskStatus: (todolistId: string, taskId: string, status: TaskStatuses) => void
-  updateTaskTitle: (todolistId: string, taskId: string, newTitle: string) => void
 }
 
-export const Task = memo(({ task, removeTask, changeTaskStatus, updateTaskTitle, todolistId }: TaskPropsType) => {
-  const removeTaskHandler = () => removeTask(task.id, todolistId)
-  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) =>
-    changeTaskStatus(todolistId, task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
-  const updateTaskTitleHandler = (newTitle: string) => {
-    updateTaskTitle(todolistId, task.id, newTitle)
+export const Task = ({ task, todolistId }: Props) => {
+  const { id: taskId, status, entityStatus, title } = task
+
+  const dispatch = useAppDispatch()
+
+  const removeTaskHandler = () => {
+    dispatch(tasksThunks.removeTask({ taskId, todolistId }))
   }
 
+  const updateTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
+    dispatch(tasksThunks.updateTask({ taskId, model: { status }, todolistId }))
+  }
+
+  const updateTaskTitleHandler = (title: string) => {
+    dispatch(tasksThunks.updateTask({ taskId, model: { title }, todolistId }))
+  }
+
+  const isTaskCompleted = status === TaskStatuses.Completed
+
   return (
-    <ListItem sx={getListItemSx(task.status === TaskStatuses.Completed)}>
+    <ListItem sx={getListItemSx(isTaskCompleted)}>
       <div>
         <Checkbox
-          checked={task.status === TaskStatuses.Completed}
-          onChange={changeStatusHandler}
+          checked={isTaskCompleted}
+          onChange={updateTaskStatusHandler}
           color='success'
-          disabled={task.entityStatus === 'loading'}
+          disabled={entityStatus === 'loading'}
         />
         <EditableSpan
-          oldTitle={task.title}
+          oldTitle={title}
           updateTitle={updateTaskTitleHandler}
-          disabled={task.entityStatus === 'loading'}
-          entityStatus={task.entityStatus}
+          disabled={entityStatus === 'loading'}
+          entityStatus={entityStatus}
         />
       </div>
       <IconButton
         onClick={removeTaskHandler}
-        disabled={task.entityStatus === 'loading'}
+        disabled={entityStatus === 'loading'}
       >
         <DeleteIcon />
       </IconButton>
     </ListItem>
   )
-})
+}

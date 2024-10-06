@@ -1,5 +1,4 @@
 import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
-import { todolistsAPI } from 'features/TodolistsList/api/todolistsApi'
 import { RequestStatusType } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
