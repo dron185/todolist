@@ -1,19 +1,13 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'app/store'
-import {
-  FilterValuesType,
-  selectTodolists,
-  todolistsActions,
-  todolistsThunks,
-} from 'features/TodolistsList/model/todolistsSlice'
-import { selectTasks, tasksThunks } from 'features/TodolistsList/model/tasksSlice'
+import { selectTodolists, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
+import { selectTasks } from 'features/TodolistsList/model/tasksSlice'
 import Grid from '@mui/material/Unstable_Grid2'
 import Paper from '@mui/material/Paper'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/Login/model/authSlice'
-import { TaskStatuses } from 'features/TodolistsList/lib'
 import { AddItemForm } from 'common/components'
 
 type PropsType = {
@@ -33,40 +27,6 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     }
     dispatch(todolistsThunks.fetchTodolists())
   }, [])
-
-  // CRUD tasks
-
-  const addTaskCallback = useCallback(
-    (todolistId: string, taskTitle: string) => {
-      dispatch(tasksThunks.addTask({ todolistId, taskTitle }))
-    },
-    [dispatch]
-  )
-
-  // filter
-  const changeFilter = useCallback(
-    (todolistId: string, value: FilterValuesType) => {
-      const action = todolistsActions.changeTodolistFilter({ todolistId, filter: value })
-      dispatch(action)
-    },
-    [dispatch]
-  )
-
-  const removeTodolistCallback = useCallback(
-    (todolistId: string) => {
-      const thunk = todolistsThunks.removeTodolist(todolistId)
-      dispatch(thunk)
-    },
-    [dispatch]
-  )
-
-  const updateTodolistTitle = useCallback(
-    (todolistId: string, title: string) => {
-      const thunk = todolistsThunks.changeTodolistTitle({ todolistId, title })
-      dispatch(thunk)
-    },
-    [dispatch]
-  )
 
   const addTodolistCallback = useCallback(
     (title: string) => {
@@ -104,10 +64,6 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                   todolist={tl}
                   key={tl.id}
                   tasks={tasks[tl.id]}
-                  changeFilter={changeFilter}
-                  addTask={addTaskCallback}
-                  removeTodolist={removeTodolistCallback}
-                  updateTodolistTitle={updateTodolistTitle}
                   demo={demo}
                 />
               </Paper>
