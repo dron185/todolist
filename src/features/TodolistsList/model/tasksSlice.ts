@@ -128,8 +128,8 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(`${tasksSli
     if (res.data.resultCode === ResultCode.Success) {
       return { task: res.data.data.item }
     } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue(null)
+      handleServerAppError(res.data, dispatch, false)
+      return rejectWithValue(res.data)
     }
   }).finally(() => {
     dispatch(todolistsActions.changeTodolistEntityStatus({ todolistId: arg.todolistId, status: 'succeeded' }))

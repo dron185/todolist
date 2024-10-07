@@ -20,7 +20,7 @@ export const Todolist = ({ todolist, demo = false }: Props) => {
   const dispatch = useAppDispatch()
 
   const addTaskHandler = (taskTitle: string) => {
-    dispatch(tasksThunks.addTask({ todolistId, taskTitle }))
+    return dispatch(tasksThunks.addTask({ todolistId, taskTitle }))
   }
 
   return (

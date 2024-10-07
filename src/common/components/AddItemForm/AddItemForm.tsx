@@ -2,13 +2,15 @@ import React, { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
 import TextField from '@mui/material/TextField/TextField'
 import IconButton from '@mui/material/IconButton'
 import AddBoxIcon from '@mui/icons-material/AddBox'
+import { unwrapResult } from '@reduxjs/toolkit'
+import { BaseResponse } from 'common/types'
 
-type PropsType = {
-  addItem: (title: string) => void
+type Props = {
+  addItem: (title: string) => Promise<any>
   disabled?: boolean
 }
 
-export const AddItemForm = memo(({ addItem, disabled = false }: PropsType) => {
+export const AddItemForm = memo(({ addItem, disabled = false }: Props) => {
   const [newItemTitle, setNewItemTitle] = React.useState('')
   const [inputError, setInputError] = useState<string | null>(null)
 
@@ -19,10 +21,16 @@ export const AddItemForm = memo(({ addItem, disabled = false }: PropsType) => {
     const trimmedTaskTitle = newItemTitle.trim()
     if (trimmedTaskTitle !== '') {
       addItem(trimmedTaskTitle)
+        .then(unwrapResult)
+        .then(() => {
+          setNewItemTitle('')
+        })
+        .catch((err: BaseResponse) => {
+          setInputError(err.messages[0])
+        })
     } else {
       setInputError('Title is required')
     }
-    setNewItemTitle('')
   }
 
   const changeNewItemTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,5 +75,3 @@ export const AddItemForm = memo(({ addItem, disabled = false }: PropsType) => {
     </div>
   )
 })
-
-// export default AddItemForm
