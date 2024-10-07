@@ -1,14 +1,13 @@
 import React from 'react'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
 import Box from '@mui/material/Box'
 import { filterButtonsContainerSx } from 'features/TodolistsList/ui/Todolist/Todolist.styles'
-import { TodolistDomainType, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
-import { TaskDomainType, tasksThunks } from 'features/TodolistsList/model/tasksSlice'
-import { AddItemForm, EditableSpan } from 'common/components'
+import { TodolistDomainType } from 'features/TodolistsList/model/todolistsSlice'
+import { tasksThunks } from 'features/TodolistsList/model/tasksSlice'
+import { AddItemForm } from 'common/components'
 import { useAppDispatch } from 'app/store'
 import { FilterTasksButtons } from 'features/TodolistsList/ui/Todolist/FilterTasksButtons/FilterTasksButtons'
 import { Tasks } from 'features/TodolistsList/ui/Todolist/Tasks/Tasks'
+import { TodolistTitle } from 'features/TodolistsList/ui/Todolist/TodolistTitle/TodolistTitle'
 
 type Props = {
   todolist: TodolistDomainType
@@ -16,50 +15,25 @@ type Props = {
 }
 
 export const Todolist = ({ todolist, demo = false }: Props) => {
+  const { id: todolistId, entityStatus } = todolist
+
   const dispatch = useAppDispatch()
 
-  const removeTodolistHandler = () => {
-    dispatch(todolistsThunks.removeTodolist(todolist.id))
-  }
-
   const addTaskHandler = (taskTitle: string) => {
-    dispatch(tasksThunks.addTask({ todolistId: todolist.id, taskTitle }))
-  }
-
-  const updateTodolistTitleHandler = (title: string) => {
-    dispatch(todolistsThunks.changeTodolistTitle({ todolistId: todolist.id, title }))
+    dispatch(tasksThunks.addTask({ todolistId, taskTitle }))
   }
 
   return (
-    <div className={'todolist'}>
-      {/*TodolistTitle*/}
-      <div className={'todolist-title-container'}>
-        <EditableSpan
-          oldTitle={todolist.title}
-          updateTitle={updateTodolistTitleHandler}
-          disabled={todolist.entityStatus === 'loading'}
-          entityStatus={todolist.entityStatus}
-        />
-        <IconButton
-          onClick={removeTodolistHandler}
-          disabled={todolist.entityStatus === 'loading'}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </div>
-
+    <>
+      <TodolistTitle todolist={todolist} />
       <AddItemForm
         addItem={addTaskHandler}
-        disabled={todolist.entityStatus === 'loading'}
+        disabled={entityStatus === 'loading'}
       />
-
-      {/*Tasks*/}
       <Tasks todolist={todolist} />
-
-      {/*FilterTasksButtons*/}
       <Box sx={filterButtonsContainerSx}>
         <FilterTasksButtons todolist={todolist} />
       </Box>
-    </div>
+    </>
   )
 }

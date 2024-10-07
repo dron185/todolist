@@ -1,5 +1,5 @@
 import List from '@mui/material/List'
-import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
+import { Task } from 'features/TodolistsList/ui/Todolist/Tasks/Task/Task'
 import { TodolistDomainType } from 'features/TodolistsList/model/todolistsSlice'
 import { selectFilteredTasks, TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
 import { useSelector } from 'react-redux'
