@@ -1,4 +1,4 @@
-import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
+import { FilterValuesType, todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
 import { RequestStatusType } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
@@ -13,6 +13,7 @@ import {
   UpdateTaskModelType,
 } from 'features/TodolistsList/api/tasksApi.types'
 import { tasksApi } from 'features/TodolistsList/api/tasksApi'
+import { TaskStatuses } from 'features/TodolistsList/lib'
 
 // types
 export type TaskDomainType = TaskType & {
@@ -88,11 +89,23 @@ export const tasksSlice = createSlice({
   },
   selectors: {
     selectTasks: (state) => state,
+    selectFilteredTasks: (state, todolistId: string, filter: FilterValuesType) => {
+      let tasksForTodoList = state[todolistId]
+
+      if (filter === 'completed') {
+        tasksForTodoList = tasksForTodoList.filter((t) => t.status === TaskStatuses.Completed)
+      }
+      if (filter === 'active') {
+        tasksForTodoList = tasksForTodoList.filter((t) => t.status === TaskStatuses.New)
+      }
+
+      return tasksForTodoList
+    },
   },
 })
 
 export const tasksActions = tasksSlice.actions
-export const { selectTasks } = tasksSlice.selectors
+export const { selectTasks, selectFilteredTasks } = tasksSlice.selectors
 
 // thunks
 

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'app/store'
 import { selectTodolists, todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
-import { selectTasks } from 'features/TodolistsList/model/tasksSlice'
 import Grid from '@mui/material/Unstable_Grid2'
 import Paper from '@mui/material/Paper'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
@@ -16,7 +15,6 @@ type PropsType = {
 
 export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   const todolists = useSelector(selectTodolists)
-  const tasks = useSelector(selectTasks)
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   const dispatch = useAppDispatch()
@@ -63,7 +61,6 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
                 <Todolist
                   todolist={tl}
                   key={tl.id}
-                  tasks={tasks[tl.id]}
                   demo={demo}
                 />
               </Paper>

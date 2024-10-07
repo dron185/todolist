@@ -1,28 +1,22 @@
 import List from '@mui/material/List'
 import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { TodolistDomainType } from 'features/TodolistsList/model/todolistsSlice'
-import { TaskStatuses } from 'features/TodolistsList/lib'
-import { TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
+import { selectFilteredTasks, TaskDomainType } from 'features/TodolistsList/model/tasksSlice'
+import { useSelector } from 'react-redux'
+import { AppRootStateType } from 'app/store'
 
 type Props = {
   todolist: TodolistDomainType
-  tasks: Array<TaskDomainType>
 }
 
-export const Tasks = ({ todolist, tasks }: Props) => {
-  const { id, filter } = todolist
+export const Tasks = ({ todolist }: Props) => {
+  const tasksForTodoList = useSelector<AppRootStateType, TaskDomainType[]>((state) =>
+    selectFilteredTasks(state, todolist.id, todolist.filter)
+  )
 
-  let tasksForTodoList = tasks
-
-  if (filter === 'completed') {
-    tasksForTodoList = tasks.filter((t) => t.status === TaskStatuses.Completed)
-  }
-  if (filter === 'active') {
-    tasksForTodoList = tasks.filter((t) => t.status === TaskStatuses.New)
-  }
   return (
     <>
-      {tasks.length === 0 ? (
+      {tasksForTodoList.length === 0 ? (
         <p>There are no tasks</p>
       ) : (
         <List>
@@ -31,7 +25,7 @@ export const Tasks = ({ todolist, tasks }: Props) => {
               <Task
                 key={t.id}
                 task={t}
-                todolistId={id}
+                todolistId={todolist.id}
               />
             )
           })}

@@ -10,31 +10,13 @@ import { useAppDispatch } from 'app/store'
 import { FilterTasksButtons } from 'features/TodolistsList/ui/Todolist/FilterTasksButtons/FilterTasksButtons'
 import { Tasks } from 'features/TodolistsList/ui/Todolist/Tasks/Tasks'
 
-type TodolistPropsType = {
+type Props = {
   todolist: TodolistDomainType
-  tasks: Array<TaskDomainType>
   demo?: boolean
 }
 
-export const Todolist = ({ todolist, tasks, demo = false }: TodolistPropsType) => {
+export const Todolist = ({ todolist, demo = false }: Props) => {
   const dispatch = useAppDispatch()
-
-  // const tasksList: JSX.Element =
-  //   tasks.length === 0 ? (
-  //     <p>There are no tasks</p>
-  //   ) : (
-  //     <List>
-  //       {tasksForTodoList.map((t) => {
-  //         return (
-  //           <Task
-  //             key={t.id}
-  //             task={t}
-  //             todolistId={todolist.id}
-  //           />
-  //         )
-  //       })}
-  //     </List>
-  //   )
 
   const removeTodolistHandler = () => {
     dispatch(todolistsThunks.removeTodolist(todolist.id))
@@ -72,10 +54,7 @@ export const Todolist = ({ todolist, tasks, demo = false }: TodolistPropsType) =
       />
 
       {/*Tasks*/}
-      <Tasks
-        todolist={todolist}
-        tasks={tasks}
-      />
+      <Tasks todolist={todolist} />
 
       {/*FilterTasksButtons*/}
       <Box sx={filterButtonsContainerSx}>
