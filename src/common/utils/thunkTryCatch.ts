@@ -25,7 +25,7 @@ type ThunkApi = {
 export const thunkTryCatch = async (thunkAPI: ThunkApi, logic: () => Promise<any>) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
-    dispatch(appActions.setAppStatus({ status: 'loading' }))
+    // dispatch(appActions.setAppStatus({ status: 'loading' }))
     return await logic()
   } catch (err) {
     handleServerNetworkError(err, dispatch)
