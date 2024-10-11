@@ -30,7 +30,7 @@ export const thunkTryCatch = async (thunkAPI: ThunkApi, logic: () => Promise<any
   } catch (err) {
     handleServerNetworkError(err, dispatch)
     return rejectWithValue(null)
-  } finally {
+  } /*finally {
     dispatch(appActions.setAppStatus({ status: 'idle' }))
-  }
+  }*/
 }
