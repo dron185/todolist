@@ -1,6 +1,7 @@
 import { createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit'
 import { todolistsThunks } from 'features/TodolistsList/model/todolistsSlice'
 import { tasksThunks } from 'features/TodolistsList/model/tasksSlice'
+import { authThunks } from 'features/Login/model/authSlice'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type AppInitialState = {
@@ -52,7 +53,8 @@ export const appSlice = createSlice({
         if (action.payload) {
           if (
             action.type === todolistsThunks.addTodolist.rejected.type ||
-            action.type === tasksThunks.addTask.rejected.type
+            action.type === tasksThunks.addTask.rejected.type ||
+            action.type === authThunks.initializeApp.rejected.type
           ) {
             return
           }
