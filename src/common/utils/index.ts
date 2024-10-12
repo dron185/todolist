@@ -1,1 +1,1 @@
-export { createAppAsyncThunk } from './create-app-async-thunk'
+export { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'

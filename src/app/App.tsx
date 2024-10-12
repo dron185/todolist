@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import './App.css'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -15,7 +14,7 @@ import { useAppDispatch } from './store'
 import { selectAppStatus, selectIsInitialized } from 'app/appSlice'
 import { Outlet } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
-import { authThunks, selectIsLoggedIn } from 'features/Login/model/authSlice'
+import { authThunks, selectIsLoggedIn } from 'features/auth/model/authSlice'
 import { ErrorSnackbar } from 'common/components'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)

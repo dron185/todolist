@@ -1,14 +1,14 @@
 import { Provider } from 'react-redux'
 import { combineReducers } from 'redux'
-import { tasksSlice } from 'features/TodolistsList/model/tasksSlice'
-import { todolistsSlice } from 'features/TodolistsList/model/todolistsSlice'
+import { tasksSlice } from 'features/todolistsList/model/tasksSlice'
+import { todolistsSlice } from 'features/todolistsList/model/todolistsSlice'
 import { v1 } from 'uuid'
 import { AppRootStateType } from 'app/store'
 import { appSlice } from 'app/appSlice'
-import { authSlice } from 'features/Login/model/authSlice'
+import { authSlice } from 'features/auth/model/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
-import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
+import { TaskPriorities, TaskStatuses } from 'features/todolistsList/lib'
 
 const rootReducer = combineReducers({
   [tasksSlice.reducerPath]: tasksSlice.reducer,
