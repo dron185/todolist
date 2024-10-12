@@ -1,5 +1,5 @@
 import { FilterValues, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
-import { RequestStatus } from 'app/appSlice'
+import { RequestStatus } from 'app/model/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk } from 'common/utils'

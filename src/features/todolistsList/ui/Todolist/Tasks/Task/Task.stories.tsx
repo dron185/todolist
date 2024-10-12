@@ -3,7 +3,7 @@ import { Task } from 'features/todolistsList/ui/Todolist/Tasks/Task/Task'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
 import { v1 } from 'uuid'
-import { RequestStatus } from 'app/appSlice'
+import { RequestStatus } from 'app/model/appSlice'
 import { TaskDomain } from 'features/todolistsList/model/tasksSlice'
 import { TaskPriorities, TaskStatuses } from 'features/todolistsList/lib'
 
@@ -29,9 +29,9 @@ const meta: Meta<typeof Task> = {
       entityStatus: 'idle' as RequestStatus,
     },
     todolistId: 'dfdsaaa',
-    removeTask: fn(),
-    changeTaskStatus: fn(),
-    updateTaskTitle: fn(),
+    // removeTask: fn(),
+    // changeTaskStatus: fn(),
+    // updateTaskTitle: fn(),
   },
 }
 
@@ -89,9 +89,9 @@ export const TaskToggleStory: Story = {
       <Task
         task={task}
         todolistId={'dfdsaaa'}
-        removeTask={args.removeTask}
-        changeTaskStatus={changeTaskStatus}
-        updateTaskTitle={updateTaskTitle}
+        // removeTask={args.removeTask}
+        // changeTaskStatus={changeTaskStatus}
+        // updateTaskTitle={updateTaskTitle}
       />
     )
   },

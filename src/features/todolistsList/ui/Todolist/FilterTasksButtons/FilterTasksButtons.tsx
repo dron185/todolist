@@ -1,6 +1,6 @@
 import React from 'react'
 import { FilterValues, TodolistDomain, todolistsActions } from 'features/todolistsList/model/todolistsSlice'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/model/store'
 import { MyButton } from 'features/todolistsList/ui/Todolist/FilterTasksButtons/MyButton'
 
 type Props = {

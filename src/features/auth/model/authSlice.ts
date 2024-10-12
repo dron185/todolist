@@ -4,7 +4,7 @@ import { LoginParams } from 'features/auth/api/authApi.types'
 import { authApi } from 'features/auth/api/authApi'
 import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode } from 'common/enums'
-import { appActions } from 'app/appSlice'
+import { appActions } from 'app/model/appSlice'
 
 // types
 type InitialState = {

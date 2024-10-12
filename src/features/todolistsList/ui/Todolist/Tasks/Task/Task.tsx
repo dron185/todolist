@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { TaskDomain, tasksThunks } from 'features/todolistsList/model/tasksSlice'
 import { TaskStatuses } from 'features/todolistsList/lib'
 import { EditableSpan } from 'common/components'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/model/store'
 
 type Props = {
   task: TaskDomain

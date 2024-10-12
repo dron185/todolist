@@ -1,4 +1,4 @@
-import { appSlice, AppInitialState, appActions } from 'app/appSlice'
+import { appSlice, AppInitialState, appActions } from 'app/model/appSlice'
 
 let startState: AppInitialState
 const appReducer = appSlice.reducer

@@ -3,7 +3,7 @@ import { Task } from 'features/todolistsList/ui/Todolist/Tasks/Task/Task'
 import { TodolistDomain } from 'features/todolistsList/model/todolistsSlice'
 import { selectFilteredTasks, TaskDomain } from 'features/todolistsList/model/tasksSlice'
 import { useSelector } from 'react-redux'
-import { AppRootState } from 'app/store'
+import { AppRootState } from 'app/model/store'
 
 type Props = {
   todolist: TodolistDomain

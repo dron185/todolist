@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { AppRootState, AppDispatch } from 'app/store'
+import { AppRootState, AppDispatch } from 'app/model/store'
 import { BaseResponse } from 'common/types'
 
 /**

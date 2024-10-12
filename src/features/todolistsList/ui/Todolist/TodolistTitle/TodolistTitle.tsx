@@ -2,7 +2,7 @@ import { EditableSpan } from 'common/components'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import React from 'react'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/model/store'
 import { TodolistDomain, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
 
 type Props = {

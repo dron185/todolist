@@ -7,7 +7,7 @@ import {
   todolistsSlice,
   todolistsThunks,
 } from 'features/todolistsList/model/todolistsSlice'
-import { RequestStatus } from 'app/appSlice'
+import { RequestStatus } from 'app/model/appSlice'
 import { TestAction } from 'common/types'
 import { Todolist } from 'features/todolistsList/api/todolistsApi.types'
 

@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/model/store'
 import { useFormik } from 'formik'
 import { authThunks } from 'features/auth/model/authSlice'
 import { BaseResponse } from 'common/types'

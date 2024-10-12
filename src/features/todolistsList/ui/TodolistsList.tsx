@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch } from 'app/model/store'
 import { selectTodolists, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
 import Grid from '@mui/material/Unstable_Grid2'
 import Paper from '@mui/material/Paper'
