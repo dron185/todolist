@@ -4,13 +4,13 @@ import { getListItemSx } from 'features/todolistsList/ui/Todolist/Todolist.style
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { TaskDomainType, tasksThunks } from 'features/todolistsList/model/tasksSlice'
+import { TaskDomain, tasksThunks } from 'features/todolistsList/model/tasksSlice'
 import { TaskStatuses } from 'features/todolistsList/lib'
 import { EditableSpan } from 'common/components'
 import { useAppDispatch } from 'app/store'
 
 type Props = {
-  task: TaskDomainType
+  task: TaskDomain
   todolistId: string
 }
 

@@ -3,12 +3,12 @@ import { todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
 import { tasksThunks } from 'features/todolistsList/model/tasksSlice'
 import { authThunks } from 'features/auth/model/authSlice'
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type AppInitialState = {
   /**
    * происходит ли сейчас взаимодействие с сервером
    */
-  status: RequestStatusType
+  status: RequestStatus
   /**
    * если ошибка какая-то глобальная произойдёт - мы запишем текст ошибки сюда
    */
@@ -29,7 +29,7 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setAppStatus(stateDraft, action: PayloadAction<{ status: RequestStatusType }>) {
+    setAppStatus(stateDraft, action: PayloadAction<{ status: RequestStatus }>) {
       stateDraft.status = action.payload.status
     },
     setAppError(state, action: PayloadAction<{ error: AppInitialState['error'] }>) {

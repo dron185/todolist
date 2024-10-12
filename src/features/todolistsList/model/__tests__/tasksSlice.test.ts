@@ -1,9 +1,9 @@
-import { tasksSlice, TasksStateType, tasksThunks } from 'features/todolistsList/model/tasksSlice'
+import { tasksSlice, TasksState, tasksThunks } from 'features/todolistsList/model/tasksSlice'
 import { TestAction } from 'common/types/types'
 import { TaskPriorities, TaskStatuses } from 'features/todolistsList/lib'
 import { todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
 
-let startState: TasksStateType
+let startState: TasksState
 const tasksReducer = tasksSlice.reducer
 
 beforeEach(() => {

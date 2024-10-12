@@ -1,16 +1,16 @@
 import List from '@mui/material/List'
 import { Task } from 'features/todolistsList/ui/Todolist/Tasks/Task/Task'
-import { TodolistDomainType } from 'features/todolistsList/model/todolistsSlice'
-import { selectFilteredTasks, TaskDomainType } from 'features/todolistsList/model/tasksSlice'
+import { TodolistDomain } from 'features/todolistsList/model/todolistsSlice'
+import { selectFilteredTasks, TaskDomain } from 'features/todolistsList/model/tasksSlice'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from 'app/store'
+import { AppRootState } from 'app/store'
 
 type Props = {
-  todolist: TodolistDomainType
+  todolist: TodolistDomain
 }
 
 export const Tasks = ({ todolist }: Props) => {
-  const tasksForTodoList = useSelector<AppRootStateType, TaskDomainType[]>((state) =>
+  const tasksForTodoList = useSelector<AppRootState, TaskDomain[]>((state) =>
     selectFilteredTasks(state, todolist.id, todolist.filter)
   )
 

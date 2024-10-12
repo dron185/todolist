@@ -1,22 +1,20 @@
 import { instance } from 'common/instance/instance'
 import { BaseResponse } from 'common/types'
-import { TodolistType, UpdateTodolistTitleArgType } from './todolistsApi.types'
+import { Todolist, UpdateTodolistTitleArg } from './todolistsApi.types'
 
-// api
-
-export const todolistsAPI = {
+export const todolistsApi = {
   getTodolists: () => {
-    return instance.get<TodolistType[]>('/todo-lists')
+    return instance.get<Todolist[]>('/todo-lists')
   },
   createTodolist: (title: string) => {
-    return instance.post<BaseResponse<{ item: TodolistType }>>('/todo-lists', {
+    return instance.post<BaseResponse<{ item: Todolist }>>('/todo-lists', {
       title,
     })
   },
   deleteTodolist: (todolistId: string) => {
     return instance.delete<BaseResponse>(`/todo-lists/${todolistId}`)
   },
-  updateTodolist: (arg: UpdateTodolistTitleArgType) => {
+  updateTodolist: (arg: UpdateTodolistTitleArg) => {
     return instance.put<BaseResponse>(`/todo-lists/${arg.todolistId}`, { title: arg.title })
   },
 }

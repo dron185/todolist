@@ -1,10 +1,10 @@
 import React from 'react'
-import { FilterValuesType, TodolistDomainType, todolistsActions } from 'features/todolistsList/model/todolistsSlice'
+import { FilterValues, TodolistDomain, todolistsActions } from 'features/todolistsList/model/todolistsSlice'
 import { useAppDispatch } from 'app/store'
 import { MyButton } from 'features/todolistsList/ui/Todolist/FilterTasksButtons/MyButton'
 
 type Props = {
-  todolist: TodolistDomainType
+  todolist: TodolistDomain
 }
 
 export const FilterTasksButtons = ({ todolist }: Props) => {
@@ -12,7 +12,7 @@ export const FilterTasksButtons = ({ todolist }: Props) => {
 
   const dispatch = useAppDispatch()
 
-  const changeTodolistFilterHandler = (filter: FilterValuesType) => {
+  const changeTodolistFilterHandler = (filter: FilterValues) => {
     dispatch(todolistsActions.changeTodolistFilter({ todolistId, filter }))
   }
 

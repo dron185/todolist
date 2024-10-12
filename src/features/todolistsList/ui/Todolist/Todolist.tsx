@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box'
 import { filterButtonsContainerSx } from 'features/todolistsList/ui/Todolist/Todolist.styles'
-import { TodolistDomainType } from 'features/todolistsList/model/todolistsSlice'
+import { TodolistDomain } from 'features/todolistsList/model/todolistsSlice'
 import { tasksThunks } from 'features/todolistsList/model/tasksSlice'
 import { AddItemForm } from 'common/components'
 import { useAppDispatch } from 'app/store'
@@ -10,7 +10,7 @@ import { Tasks } from 'features/todolistsList/ui/Todolist/Tasks/Tasks'
 import { TodolistTitle } from 'features/todolistsList/ui/Todolist/TodolistTitle/TodolistTitle'
 
 type Props = {
-  todolist: TodolistDomainType
+  todolist: TodolistDomain
   demo?: boolean
 }
 

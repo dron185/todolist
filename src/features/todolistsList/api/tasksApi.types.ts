@@ -1,6 +1,6 @@
 import { TaskPriorities, TaskStatuses } from 'features/todolistsList/lib'
 
-export type TaskType = {
+export type Task = {
   id: string
   title: string
   description: string
@@ -13,7 +13,7 @@ export type TaskType = {
   addedDate: string
 }
 
-export type UpdateTaskModelType = {
+export type UpdateTaskModel = {
   title: string
   description: string
   status: TaskStatuses
@@ -23,7 +23,7 @@ export type UpdateTaskModelType = {
 }
 
 export type GetTasksBaseResponse = {
-  items: TaskType[]
+  items: Task[]
   totalCount: number
   error: string
 }
@@ -35,11 +35,11 @@ export type AddTaskArgs = {
 
 export type UpdateTaskArgs = {
   taskId: string
-  model: Partial<UpdateTaskModelType>
+  model: Partial<UpdateTaskModel>
   todolistId: string
 }
 
-export type RemoveTaskArgType = {
+export type RemoveTaskArg = {
   todolistId: string
   taskId: string
 }

@@ -1,19 +1,19 @@
 import { v1 } from 'uuid'
 
 import {
-  FilterValuesType,
-  TodolistDomainType,
+  FilterValues,
+  TodolistDomain,
   todolistsActions,
   todolistsSlice,
   todolistsThunks,
 } from 'features/todolistsList/model/todolistsSlice'
-import { RequestStatusType } from 'app/appSlice'
+import { RequestStatus } from 'app/appSlice'
 import { TestAction } from 'common/types'
-import { TodolistType } from 'features/todolistsList/api/todolistsApi.types'
+import { Todolist } from 'features/todolistsList/api/todolistsApi.types'
 
 let todolistID1: string
 let todolistID2: string
-let startState: TodolistDomainType[]
+let startState: TodolistDomain[]
 const todolistsReducer = todolistsSlice.reducer
 
 beforeEach(() => {
@@ -61,7 +61,7 @@ test('correct todolist should be removed', () => {
 test('correct todolist should be added', () => {
   type Action = TestAction<typeof todolistsThunks.addTodolist.fulfilled>
 
-  let todolist: TodolistType = {
+  let todolist: Todolist = {
     id: 'any id',
     title: 'New Todolist',
     addedDate: '',
@@ -98,7 +98,7 @@ test('correct todolist should change its name', () => {
 })
 
 test('correct filter of todolist should be changed', () => {
-  let newFilter: FilterValuesType = 'completed'
+  let newFilter: FilterValues = 'completed'
 
   // const action = {
   //     type: 'CHANGE-TODOLIST-FILTER',
@@ -132,7 +132,7 @@ test('todolists should be set to the state', () => {
 })
 
 test('correct entity status of todolist should be changed', () => {
-  let newStatus: RequestStatusType = 'loading'
+  let newStatus: RequestStatus = 'loading'
   const action = todolistsActions.changeTodolistEntityStatus({
     todolistId: todolistID2,
     status: newStatus,

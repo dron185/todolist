@@ -1,13 +1,13 @@
 export type TestAction<T extends (...args: any) => any> = Omit<ReturnType<T>, 'meta'>
 
-export type FieldErrorType = {
+export type FieldError = {
   error: string
   field: string
 }
 
 export type BaseResponse<T = {}> = {
   data: T
-  fieldsErrors: FieldErrorType[]
+  fieldsErrors: FieldError[]
   messages: string[]
   resultCode: number
 }

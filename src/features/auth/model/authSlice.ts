@@ -1,17 +1,17 @@
 import { createSlice, isFulfilled, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
-import { LoginParamsType } from 'features/auth/api/authApi.types'
-import { authAPI } from 'features/auth/api/authApi'
+import { LoginParams } from 'features/auth/api/authApi.types'
+import { authApi } from 'features/auth/api/authApi'
 import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode } from 'common/enums'
 import { appActions } from 'app/appSlice'
 
 // types
-type InitialStateType = {
+type InitialState = {
   isLoggedIn: boolean
 }
 
-const initialState: InitialStateType = {
+const initialState: InitialState = {
   isLoggedIn: false,
 }
 
@@ -39,10 +39,10 @@ export const authSlice = createSlice({
 })
 
 // thunks
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
   `${authSlice.name}/login`,
   async (data, { rejectWithValue }) => {
-    const res = await authAPI.login(data)
+    const res = await authApi.login(data)
     if (res.data.resultCode === ResultCode.Success) {
       return { isLoggedIn: true }
     } else {
@@ -55,7 +55,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   `${authSlice.name}/logout`,
   async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-    const res = await authAPI.logout()
+    const res = await authApi.logout()
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(clearTasksAndTodolists())
       return { isLoggedIn: false }
@@ -68,7 +68,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
 const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   `${authSlice.name}/initializeApp`,
   async (_, { dispatch, rejectWithValue }) => {
-    const res = await authAPI.me().finally(() => {
+    const res = await authApi.me().finally(() => {
       dispatch(appActions.setAppInitialized({ isInitialized: true }))
     })
     if (res.data.resultCode === ResultCode.Success) {

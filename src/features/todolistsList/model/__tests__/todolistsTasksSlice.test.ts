@@ -1,16 +1,16 @@
-import { TodolistDomainType, todolistsSlice, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
-import { tasksSlice, TasksStateType } from 'features/todolistsList/model/tasksSlice'
+import { TodolistDomain, todolistsSlice, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
+import { tasksSlice, TasksState } from 'features/todolistsList/model/tasksSlice'
 import { TestAction } from 'common/types'
-import { TodolistType } from 'features/todolistsList/api/todolistsApi.types'
+import { Todolist } from 'features/todolistsList/api/todolistsApi.types'
 
 const todolistsReducer = todolistsSlice.reducer
 const tasksReducer = tasksSlice.reducer
 
 test('ids should be equals', () => {
-  const startTasksState: TasksStateType = {}
-  const startTodolistsState: Array<TodolistDomainType> = []
+  const startTasksState: TasksState = {}
+  const startTodolistsState: Array<TodolistDomain> = []
 
-  let todolist: TodolistType = {
+  let todolist: Todolist = {
     id: 'any id',
     title: 'New Todolist',
     addedDate: '',

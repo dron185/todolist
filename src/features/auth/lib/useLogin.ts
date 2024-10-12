@@ -2,9 +2,9 @@ import { useAppDispatch } from 'app/store'
 import { useFormik } from 'formik'
 import { authThunks } from 'features/auth/model/authSlice'
 import { BaseResponse } from 'common/types'
-import { LoginParamsType } from 'features/auth/api/authApi.types'
+import { LoginParams } from 'features/auth/api/authApi.types'
 
-type FormikErrorType = Omit<Partial<LoginParamsType>, 'captcha'>
+type FormikError = Omit<Partial<LoginParams>, 'captcha'>
 
 export const useLogin = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ export const useLogin = () => {
       rememberMe: false,
     },
     validate: (values) => {
-      const errors: FormikErrorType = {}
+      const errors: FormikError = {}
       if (!values.email) {
         errors.email = 'Required'
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {

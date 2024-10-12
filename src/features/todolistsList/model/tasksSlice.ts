@@ -1,28 +1,28 @@
-import { FilterValuesType, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
-import { RequestStatusType } from 'app/appSlice'
+import { FilterValues, todolistsActions, todolistsThunks } from 'features/todolistsList/model/todolistsSlice'
+import { RequestStatus } from 'app/appSlice'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { clearTasksAndTodolists } from 'common/actions/common.actions'
 import { createAppAsyncThunk } from 'common/utils'
 import { ResultCode } from 'common/enums'
 import {
   AddTaskArgs,
-  RemoveTaskArgType,
-  TaskType,
+  RemoveTaskArg,
+  Task,
   UpdateTaskArgs,
-  UpdateTaskModelType,
+  UpdateTaskModel,
 } from 'features/todolistsList/api/tasksApi.types'
 import { tasksApi } from 'features/todolistsList/api/tasksApi'
 import { TaskStatuses } from 'features/todolistsList/lib'
 
 // types
-export type TaskDomainType = TaskType & {
-  entityStatus: RequestStatusType
+export type TaskDomain = Task & {
+  entityStatus: RequestStatus
 }
-export type TasksStateType = {
-  [key: string]: TaskDomainType[]
+export type TasksState = {
+  [key: string]: TaskDomain[]
 }
 
-export let initialTasksState: TasksStateType = {}
+export let initialTasksState: TasksState = {}
 
 export const tasksSlice = createSlice({
   name: 'tasks',
@@ -33,7 +33,7 @@ export const tasksSlice = createSlice({
       action: PayloadAction<{
         todolistId: string
         taskId: string
-        status: RequestStatusType
+        status: RequestStatus
       }>
     ) {
       const tasks = state[action.payload.todolistId]
@@ -88,7 +88,7 @@ export const tasksSlice = createSlice({
   },
   selectors: {
     selectTasks: (state) => state,
-    selectFilteredTasks: (state, todolistId: string, filter: FilterValuesType) => {
+    selectFilteredTasks: (state, todolistId: string, filter: FilterValues) => {
       let tasksForTodoList = state[todolistId]
 
       if (filter === 'completed') {
@@ -108,7 +108,7 @@ export const { selectTasks, selectFilteredTasks } = tasksSlice.selectors
 
 // thunks
 
-const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }, string>(
+const fetchTasks = createAppAsyncThunk<{ tasks: Task[]; todolistId: string }, string>(
   `${tasksSlice.name}/fetchTasks`,
   async (todolistId) => {
     const res = await tasksApi.getTasks(todolistId)
@@ -119,7 +119,7 @@ const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }
 
 const addTask = createAppAsyncThunk<
   {
-    task: TaskType
+    task: Task
   },
   AddTaskArgs
 >(`${tasksSlice.name}/addTask`, async (arg, { dispatch, rejectWithValue }) => {
@@ -134,7 +134,7 @@ const addTask = createAppAsyncThunk<
   }
 })
 
-const removeTask = createAppAsyncThunk<RemoveTaskArgType, RemoveTaskArgType>(
+const removeTask = createAppAsyncThunk<RemoveTaskArg, RemoveTaskArg>(
   `${tasksSlice.name}/removeTask`,
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
@@ -182,7 +182,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
       return rejectWithValue(null)
     }
 
-    const apiModel: UpdateTaskModelType = {
+    const apiModel: UpdateTaskModel = {
       title: task.title,
       startDate: task.startDate,
       priority: task.priority,

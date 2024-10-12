@@ -3,8 +3,8 @@ import { Task } from 'features/todolistsList/ui/Todolist/Tasks/Task/Task'
 import { fn } from '@storybook/test'
 import { useState } from 'react'
 import { v1 } from 'uuid'
-import { RequestStatusType } from 'app/appSlice'
-import { TaskDomainType } from 'features/todolistsList/model/tasksSlice'
+import { RequestStatus } from 'app/appSlice'
+import { TaskDomain } from 'features/todolistsList/model/tasksSlice'
 import { TaskPriorities, TaskStatuses } from 'features/todolistsList/lib'
 
 const meta: Meta<typeof Task> = {
@@ -26,7 +26,7 @@ const meta: Meta<typeof Task> = {
       addedDate: '',
       order: 0,
       priority: TaskPriorities.Low,
-      entityStatus: 'idle' as RequestStatusType,
+      entityStatus: 'idle' as RequestStatus,
     },
     todolistId: 'dfdsaaa',
     removeTask: fn(),
@@ -60,7 +60,7 @@ export const TaskIsDoneStory: Story = {
 
 export const TaskToggleStory: Story = {
   render: (args) => {
-    const [task, setTask] = useState<TaskDomainType>({
+    const [task, setTask] = useState<TaskDomain>({
       id: v1(),
       title: 'JS',
       status: TaskStatuses.Completed,

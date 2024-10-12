@@ -3,25 +3,25 @@ import { BaseResponse } from 'common/types'
 import {
   AddTaskArgs,
   GetTasksBaseResponse,
-  RemoveTaskArgType,
-  TaskType,
-  UpdateTaskModelType,
+  RemoveTaskArg,
+  Task,
+  UpdateTaskModel,
 } from 'features/todolistsList/api/tasksApi.types'
 
 export const tasksApi = {
   getTasks: (todolistId: string) => {
     return instance.get<GetTasksBaseResponse>(`/todo-lists/${todolistId}/tasks`)
   },
-  deleteTask: (arg: RemoveTaskArgType) => {
+  deleteTask: (arg: RemoveTaskArg) => {
     return instance.delete<BaseResponse>(`/todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
   createTask: (args: AddTaskArgs) => {
     const { todolistId, taskTitle } = args
-    return instance.post<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, {
+    return instance.post<BaseResponse<{ item: Task }>>(`/todo-lists/${todolistId}/tasks`, {
       title: taskTitle,
     })
   },
-  updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
-    return instance.put<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+  updateTask: (todolistId: string, taskId: string, model: UpdateTaskModel) => {
+    return instance.put<BaseResponse<{ item: Task }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
   },
 }

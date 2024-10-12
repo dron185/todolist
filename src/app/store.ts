@@ -14,7 +14,7 @@ const rootReducer = combineSlices(tasksSlice, todolistsSlice, appSlice, authSlic
 export const store = configureStore({ reducer: rootReducer })
 
 // определить автоматически тип всего объекта состояния
-export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppRootState = ReturnType<typeof store.getState>
 
-export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, UnknownAction>
+export type AppDispatch = ThunkDispatch<AppRootState, unknown, UnknownAction>
 export const useAppDispatch = () => useDispatch<AppDispatch>()

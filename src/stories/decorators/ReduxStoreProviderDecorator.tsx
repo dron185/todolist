@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { tasksSlice } from 'features/todolistsList/model/tasksSlice'
 import { todolistsSlice } from 'features/todolistsList/model/todolistsSlice'
 import { v1 } from 'uuid'
-import { AppRootStateType } from 'app/store'
+import { AppRootState } from 'app/store'
 import { appSlice } from 'app/appSlice'
 import { authSlice } from 'features/auth/model/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   [authSlice.reducerPath]: authSlice.reducer,
 })
 
-const initialGlobalState: AppRootStateType = {
+const initialGlobalState: AppRootState = {
   todolists: [
     {
       id: 'todolistId1',
