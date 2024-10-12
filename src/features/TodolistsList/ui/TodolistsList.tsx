@@ -9,11 +9,11 @@ import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from 'features/Login/model/authSlice'
 import { AddItemForm } from 'common/components'
 
-type PropsType = {
+type Props = {
   demo?: boolean
 }
 
-export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
+export const TodolistsList = ({ demo = false }: Props) => {
   const todolists = useSelector(selectTodolists)
   const isLoggedIn = useSelector(selectIsLoggedIn)
 

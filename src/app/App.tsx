@@ -19,13 +19,13 @@ import { authThunks, selectIsLoggedIn } from 'features/Login/model/authSlice'
 import { ErrorSnackbar } from 'common/components'
 
 // demo-это только для AppWithRedux.stories (если demo=true, то мы наш тестовый стейт загружаем из ReduxStoreProviderDecorator а не с сервака)
-type PropsType = {
+type Props = {
   demo?: boolean
 }
 
 type ThemeMode = 'dark' | 'light'
 
-function App({ demo = false }: PropsType) {
+export function App({ demo = false }: Props) {
   const [themeMode, setThemeMode] = useState<ThemeMode>('light')
   const theme = createTheme({
     palette: {
@@ -84,7 +84,6 @@ function App({ demo = false }: PropsType) {
             <MenuIcon />
           </IconButton>
           <div>
-            {/*<MenuButton>Login</MenuButton>*/}
             {isLoggedIn && <MenuButton onClick={logoutHandler}>Log out</MenuButton>}
             <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
             <Switch
@@ -103,5 +102,3 @@ function App({ demo = false }: PropsType) {
     </ThemeProvider>
   )
 }
-
-export default App

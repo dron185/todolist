@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField'
 import React, { ChangeEvent, useState } from 'react'
 import { RequestStatusType } from 'app/appSlice'
 
-type PropsType = {
+type Props = {
   oldTitle: string
   spanClass?: string
   updateTitle: (newTitle: string) => void
@@ -11,7 +11,7 @@ type PropsType = {
 }
 
 export const EditableSpan = React.memo(
-  ({ oldTitle, spanClass, updateTitle, disabled = false, entityStatus }: PropsType) => {
+  ({ oldTitle, spanClass, updateTitle, disabled = false, entityStatus }: Props) => {
     const [edit, setEdit] = useState(false)
     const [newTitle, setNewTitle] = useState(oldTitle)
 

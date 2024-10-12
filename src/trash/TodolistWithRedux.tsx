@@ -15,12 +15,12 @@
 // import { TaskPriorities, TaskStatuses } from 'features/TodolistsList/lib'
 // import { AddItemForm } from 'common/components'
 //
-// type TodolistPropsType = {
+// type Props = {
 //   todolist: TodolistDomainType
 //   tasks: Array<TaskDomainType>
 // }
 //
-// export const TodolistWithRedux = React.memo(({ todolist, tasks }: TodolistPropsType) => {
+// export const TodolistWithRedux = React.memo(({ todolist, tasks }: Props) => {
 //   const dispatch = useDispatch()
 //
 //   const changeFilterHandlerCreator = useCallback(
