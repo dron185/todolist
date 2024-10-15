@@ -41,6 +41,7 @@ export const useLogin = () => {
           err.fieldsErrors?.forEach((fieldError) => {
             formikHelpers.setFieldError(fieldError.field, fieldError.error)
           })
+          err.fieldsErrors[0].field === 'captcha' && formikHelpers.setFieldValue('captcha', '')
         })
       formik.resetForm()
     },
