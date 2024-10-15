@@ -10,3 +10,7 @@ export type MeData = {
   email: string
   login: string
 }
+
+export type Captcha = {
+  url: string
+}

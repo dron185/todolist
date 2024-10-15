@@ -1,6 +1,6 @@
 import { instance } from 'common/instance/instance'
 import { BaseResponse } from 'common/types/types'
-import { LoginParams, MeData } from 'features/auth/api/authApi.types'
+import { Captcha, LoginParams, MeData } from 'features/auth/api/authApi.types'
 
 export const authApi = {
   login: (data: LoginParams) => {
@@ -18,8 +18,4 @@ export const securityApi = {
   getCaptchaUrl: () => {
     return instance.get<Captcha>('/security/get-captcha-url')
   },
-}
-
-type Captcha = {
-  url: string
 }

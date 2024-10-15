@@ -7,7 +7,7 @@ import { ResultCode } from 'common/enums'
 import { appActions } from 'app/model/appSlice'
 
 // types
-type InitialState = {
+export type InitialState = {
   isLoggedIn: boolean
   captchaUrl: string | null
 }
@@ -102,4 +102,3 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
 
 export const authThunks = { login, logout, initializeApp, getCaptchaUrl }
 export const { selectIsLoggedIn, selectCaptchaUrl } = authSlice.selectors
-const authActions = authSlice.actions
