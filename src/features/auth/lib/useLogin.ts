@@ -34,7 +34,6 @@ export const useLogin = () => {
     },
     onSubmit: (values, formikHelpers) => {
       //alert(JSON.stringify(values, null, 2))
-      console.log(values.captcha)
       dispatch(authThunks.login(values))
         .unwrap()
         .then((res) => {})

@@ -26,9 +26,13 @@ export const authSlice = createSlice({
       .addCase(authThunks.getCaptchaUrl.fulfilled, (state, action) => {
         state.captchaUrl = action.payload.captchaUrl
       })
+      .addCase(authThunks.logout.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn
+        state.captchaUrl = null
+      })
       .addMatcher(
         //isAnyOf(login.fulfilled, logout.fulfilled, initializeApp.fulfilled),
-        isFulfilled(login, logout, initializeApp),
+        isFulfilled(login, initializeApp),
         (
           state,
           action: PayloadAction<{
