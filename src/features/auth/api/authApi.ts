@@ -13,3 +13,13 @@ export const authApi = {
     return instance.get<BaseResponse<MeData>>('/auth/me')
   },
 }
+
+export const securityApi = {
+  getCaptchaUrl: () => {
+    return instance.get<Captcha>('/security/get-captcha-url')
+  },
+}
+
+type Captcha = {
+  url: string
+}

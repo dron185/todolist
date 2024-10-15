@@ -7,7 +7,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { selectIsLoggedIn } from 'features/auth/model/authSlice'
+import { selectCaptchaUrl, selectIsLoggedIn } from 'features/auth/model/authSlice'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { useLogin } from 'features/auth/lib/useLogin'
@@ -16,6 +16,7 @@ export const Login = () => {
   const { formik } = useLogin()
 
   const isLoggedIn = useSelector(selectIsLoggedIn)
+  const captchaUrl = useSelector(selectCaptchaUrl)
 
   if (isLoggedIn) {
     return <Navigate to={'/todolists'} />
@@ -75,6 +76,14 @@ export const Login = () => {
                   />
                 }
               />
+              {captchaUrl && <img src={captchaUrl} />}
+              {captchaUrl && (
+                <TextField
+                  placeholder={'Symbols from image'}
+                  margin='normal'
+                  {...formik.getFieldProps('captcha')}
+                />
+              )}
               <Button
                 type={'submit'}
                 variant={'contained'}
