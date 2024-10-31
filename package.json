@@ -2,6 +2,7 @@
   "name": "1-lesson",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dron185.github.io/todolist",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -18,6 +19,7 @@
     "@types/uuid": "^9.0.8",
     "axios": "^1.7.2",
     "formik": "^2.4.6",
+    "gh-pages": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
@@ -38,7 +40,9 @@
     "build-storybook": "storybook build",
     "jest:integration": "jest -c integration/jest.config.js",
     "update:integration": "jest -c integration/jest.config.js --updateSnapshot",
-    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
+    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

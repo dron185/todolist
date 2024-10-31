@@ -6,10 +6,10 @@ import { Provider } from 'react-redux'
 import { store } from 'app/model/store'
 import { Login } from 'features/auth/ui/Login'
 import { TodolistsList } from 'features/todolistsList/ui/TodolistsList'
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createHashRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ErrorPage } from 'common/components'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
