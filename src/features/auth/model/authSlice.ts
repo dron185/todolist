@@ -55,6 +55,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
   async (data, { rejectWithValue, dispatch }) => {
     const res = await authApi.login(data)
     if (res.data.resultCode === ResultCode.Success) {
+      localStorage.setItem('sn-token', res.data.data.token)
       return { isLoggedIn: true }
     } else {
       if (res.data.resultCode === ResultCode.Captcha) {
