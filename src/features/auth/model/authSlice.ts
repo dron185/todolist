@@ -80,6 +80,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     const res = await authApi.logout()
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(clearTasksAndTodolists())
+      localStorage.removeItem('sn-token')
       return { isLoggedIn: false }
     } else {
       return rejectWithValue(res.data)
